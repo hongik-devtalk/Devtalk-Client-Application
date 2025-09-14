@@ -1,6 +1,6 @@
 ---
-name: Todo template
-about: 오늘 할 일을 적는 투두 템플릿입니다.
+name: Issue
+about: 데브톡 프론트엔드 이슈 템플릿입니다.
 title: '커밋타입: 주요작업내용'
 labels: ''
 assignees: ''
