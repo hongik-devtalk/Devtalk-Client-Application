@@ -15,13 +15,12 @@ export default tseslint.config([
       tseslint.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
-      'plugin:prettier/recommended',
     ],
     plugins: {
-      prettier: prettier,
+      prettier,
     },
     rules: {
-      'prettier/prettier': 'error',
+      'prettier/prettier': 'error', // Prettier 규칙을 ESLint에서 강제
     },
     languageOptions: {
       ecmaVersion: 2020,
