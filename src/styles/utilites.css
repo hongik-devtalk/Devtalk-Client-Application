@@ -1,0 +1,118 @@
+/* Grid */
+
+@utility grid-container {
+  @apply grid gap-[var(--grid-gutter)] px-[var(--grid-margin)] w-full max-w-[var(--grid-container)] mx-auto;
+}
+
+/* Gradient */
+@utility button-gradient {
+  background-image: var(--gradient-button);
+}
+@utility graphic-gradient {
+  background-image: var(--gradient-graphic);
+}
+@utility text-gradient {
+  background-image: var(--gradient-text);
+}
+@utility container-gradient {
+  background-image: var(--gradient-container);
+}
+@utility stroke-gradient {
+  background-image: var(--gradient-stroke);
+  border: 2px solid rgba(215, 215, 215, 0.47);
+  box-sizing: border-box;
+}
+
+/* Typography */
+
+/* Heading */
+@utility heading-1-bold {
+  font-size: var(--text-Heading_1);
+  line-height: var(--leading-Heading_1);
+  letter-spacing: var(--tracking-Heading_1);
+  font-weight: 700;
+}
+@utility heading-1-semibold {
+  font-size: var(--text-Heading_1);
+  line-height: var(--leading-Heading_1);
+  letter-spacing: var(--tracking-Heading_1);
+  font-weight: 600;
+}
+@utility heading-2-bold {
+  font-size: var(--text-Heading_2);
+  line-height: var(--leading-Heading_2);
+  letter-spacing: var(--tracking-Heading_2);
+  font-weight: 700;
+}
+@utility heading-2-semibold {
+  font-size: var(--text-Heading_2);
+  line-height: var(--leading-Heading_2);
+  letter-spacing: var(--tracking-Heading_2);
+  font-weight: 600;
+}
+@utility heading-3-semibold {
+  font-size: var(--text-Heading_3);
+  line-height: var(--leading-Heading_3);
+  letter-spacing: var(--tracking-Heading_3);
+  font-weight: 600;
+}
+
+/* Subhead */
+@utility subhead-1-semibold {
+  font-size: var(--text-Subhead_1);
+  line-height: var(--leading-Subhead_1);
+  letter-spacing: var(--tracking-Subhead_1);
+  font-weight: 600;
+}
+@utility subhead-2-medium {
+  font-size: var(--text-Subhead_2);
+  line-height: var(--leading-Subhead_2);
+  letter-spacing: var(--tracking-Subhead_2);
+  font-weight: 500;
+}
+
+/* Body */
+@utility body-1-semibold {
+  font-size: var(--text-Body_1);
+  line-height: var(--leading-Body_1);
+  letter-spacing: var(--tracking-Body_1);
+  font-weight: 600;
+}
+@utility body-1-medium {
+  font-size: var(--text-Body_1);
+  line-height: var(--leading-Body_1);
+  letter-spacing: var(--tracking-Body_1);
+  font-weight: 500;
+}
+@utility body-2-semibold {
+  font-size: var(--text-Body_2);
+  line-height: var(--leading-Body_2);
+  letter-spacing: var(--tracking-Body_2);
+  font-weight: 600;
+}
+@utility body-2-medium {
+  font-size: var(--text-Body_2);
+  line-height: var(--leading-Body_2);
+  letter-spacing: var(--tracking-Body_2);
+  font-weight: 500;
+}
+@utility body-2-regular {
+  font-size: var(--text-Body_2);
+  line-height: var(--leading-Body_2);
+  letter-spacing: var(--tracking-Body_2);
+  font-weight: 400;
+}
+
+/* Caption */
+@utility caption-semibold {
+  font-size: var(--text-Caption);
+  line-height: var(--leading-Caption);
+  letter-spacing: var(--tracking-Caption);
+  font-weight: 600;
+}
+@utility caption-medium {
+  font-size: var(--text-Caption);
+  line-height: var(--leading-Caption);
+  letter-spacing: var(--tracking-Caption);
+  font-weight: 500;
+}
