@@ -1,1 +1,15 @@
+@import 'pretendard/dist/web/static/pretendard.css';
 @import 'tailwindcss';
+@import './styles/theme.css';
+@import './styles/utilities.css';
+@import './styles/components.css';
+
+@layer base {
+  body {
+    @apply bg-background text-white font-sans;
+  }
+
+  #root {
+    @apply w-full max-w-[375px] mx-auto px-[var(--grid-margin)];
+  }
+}
