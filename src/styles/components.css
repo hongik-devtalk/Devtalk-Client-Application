@@ -43,7 +43,7 @@
     letter-spacing: var(--letter-spacing-normal);
   }
 
-  .subhead-2-medium {
+  .subhead-1-medium {
     font-size: var(--font-size-subhead-2);
     line-height: var(--line-height-subhead);
     font-weight: var(--font-weight-medium);
