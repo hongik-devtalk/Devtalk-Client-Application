@@ -1,7 +1,8 @@
-@import './styles/theme.css';
-@import './styles/utilites.css';
 @import 'pretendard/dist/web/static/pretendard.css';
 @import 'tailwindcss';
+@import './styles/theme.css';
+@import './styles//utilities.css';
+@import './styles/components.css';
 
 @layer base {
   body {
