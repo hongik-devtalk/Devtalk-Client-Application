@@ -20,7 +20,12 @@ export default tseslint.config([
       prettier,
     },
     rules: {
-      'prettier/prettier': 'error', // Prettier 규칙을 ESLint에서 강제
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
     },
     languageOptions: {
       ecmaVersion: 2020,
