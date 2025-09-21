@@ -1,11 +1,12 @@
 import link from '../../assets/icons/link.svg';
 import mail from '../../assets/icons/mail.svg';
 import messagecircle from '../../assets/icons/messagecircle.svg';
+import devlogo from '../../assets/logos/devlogo.svg';
 
 const Footer = () => {
   return (
-    <footer className="flex justify-between items-start w-[37.5rem] h-[12.2rem] bg-grey-800">
-      <div className="justify-between w-[32.7rem] h-[6.2rem]">
+    <footer className="flex justify-center items-center w-[37.5rem] h-[12.2rem] bg-grey-800">
+      <div className="flex flex-row justify-between w-[32.7rem] h-[6.2rem] ">
         {/* 왼쪽 정보 영역 */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-[0.8rem]">
@@ -23,7 +24,9 @@ const Footer = () => {
         </div>
 
         {/* 오른쪽 로고 */}
-        <div></div>
+        <div className="flex items-start">
+          <img src={devlogo} alt="devlogo" className="w-[10rem] h-[4.10rem]" />
+        </div>
       </div>
     </footer>
   );
