@@ -61,9 +61,13 @@
     rgba(255, 255, 255, 0.25) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  --gradient-graphic-light: var(
-    --Gradient-Graphic_light,
-    linear-gradient(90deg, #f1fce2 0%, #cff7dc 12.5%, #c2eff2 50%, #afc7e9 88%, #c2d2ef 100%)
+  --gradient-graphic-light: linear-gradient(
+    90deg,
+    #f1fce2 0%,
+    #cff7dc 12.5%,
+    #c2eff2 50%,
+    #afc7e9 88%,
+    #c2d2ef 100%
   );
 
   /* Spacing */
