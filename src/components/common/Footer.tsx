@@ -1,6 +1,6 @@
-import link from '../../assets/icons/link.svg';
-import mail from '../../assets/icons/mail.svg';
-import messagecircle from '../../assets/icons/messagecircle.svg';
+import link from '../../assets/icons/components/Footer/link.svg';
+import mail from '../../assets/icons/components/Footer/mail.svg';
+import messagecircle from '../../assets/icons/components/Footer/messagecircle.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
 
 const Footer = () => {
