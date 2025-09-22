@@ -1,7 +1,12 @@
 import './App.css';
+import Login from './pages/admin/login/Login';
 
 function App() {
-  return <></>;
+  return (
+    <div className="root">
+      <Login />
+    </div>
+  );
 }
 
 export default App;
