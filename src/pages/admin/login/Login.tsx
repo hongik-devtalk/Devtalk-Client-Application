@@ -51,7 +51,9 @@ const Login = () => {
             if (error) setError(false);
           }}
         />
-        {error && <p className="text-red-500 text-sm">등록되지 않은 아이디 또는 비밀번호입니다.</p>}
+        {error && (
+          <p className="text-status-error text-sm">등록되지 않은 아이디 또는 비밀번호입니다.</p>
+        )}
       </div>
 
       {/* 버튼 */}
