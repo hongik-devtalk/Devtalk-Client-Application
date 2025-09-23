@@ -19,11 +19,8 @@
 
   .text-gradient {
     background-image: var(--gradient-text);
-    /* 
-    글자 적용 시 사용
     -webkit-background-clip: text;
-    color: transparent; 
-    */
+    color: transparent;
   }
 
   .container-gradient {
