@@ -1,6 +1,8 @@
 import './App.css';
 import { Button } from './components/Button/Button';
 import { ButtonExSeminar } from './components/Button/ButtonExSeminar';
+import { ChipSeminar } from './components/Chip/ChipSeminar';
+import { ChipTimePlace } from './components/Chip/ChipTimePlace';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Button variant="sub" />
         <Button variant="disabled" />
         <ButtonExSeminar />
+        <ChipSeminar />
+        <ChipTimePlace />
       </div>
     </>
   );
