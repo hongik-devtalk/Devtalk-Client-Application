@@ -1,5 +1,6 @@
 import './App.css';
 import { Button } from './components/Button/Button';
+import { ButtonExSeminar } from './components/Button/ButtonExSeminar';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Button variant="default" />
         <Button variant="sub" />
         <Button variant="disabled" />
+        <ButtonExSeminar />
       </div>
     </>
   );
