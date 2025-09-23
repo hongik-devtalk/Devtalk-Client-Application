@@ -19,10 +19,10 @@
 
   .text-gradient {
     background-image: var(--gradient-text);
-    
+
     -webkit-background-clip: text;
-    color: transparent; 
-    
+    color: transparent;
+
   }
 
   .container-gradient {
