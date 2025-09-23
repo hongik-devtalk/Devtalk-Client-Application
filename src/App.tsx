@@ -18,12 +18,7 @@ import SeminarCards from './pages/admin/seminar-manage/Cards';
 import SeminarManageDetail from './pages/admin/seminar-manage/Detail';
 import SeminarAdd from './pages/admin/seminar-manage/Add';
 import SeminarApplicants from './pages/admin/seminar-manage/Applicants';
-import LiveLinks from './pages/admin/seminar-live/Links';
 import Attendance from './pages/admin/seminar-live/Attendance';
-import Questions from './pages/admin/seminar-live/Questions';
-import SpeakerCards from './pages/admin/speaker-manage/Cards';
-import SpeakerManageDetail from './pages/admin/speaker-manage/Detail';
-import NoticeBoard from './pages/admin/notice-manage/Board';
 import Accounts from './pages/admin/auth-manage/Accounts';
 import './App.css';
 
@@ -53,12 +48,7 @@ function App() {
         <Route path="/admin/seminars/:id" element={<SeminarManageDetail />} />
         <Route path="/admin/seminars/add" element={<SeminarAdd />} />
         <Route path="/admin/seminars/applicants" element={<SeminarApplicants />} />
-        <Route path="/admin/seminar-live/links" element={<LiveLinks />} />
         <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
-        <Route path="/admin/seminar-live/questions" element={<Questions />} />
-        <Route path="/admin/speakers" element={<SpeakerCards />} />
-        <Route path="/admin/speakers/:id" element={<SpeakerManageDetail />} />
-        <Route path="/admin/notices" element={<NoticeBoard />} />
         <Route path="/admin/admin-accounts" element={<Accounts />} />
       </Routes>
     </Router>
