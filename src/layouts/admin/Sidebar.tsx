@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import ChevronUp from '../../assets/icons/common/ChevronUp.svg';
-import ChevronDown from '../../assets/icons/common/ChevronDown.svg';
+import chevronup from '../../assets/icons/common/chevronup.svg';
+import chevrondown from '../../assets/icons/common/chevrondown.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
 
 const menuData = [
@@ -71,9 +71,9 @@ export const Sidebar: React.FC = () => {
               >
                 <h3 className="heading-3-semibold">{section.title}</h3>
                 {openSections.includes(section.title) ? (
-                  <img src={ChevronDown} />
+                  <img src={chevrondown} />
                 ) : (
-                  <img src={ChevronUp} />
+                  <img src={chevronup} />
                 )}
               </div>
 
