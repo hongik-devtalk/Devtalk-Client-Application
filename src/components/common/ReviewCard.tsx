@@ -8,7 +8,7 @@ const ReviewCard = () => {
         <div className="w-[79px] h-[25px] px-8 py-4 rounded-4 bg-grey-900 caption-semibold text-gradient border border-black whitespace-nowrap text-center">
           9회차 세미나
         </div>
-        <div className="flex felx-row gap-8 h-[20px]">
+        <div className="flex flex-row gap-8 h-[20px]">
           <div className="w-[100px] h-full flex flex-row">
             <img src={fillStar} alt="fillStar" />
             <img src={fillStar} alt="fillStar" />
