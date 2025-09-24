@@ -21,6 +21,14 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({ title, onUpload, on
     //API 연동 시 변경 - 서버에 전송하는 로직 추가
   };
 
+  // 파일 삭제
+  const handleRemove = () => {
+    setFile(null);
+    onRemove();
+
+    //API 연동 시 변경 - 서버에 요청하는 로직 추가
+  };
+
   // 클립보드 붙여넣기
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
@@ -89,13 +97,7 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({ title, onUpload, on
               {getFileNameWithoutExt(file.name)} [{file.type.split('/')[1]},{' '}
               {(file.size / 1024).toFixed(0)}KB]
             </span>
-            <button
-              onClick={() => {
-                setFile(null);
-                onRemove();
-              }}
-              className="cursor-pointer"
-            >
+            <button onClick={handleRemove} className="cursor-pointer">
               <img src={deleteIcon} alt="삭제" />
             </button>
           </>
