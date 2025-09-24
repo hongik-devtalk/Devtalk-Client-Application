@@ -69,21 +69,21 @@ export const Sidebar: React.FC = () => {
               >
                 <h3 className="heading-3-semibold">{section.title}</h3>
                 {openSections.includes(section.title) ? (
-                  <img src={chevrondown} />
-                ) : (
                   <img src={chevronup} />
+                ) : (
+                  <img src={chevrondown} />
                 )}
               </div>
 
               {openSections.includes(section.title) && (
-                <ul className="py-1 pl-[28px]">
+                <ul className="py-1">
                   {section.children.map((item) => (
                     <li key={item.name}>
                       <NavLink
                         to={item.to}
                         end // 정확히 일치하는 경로에서만 스타일 적용
                         className={({ isActive }) =>
-                          `flex items-center h-[40px] p-3 rounded-md cursor-pointer subhead-1-medium relative transition-colors ${
+                          `flex items-center h-[40px] p-3 pl-[40px] pr-[20px] rounded-md cursor-pointer subhead-1-medium relative transition-colors ${
                             isActive ? activeLinkStyle : inactiveLinkStyle
                           }`
                         }
