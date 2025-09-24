@@ -32,8 +32,8 @@ function App() {
         {/* 유저 페이지 */}
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/seminar/apply1" element={<SeminarApplyInfo />} />
-          <Route path="/seminar/apply2" element={<SeminarApplyQuestion />} />
+          <Route path="/seminar/apply-info" element={<SeminarApplyInfo />} />
+          <Route path="/seminar/apply-question" element={<SeminarApplyQuestion />} />
           <Route path="/seminar" element={<SeminarHome />} />
           <Route path="/seminar/:id" element={<SeminarDetail />} />
           <Route path="/seminar/live" element={<SeminarLive />} />
