@@ -9,8 +9,4 @@
   body {
     @apply bg-background text-white font-sans;
   }
-
-  #root {
-    @apply w-full max-w-[375px] mx-auto;
-  }
 }

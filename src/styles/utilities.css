@@ -19,8 +19,10 @@
 
   .text-gradient {
     background-image: var(--gradient-text);
+
     -webkit-background-clip: text;
     color: transparent;
+
   }
 
   .container-gradient {
@@ -32,4 +34,12 @@
     border: 2px solid rgba(215, 215, 215, 0.47);
     box-sizing: border-box;
   }
+
+  /* style */
+  .button-bg {
+    background-image: var(--styly-button-bg);
+    backdrop-filter: blur(2px);
+  }
 }
+
+
