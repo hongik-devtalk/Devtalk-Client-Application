@@ -7,13 +7,13 @@ const SeminarPoster = () => {
       <img src={seminarPoster} alt="세미나 포스터" className="w-full h-full object-cover" />
 
       {/* 텍스트 */}
-      <div className="absolute top-0 pt-[32px] pl-[20px] flex flex-col w-[335px] h-[196px] gap-[36px] p-4">
-        <div className="flex flex-col gap-[4px]">
+      <div className="absolute top-0 pt-32 pl-20 flex flex-col w-[335px] h-[196px] gap-36 p-4">
+        <div className="flex flex-col gap-4">
           <p className="text-grey-50 subhead-2-medium">10회차</p>
           <p className="heading-1-bold text-gradient">LLM을 파헤치다</p>
         </div>
 
-        <div className="flex gap-[28px]">
+        <div className="flex gap-28">
           <div className="flex flex-col text-grey-300 body-1-medium">
             <p>대상</p>
             <p>일시</p>
