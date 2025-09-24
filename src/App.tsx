@@ -3,7 +3,7 @@ import Cta from './components/common/Cta';
 
 function App() {
   return (
-    <div className="bg-#343434">
+    <div className="">
       <Cta />
     </div>
   );

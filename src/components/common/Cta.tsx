@@ -1,6 +1,6 @@
 const Cta = () => {
   return (
-    <div className="w-[375px] h-[152px] flex flex-col justify-center items-center gap-16 px-20 pt-20 pb-24">
+    <div className="w-[375px] h-[152px] flex flex-col justify-center items-center gap-16 px-20 pt-20 pb-24 button-bg">
       <div className="flex flex-col items-center gap-4 w-[256px] h-[44px] body-2-semibold text-grey-100">
         <div> 데브톡에 빠져보세요! </div>
         <div className="whitespace-nowrap">
