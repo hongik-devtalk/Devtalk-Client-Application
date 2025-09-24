@@ -1,9 +1,9 @@
 import ApplyHeader from "../../../components/SeminarApply/ApplyHeader";
 
-const Apply1 = () => {
+const ApplyInfo = () => {
   return (
     <ApplyHeader backTo="/seminar/:id" />
   );
 };
 
-export default Apply1;
+export default ApplyInfo;
