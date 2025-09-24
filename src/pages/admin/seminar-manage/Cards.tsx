@@ -8,7 +8,7 @@ const mockSeminars = [
     title: '제 10회 Devtalk Seminar',
     date: '2025-10-04T19:00:00',
     location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피ㄴㅇㅁㄴㅇㅁㄴㅇㄴㅁ',
+    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
   },
   {
     id: 9,
@@ -56,7 +56,7 @@ const mockSeminars = [
 
 const Cards = () => {
   return (
-    <div className="max-w-6xl py-[60px] pl-[30px]">
+    <div className="w-[900px] py-[60px] pl-[30px]">
       {/* 헤더 */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="heading-1-bold text-white">세미나 카드 조회</h1>
