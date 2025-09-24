@@ -2,7 +2,7 @@ import ApplyHeader from "../../../components/SeminarApply/ApplyHeader";
 
 const Apply1 = () => {
   return (
-    <ApplyHeader />
+    <ApplyHeader backTo="/seminar/:id" />
   );
 };
 
