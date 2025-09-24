@@ -53,7 +53,7 @@ export const Sidebar: React.FC = () => {
   return (
     <aside className="w-[290px] text-white bg-grey-900 flex flex-col">
       {/* 로고 */}
-      <Link className="flex items-center justify-center gap-5 h-[80px]" to="/admin">
+      <Link className="flex items-center justify-center gap-5 h-[80px]" to="/admin/home/promo">
         <img src={devlogo} alt="devlogo" className="w-80 h-9" />
         <span className="heading-2-bold">Admin</span>
       </Link>
