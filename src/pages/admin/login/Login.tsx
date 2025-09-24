@@ -16,6 +16,8 @@ const Login = () => {
     }
   };
 
+  const isDisabled = id.trim() === '' || pw.trim() === '';
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen pb-60">
       {/* 로고 + 타이틀 */}
@@ -25,14 +27,14 @@ const Login = () => {
       </div>
 
       {/* 설명문 */}
-      <p className="subhead-medium text-gray-300 mb-[70px]">
+      <p className="body-1-medium text-grey-300 mb-[70px]">
         관리자 아이디와 비밀번호를 입력해주세요.
       </p>
 
       {/* 입력폼 */}
       <div className="flex flex-col gap-y-12 w-[442px]">
         <input
-          className="bg-grey-600 w-full h-[55px] p-12 rounded-8"
+          className="bg-grey-600 w-full h-[55px] p-12 rounded-8 body-2-medium"
           type="text"
           placeholder="아이디를 입력하세요."
           value={id}
@@ -42,7 +44,7 @@ const Login = () => {
           }}
         />
         <input
-          className="bg-grey-600 w-full h-[55px] p-12 rounded-8"
+          className="bg-grey-600 w-full h-[55px] p-12 rounded-8 body-2-medium"
           type="password"
           placeholder="비밀번호를 입력하세요."
           value={pw}
@@ -60,7 +62,9 @@ const Login = () => {
       <div className="w-[442px] mt-60 flex items-center justify-center">
         <button
           onClick={handleLogin}
-          className="bg-green-300 text-black w-full h-[50px] rounded-8 cursor-pointer"
+          disabled={isDisabled}
+          className={`w-full h-[50px] rounded-8 cursor-pointer body-1-medium
+            ${isDisabled ? 'bg-grey-900 text-grey-300 cursor-not-allowed' : 'bg-green-300 text-black'}`}
         >
           관리자 로그인
         </button>
