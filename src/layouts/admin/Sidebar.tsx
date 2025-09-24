@@ -24,9 +24,7 @@ const menuData = [
   {
     title: '세미나 Live 관리',
     children: [
-      { name: 'Live 링크 관리', to: '/admin/seminar-live/links' },
       { name: '출석 관리', to: '/admin/seminar-live/attendance' },
-      { name: '질문 및 후기', to: '/admin/seminar-live/questions' },
     ],
   },
   {
