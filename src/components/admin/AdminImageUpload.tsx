@@ -25,11 +25,10 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({ title, onUpload, on
   const handleRemove = () => {
     setFile(null);
     onRemove();
-
     //API 연동 시 변경 - 서버에 요청하는 로직 추가
   };
 
-  // 클립보드 붙여넣기
+  // 클립보드 붙여넣기 추가
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       const items = e.clipboardData?.items;
@@ -52,13 +51,13 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({ title, onUpload, on
   const getFileNameWithoutExt = (name: string) => name.replace(/\.[^/.]+$/, '');
 
   return (
-    <div className="w-full max-w-[1030px] bg-grey-900 p-6 rounded-10 space-y-4">
+    <div className="w-full max-w-[1030px] min-w-[650px] mx-auto bg-grey-900 p-6 rounded-10 space-y-4">
       {/* 제목 */}
       <h2 className="heading-2-bold text-white mb-24">{title}</h2>
 
       {/* 사진 첨부 박스 */}
       <div
-        className="bg-grey-700 rounded-8 flex flex-col p-[73px] items-center justify-center text-center cursor-pointer"
+        className="bg-grey-700 rounded-8 flex flex-col p-[73px] items-center justify-center text-center"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           e.preventDefault();
