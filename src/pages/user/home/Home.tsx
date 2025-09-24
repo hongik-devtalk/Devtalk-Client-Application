@@ -17,17 +17,17 @@ const Home = () => {
       <SeminarPoster />
       <Cta />
       {/* 강연 소개 카드 */}
-      <div className="flex flex-col pt-[80px] gap-[32px] px-[20px]">
+      <div className="flex flex-col pt-80 gap-32 px-20">
         <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
-        <div className="flex flex-col gap-[80px] items-center">
+        <div className="flex flex-col gap-80 items-center">
           <LectureCardMain />
           <LectureCardMain />
         </div>
       </div>
 
       {/* 데브톡 소개 */}
-      <div className="flex flex-col pt-[200px] px-[20px] pb-[92px]">
-        <div className="flex flex-col gap-[8px] pb-[16px]">
+      <div className="flex flex-col pt-[200px] px-20 pb-[92px]">
+        <div className="flex flex-col gap-8 pb-[16px]">
           <p className="text-white heading-2-bold">DevTalk이란?</p>
           <p className="body-1-semibold text-gradient">각자의 경험, 모두의 인사이트</p>
         </div>
@@ -41,13 +41,13 @@ const Home = () => {
           <p>
             <span className="text-grey-50">약 1,000명의 학생이 선택한 DevTalk Seminar</span>는
           </p>
-          <p className="pt-[8px]">매 회차 IT 업계 실무자 및 전문 연사 두 분을 초청해</p>
+          <p className="pt-8">매 회차 IT 업계 실무자 및 전문 연사 두 분을 초청해</p>
           <p>수업에서 접할 수 없는 생생한 인사이트를 공유합니다.</p>
         </div>
       </div>
 
       {/* 학우들의 후기 */}
-      <div className="flex flex-col px-[20px] gap-[16px] pb-[200px]">
+      <div className="flex flex-col px-20 gap-16 pb-[200px]">
         <p className="text-white heading-2-bold">학우들의 후기</p>
         <ReviewCard />
       </div>
@@ -68,16 +68,16 @@ const Home = () => {
         />
 
         {/* 텍스트 + 버튼 */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-[16px] text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-16 text-center">
           <p className="text-white heading-3-semibold">과거 데브톡 내용이 궁금하다면?</p>
           <ButtonExSeminar />
         </div>
       </div>
 
       {/* 신청하기 */}
-      <div className="flex flex-col items-center pt-[120px] px-[20px] pb-[100px] gap-[28px]">
+      <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-28">
         <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
-        <div className="flex flex-col items-center gap-[40px]">
+        <div className="flex flex-col items-center gap-40">
           <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
           <Button variant="default" />
         </div>
