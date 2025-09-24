@@ -1,9 +1,13 @@
-function Home() {
+import Footer from '../../../components/common/Footer';
+import Header from '../../../components/common/Header';
+
+const Home = () => {
   return (
-    <div>
-      <h1>홈 페이지</h1>
-    </div>
+    <>
+      <Header />
+      <Footer />
+    </>
   );
-}
+};
 
 export default Home;
