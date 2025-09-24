@@ -89,7 +89,13 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({ title, onUpload, on
               {getFileNameWithoutExt(file.name)} [{file.type.split('/')[1]},{' '}
               {(file.size / 1024).toFixed(0)}KB]
             </span>
-            <button onClick={handleRemove} className="cursor-pointer">
+            <button
+              onClick={() => {
+                setFile(null);
+                onRemove();
+              }}
+              className="cursor-pointer"
+            >
               <img src={deleteIcon} alt="삭제" />
             </button>
           </>
