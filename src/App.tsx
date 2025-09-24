@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserLayout from './layouts/user/UserLayout';
+import AdminLayout from './layouts/admin/AdminLayout';
 import Home from './pages/user/home/Home';
 import SeminarApply1 from './pages/user/seminar/Apply1';
 import SeminarApply2 from './pages/user/seminar/Apply2';
@@ -28,30 +30,36 @@ function App() {
     <Router>
       <Routes>
         {/* 유저 페이지 */}
-        <Route path="/" element={<Home />} />
-        <Route path="/seminar/apply1" element={<SeminarApply1 />} />
-        <Route path="/seminar/apply2" element={<SeminarApply2 />} />
-        <Route path="/seminar" element={<SeminarHome />} />
-        <Route path="/seminar/:id" element={<SeminarDetail />} />
-        <Route path="/seminar/live" element={<SeminarLive />} />
-        <Route path="/seminar/review" element={<SeminarReview />} />
-        <Route path="/speakers" element={<SpeakersList />} />
-        <Route path="/speakers/:id" element={<SpeakersDetail />} />
-        <Route path="/notice" element={<NoticeHome />} />
-        <Route path="/notice/qna" element={<NoticeQna />} />
-        <Route path="/notice/inquiry" element={<NoticeInquiry />} />
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/seminar/apply1" element={<SeminarApply1 />} />
+          <Route path="/seminar/apply2" element={<SeminarApply2 />} />
+          <Route path="/seminar" element={<SeminarHome />} />
+          <Route path="/seminar/:id" element={<SeminarDetail />} />
+          <Route path="/seminar/live" element={<SeminarLive />} />
+          <Route path="/seminar/review" element={<SeminarReview />} />
+          <Route path="/speakers" element={<SpeakersList />} />
+          <Route path="/speakers/:id" element={<SpeakersDetail />} />
+          <Route path="/notice" element={<NoticeHome />} />
+          <Route path="/notice/qna" element={<NoticeQna />} />
+          <Route path="/notice/inquiry" element={<NoticeInquiry />} />
+        </Route>
+
+        {/* 관리자 로그인 (사이드바 등 레이아웃 제외) */}
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* 관리자 페이지 */}
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/home/promo" element={<PromoImage />} />
-        <Route path="/admin/home/links" element={<Links />} />
-        <Route path="/admin/home/reviews" element={<Reviews />} />
-        <Route path="/admin/seminars" element={<SeminarCards />} />
-        <Route path="/admin/seminars/:id" element={<SeminarManageDetail />} />
-        <Route path="/admin/seminars/add" element={<SeminarAdd />} />
-        <Route path="/admin/seminars/applicants" element={<SeminarApplicants />} />
-        <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
-        <Route path="/admin/admin-accounts" element={<Accounts />} />
+        <Route element={<AdminLayout />}>
+          <Route path="/admin/home/promo" element={<PromoImage />} />
+          <Route path="/admin/home/links" element={<Links />} />
+          <Route path="/admin/home/reviews" element={<Reviews />} />
+          <Route path="/admin/seminars" element={<SeminarCards />} />
+          <Route path="/admin/seminars/:id" element={<SeminarManageDetail />} />
+          <Route path="/admin/seminars/add" element={<SeminarAdd />} />
+          <Route path="/admin/seminars/applicants" element={<SeminarApplicants />} />
+          <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
+          <Route path="/admin/admin-accounts" element={<Accounts />} />
+        </Route>
       </Routes>
     </Router>
   );
