@@ -2,11 +2,7 @@ import './App.css';
 import Cta from './components/common/Cta';
 
 function App() {
-  return (
-    <div className="">
-      <Cta />
-    </div>
-  );
+  return <Cta />;
 }
 
 export default App;
