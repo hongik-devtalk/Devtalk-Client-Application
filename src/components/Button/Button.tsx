@@ -3,7 +3,7 @@ type ButtonProps = {
 };
 
 export const Button = ({ variant = 'default' }: ButtonProps) => {
-  const baseStyle = 'w-[335px] h-[48px] rounded-[80px] subhead-1-semibold';
+  const baseStyle = 'w-[335px] h-[48px] rounded-80 subhead-1-semibold';
   const variantStyles = {
     home: 'button-gradient text-white',
     default: 'graphic-gradient-light text-black',
