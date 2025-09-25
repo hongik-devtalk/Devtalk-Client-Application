@@ -39,6 +39,7 @@ function SeminarHome() {
             <div className="border-t border-grey-700">
               <SeminaListCard
                 key={seminar.id}
+                id={seminar.id}
                 title={seminar.title}
                 date={seminar.date}
                 time={seminar.time}
