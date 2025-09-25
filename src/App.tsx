@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserLayout from './layouts/user/UserLayout';
 import AdminLayout from './layouts/admin/AdminLayout';
 import Home from './pages/user/home/Home';
-import SeminarApply from './pages/user/seminar/Apply';
+import SeminarApplyInfo from './pages/user/seminar/ApplyInfo';
+import SeminarApplyQuestion from './pages/user/seminar/ApplyQuestion';
 import SeminarHome from './pages/user/seminar/Home';
 import SeminarDetail from './pages/user/seminar/Detail';
 import SeminarLive from './pages/user/seminar/Live';
@@ -33,7 +34,8 @@ function App() {
         {/* 유저 페이지 */}
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/seminar/apply" element={<SeminarApply />} />
+          <Route path="/seminar/apply-info" element={<SeminarApplyInfo />} />
+          <Route path="/seminar/apply-question" element={<SeminarApplyQuestion />} />
           <Route path="/seminar" element={<SeminarHome />} />
           <Route path="/seminar/:id" element={<SeminarDetail />} />
           <Route path="/seminar/live" element={<SeminarLive />} />
