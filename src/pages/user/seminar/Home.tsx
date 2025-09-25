@@ -1,7 +1,9 @@
+import SeminaListCard from '../../../components/Semina/SeminaListCard';
+
 function SeminarHome() {
   return (
     <div>
-      <h1>세미나 홈</h1>
+      <SeminaListCard />
     </div>
   );
 }
