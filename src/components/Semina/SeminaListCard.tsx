@@ -14,7 +14,7 @@ const SeminaListCard = ({ title, date, time, location, image }: SeminarItem) => 
     <div className="w-[335px] h-[263px] pt-20 pb-24 gap-20 flex flex-col">
       <div className="h-[93px] flex flex-col gap-12">
         <ChipSeminar />
-        <div className="heading-3-semibold text-white">{title}</div>
+        <div className="heading-3-semibold text-white whitespace-pre-line">{title}</div>
       </div>
       <div className="h-[106px] flex flex-row gap-16">
         <img src={image} alt="seminar Img" className="w-[150px] h-[106px] rounded-8" />
