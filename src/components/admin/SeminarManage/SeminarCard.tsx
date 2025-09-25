@@ -16,7 +16,7 @@ interface SeminarCardProps {
 const SeminarCard: React.FC<SeminarCardProps> = ({ seminar }) => {
   return (
     <Link to={`/admin/seminars/${seminar.id}`}>
-      <div className="bg-grey-700 rounded-lg p-3 cursor-pointer transition-colors border border-transparent hover:border-green-300 hover:bg-grey-600 duration-300">
+      <div className="bg-grey-700 max-w-[450px] rounded-lg p-3 cursor-pointer transition-colors border border-transparent hover:border-green-300 hover:bg-grey-600 duration-300">
         {/* 세미나 정보 */}
         <h2 className="heading-2-bold mb-1 text-center">{seminar.title}</h2>
 

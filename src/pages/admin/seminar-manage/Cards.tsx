@@ -56,7 +56,7 @@ const mockSeminars = [
 
 const Cards = () => {
   return (
-    <div className="w-[900px] py-[60px] pl-[30px]">
+    <div className="min-w-[900px] max-w-[950px] py-[60px] px-[30px]">
       {/* 헤더 */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="heading-1-bold text-white">세미나 카드 조회</h1>
@@ -66,7 +66,7 @@ const Cards = () => {
       </div>
 
       {/* 세미나 카드 */}
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-2 gap-[25px]">
         {mockSeminars.map((seminar) => (
           <SeminarCard key={seminar.id} seminar={seminar} />
         ))}
