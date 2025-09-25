@@ -16,13 +16,18 @@ const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
 
+  // 파일 처리
   const handleFiles = (newFiles: FileList | null) => {
     if (!newFiles) return;
     const fileArray = Array.from(newFiles);
 
+    // 파일 개수 최대인 경우 - 삭제 요청 알림
     let updatedFiles = [...files, ...fileArray];
     if (updatedFiles.length > maxFiles) {
-      updatedFiles = updatedFiles.slice(-maxFiles); // 최근 파일만 유지
+      alert(
+        `최대 ${maxFiles}개까지만 업로드할 수 있습니다. 기존 파일을 삭제한 후 다시 업로드해주세요.`
+      );
+      return; // 업로드 취소
     }
 
     setFiles(updatedFiles);
@@ -30,6 +35,7 @@ const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
     // API 연동 시 수정
   };
 
+  // 파일 삭제
   const handleRemove = (index: number) => {
     const updatedFiles = files.filter((_, i) => i !== index);
     setFiles(updatedFiles);
