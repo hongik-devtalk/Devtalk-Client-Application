@@ -10,5 +10,7 @@ export const Button = ({ variant = 'default' }: ButtonProps) => {
     sub: 'bg-grey-700 text-white',
     disabled: 'bg-grey-700 text-grey-500',
   };
-  return <button className={`${baseStyle} ${variantStyles[variant]}`}>신청하기</button>;
+  return (
+    <button className={`${baseStyle} ${variantStyles[variant]}`}>10회차 세미나 신청하기</button>
+  );
 };
