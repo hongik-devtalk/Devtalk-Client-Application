@@ -19,7 +19,7 @@ const Home = () => {
       {/* 강연 소개 카드 */}
       <div className="flex flex-col pt-80 gap-32 px-20">
         <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
-        <div className="flex flex-col gap-80 items-center">
+        <div className="flex flex-col gap-80 items-center px-12">
           <LectureCardMain />
           <LectureCardMain />
         </div>
@@ -36,7 +36,7 @@ const Home = () => {
           alt="DevTalk 소개 이미지"
           className="w-[335px] h-[196px] rounded-8"
         />
-        <div className="flex flex-col w-[335px] h-[100px] pt-[24px] body-1-medium text-grey-300">
+        <div className="flex flex-col w-[335px] h-[100px] pt-24 body-1-medium text-grey-300">
           <p>2023년부터 지금까지,</p>
           <p>
             <span className="text-grey-50">약 1,000명의 학생이 선택한 DevTalk Seminar</span>는
@@ -75,10 +75,14 @@ const Home = () => {
       </div>
 
       {/* 신청하기 */}
-      <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-28">
+      <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
         <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
-        <div className="flex flex-col items-center gap-40">
-          <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
+        <div className="flex flex-col w-[335px]  gap-28">
+          <div className="flex flex-col items-center gap-16">
+            <div className="px-40 py-8 w-[160px] h-[137px]">
+              <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
+            </div>
+          </div>
           <Button variant="default" />
         </div>
       </div>
