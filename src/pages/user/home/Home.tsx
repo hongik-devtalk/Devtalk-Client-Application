@@ -3,11 +3,11 @@ import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
-import IntroDevtalk from '../../../assets/IntroDevtalk.svg';
+import IntroDevtalk from '../../../assets/introDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
-import ExSeminar from '../../../assets/ExSeminar.jpg';
+import ExSeminar from '../../../assets/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
-import Timer from '../../../assets/icons/common/Timer.svg';
+import Timer from '../../../assets/icons/common/timer.svg';
 import { Button } from '../../../components/Button/Button';
 
 const Home = () => {
