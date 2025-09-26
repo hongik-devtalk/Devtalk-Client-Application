@@ -83,7 +83,7 @@ const Home = () => {
               <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
             </div>
           </div>
-          <Button variant="default" />
+          <Button variant="default" text="10회차 세미나 신청하기"/>
         </div>
       </div>
 

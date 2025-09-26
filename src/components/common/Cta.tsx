@@ -9,7 +9,7 @@ const Cta = () => {
           신청 기간은 <span className="text-gradient">2025. 9. 1 ~ 2025. 9. 30</span> 입니다
         </div>
       </div>
-      <Button variant="home" />
+      <Button variant="home" text="10회차 세미나 신청하기"/>
     </div>
   );
 };
