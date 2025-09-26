@@ -12,7 +12,7 @@ interface SeminarItem {
 
 const SeminaListCard = ({ id, title, date, time, location, image }: SeminarItem) => {
   return (
-    <div className="w-[335px] h-[263px] pt-20 pb-24 gap-20 flex flex-col">
+    <div className="w-[335px] h-[263px] pt-20 pb-24 gap-20 flex flex-col cursor-pointer">
       <div className="h-[93px] flex flex-col gap-12">
         <ChipSeminar seminarNumber={id} />
         <div className="heading-3-semibold text-white whitespace-pre-line">{title}</div>
