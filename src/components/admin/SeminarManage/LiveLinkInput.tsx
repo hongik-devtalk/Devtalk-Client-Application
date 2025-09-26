@@ -10,7 +10,7 @@ const LiveLinkInput: React.FC<LiveLinkInputProps> = ({ link, onLinkChange }) => 
   };
 
   return (
-    <div>
+    <div className="bg-grey-900 p-6 rounded-10">
       <h2 className="heading-2-bold text-white mb-6">세미나 Live 링크</h2>
       <input
         type="url"
