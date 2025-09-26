@@ -54,7 +54,7 @@ const SeminarForm = () => {
   };
 
   return (
-    <div className="p-[24px]">
+    <div className="bg-grey-900 p-6 rounded-10">
       <h2 className="heading-2-bold text-white mb-[24px]">세미나 상세정보</h2>
 
       <form>
