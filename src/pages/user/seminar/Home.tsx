@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Header from '../../../components/common/Header';
 import SeminaListCard from '../../../components/Semina/SeminaListCard';
 
@@ -26,9 +27,15 @@ const seminarListData = [
     location: '홍익대학교',
     image: '/images/seminar3.png',
   },
-];
+]; // 임시 데이터
 
 function SeminarHome() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (id: number) => {
+    navigate(`/seminar/${id}`);
+  };
+
   return (
     <div>
       <div className="flex flex-col justify-center gap-16 px-20">
@@ -36,7 +43,7 @@ function SeminarHome() {
         <div className="heading-1-bold text-white">세미나</div>
         <div className="flex flex-col gap-28 items-center ">
           {seminarListData.map((seminar) => (
-            <div className="border-t border-grey-700">
+            <div className="border-t border-grey-700" onClick={() => handleCardClick(seminar.id)}>
               <SeminaListCard
                 key={seminar.id}
                 id={seminar.id}
