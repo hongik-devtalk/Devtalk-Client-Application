@@ -8,7 +8,7 @@ const ApplyQuestion = () => {
       <div className="flex flex-col gap-16">
         <ApplyHeader backTo="/seminar/apply-info" />
         <div className="flex flex-col gap-32">
-          {/*문구 */}
+          {/* 문구 */}
           <div className="flex flex-col gap-4 px-5">
             <div className="flex flex-row gap-4">
               <div className="heading-2-bold text-gradient">(선택)</div>
@@ -18,11 +18,20 @@ const ApplyQuestion = () => {
               연사님께서 질문 선별 후, Q&A 시간에 답변 드립니다.
             </div>
           </div>
-          <div className="flex flex-col gap-16">
-            {/* 연사 카드 */}
-            <SpeakerCard />
-            {/* 입력창 */}
-            <AutoResizeTextarea />
+          <div className="flex flex-col gap-32">
+            {/* 연사 1 */}
+            <div className="flex flex-col gap-16">
+              <SpeakerCard />
+              <AutoResizeTextarea />
+            </div>
+            <div className="flex justify-center">
+              <hr className="text-grey-700 w-[335px]" />
+            </div>
+            {/* 연사 2 */}
+            <div className="flex flex-col gap-16">
+              <SpeakerCard />
+              <AutoResizeTextarea />
+            </div>
           </div>
         </div>
       </div>
