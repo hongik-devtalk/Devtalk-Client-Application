@@ -4,6 +4,11 @@ import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTexta
 import { Button } from '../../../components/Button/Button';
 
 const ApplyQuestion = () => {
+  const handleClickApply = () => {
+    console.log('신청하기 버튼 클릭');
+    // 추후 API 연동
+  };
+
   return (
     <>
       <div className="flex flex-col gap-16">
@@ -39,7 +44,9 @@ const ApplyQuestion = () => {
       <Button
         variant="default"
         text="신청하기"
-        onClick={() => console.log('클릭함')}
+        onClick={() => {
+          handleClickApply;
+        }}
         className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
       />
     </>
