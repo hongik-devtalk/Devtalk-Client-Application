@@ -10,7 +10,7 @@ interface SeminarItem {
 }
 // 임의로 작성 -> 추후 API 연동 시 변경 필요
 
-const SeminaListCard = ({ id, title, date, time, location, image }: SeminarItem) => {
+const SeminarListCard = ({ id, title, date, time, location, image }: SeminarItem) => {
   return (
     <div className="w-[335px] h-[263px] pt-20 pb-24 gap-20 flex flex-col cursor-pointer">
       <div className="h-[93px] flex flex-col gap-12">
@@ -36,4 +36,4 @@ const SeminaListCard = ({ id, title, date, time, location, image }: SeminarItem)
   );
 };
 
-export default SeminaListCard;
+export default SeminarListCard;

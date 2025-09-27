@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../../../components/common/Header';
-import SeminaListCard from '../../../components/Semina/SeminaListCard';
+import SeminarListCard from '../../../components/Seminar/SeminarListCard';
 
 const seminarListData = [
   {
@@ -44,7 +44,7 @@ function SeminarHome() {
         <div className="flex flex-col gap-28 items-center ">
           {seminarListData.map((seminar) => (
             <div className="border-t border-grey-700" onClick={() => handleCardClick(seminar.id)}>
-              <SeminaListCard
+              <SeminarListCard
                 key={seminar.id}
                 id={seminar.id}
                 title={seminar.title}
