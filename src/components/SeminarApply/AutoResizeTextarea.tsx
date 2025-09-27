@@ -18,11 +18,9 @@ export default function AutoResizeTextarea() {
   }, [value]);
 
   return (
-    // 전체 입력 박스 센터 정렬 (좌우 20px 마진)
     <div className="mx-5 flex justify-center">
-      {/* 한 박스: padding 16px, focus 시 박스 전체 하이라이트 */}
       <div
-        className="w-full max-w-[680px] rounded-8 bg-grey-800 p-4
+        className="w-full max-w-[680px] rounded-8 bg-grey-800 p-8
                       focus-within:ring-2 focus-within:ring-primary"
       >
         <textarea
@@ -30,15 +28,15 @@ export default function AutoResizeTextarea() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onInput={resize}
-          placeholder="[김데브] 연사님께 드리고 싶은 질문을 자유롭게 남겨주세요."
+          placeholder={`[김데브] 연사님께 드리고 싶은 질문을
+자유롭게 남겨주세요.`}
           maxLength={500}
           className="w-full bg-transparent outline-none resize-none rounded-8
-                     p-0 body-2-medium text-white placeholder-grey-400
+                     p-4 body-2-medium text-white placeholder-grey-400
                      box-border"
           style={{ minHeight: 174, maxHeight: 747 }}
         />
-        {/* textarea와 8px 간격 */}
-        <div className="mt-2 flex justify-end">
+        <div className="px-2 py-2 flex justify-end">
           <span className="caption-medium text-grey-500">최대 500자(공백 포함)</span>
         </div>
       </div>
