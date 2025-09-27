@@ -1,5 +1,6 @@
 import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
+import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
 
 const ApplyQuestion = () => {
   return (
@@ -18,7 +19,7 @@ const ApplyQuestion = () => {
           </div>
           <SpeakerCard />
         </div>
-        <textarea className="mx-5 rounded-8 bg-grey-800" />
+        <AutoResizeTextarea />
       </div>
     </div>
   );
