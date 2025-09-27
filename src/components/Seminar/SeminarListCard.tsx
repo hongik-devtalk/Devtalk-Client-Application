@@ -20,13 +20,13 @@ const SeminarListCard = ({ id, title, date, time, location, image }: SeminarItem
       <div className="h-[106px] flex flex-row gap-16">
         <img src={image} alt="seminar Img" className="w-[150px] h-[106px] rounded-8" />
         <div className="h-[68px] flex flex-col gap-8 justify-between body-2-medium">
-          <div className="flex flex-row gap-20 ailgn-start">
+          <div className="flex flex-row gap-20 align-start">
             <div className="text-grey-300 whitespace-nowrap">일정</div>
             <div className="text-grey-400">
               {date} <br /> {time}
             </div>
           </div>
-          <div className="flex flex-row gap-20 ailgn-start">
+          <div className="flex flex-row gap-20 align-start">
             <div className="text-grey-300">장소</div>
             <div className="text-grey-400">{location}</div>
           </div>
