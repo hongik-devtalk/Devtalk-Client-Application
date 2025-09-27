@@ -1,6 +1,7 @@
 import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
 import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
+import { Button } from '../../../components/Button/Button';
 
 const ApplyQuestion = () => {
   return (
@@ -35,6 +36,12 @@ const ApplyQuestion = () => {
           </div>
         </div>
       </div>
+      <Button
+        variant="default"
+        text="신청하기"
+        onClick={() => console.log('클릭함')}
+        className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
+      />
     </>
   );
 };
