@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ApplicantsDetailList from './../../../../components/admin/applicants/ApplicantsDetailList';
 import BackButton from './../../../../components/Button/BackButton';
+import ExcelDownloadButton from './../../../../components/Button/ExcelDownloadButton';
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>();
@@ -93,11 +94,34 @@ const Detail = () => {
 
   const getSeminarTitle = (id: string) => `제 ${id}회 Devtalk Seminar`;
 
+  // 엑셀 다운로드용 헤더 매핑
+  const excelHeaders = {
+    seminarName: '세미나명',
+    studentId: '학번',
+    department: '학과',
+    grade: '학년',
+    name: '이름',
+    contact: '연락처',
+    attendanceType: '온/오프라인 참여 여부',
+    referralSource: '이번 세미나를 알게 된 경로',
+    eventParticipation: '이벤트 참여 여부',
+    sharedAccount: '공유한 계정',
+    invitedFriend: '초대한 친구 이름'
+  };
+
   return (
     <div className="py-11">
-      <div className="flex items-center ml-[39px] mb-[23px]">
-        <BackButton className="w-7 h-7 flex-shrink-0 mr-7" />
-        <h1 className="text-white heading-1-bold">{getSeminarTitle(id!)}-신청자 개인정보</h1>
+      <div className="flex items-center justify-between ml-[39px] mr-7 mb-[23px]">
+        <div className="flex items-center">
+          <BackButton className="w-7 h-7 flex-shrink-0 mr-[39px]" />
+          <h1 className="text-white heading-1-bold">{getSeminarTitle(id!)}-신청자 개인정보</h1>
+        </div>
+        <ExcelDownloadButton
+          data={mockApplicants}
+          fileName={`${getSeminarTitle(id!)}_신청자_개인정보.xlsx`}
+          className="subhead-1-semibold"
+          headers={excelHeaders}
+        />
       </div>
       <div className="ml-[21.5px]">
         <ApplicantsDetailList applicants={mockApplicants} />
