@@ -39,9 +39,9 @@ export default function InfiniteCarousel({
         ref={containerRef}
         className="flex"
         style={{
-          gap: `12px`,
+          gap: `8px`,
           transform: `translateX(calc(${
-            -(currentIndex * (REVIEWCARD_WIDTH + 12))
+            -(currentIndex * (REVIEWCARD_WIDTH + 8))
           }px + (50% - ${REVIEWCARD_WIDTH / 2}px)))`,
           transition: isTransitioning ? "transform 0.5s ease-out" : "none",
         }}
