@@ -20,10 +20,10 @@ interface ExcelDownloadButtonProps {
  * 엑셀 파일 다운로드 버튼 컴포넌트
  *
  * @param data - 엑셀로 변환할 JSON 데이터 배열
- * @param fileName - 다운로드될 파일명 (선택사항, 기본값: 'data.xlsx')
- * @param className - 버튼에 적용할 추가 CSS 클래스 (선택사항)
- * @param children - 버튼 내부에 표시될 텍스트 또는 컴포넌트 (선택사항, 기본값: '엑셀 파일 다운로드')
- * @param headers - 데이터 키를 한글 헤더명으로 매핑하는 객체 (선택사항)
+ * @param fileName - 다운로드될 파일명 
+ * @param className - 버튼에 적용할 추가 CSS 클래스 
+ * @param children - 버튼 내부에 표시될 텍스트 또는 컴포넌트 
+ * @param headers - 데이터 키를 한글 헤더명으로 매핑하는 객체 
  *
  * />
  */
@@ -35,14 +35,9 @@ const ExcelDownloadButton: React.FC<ExcelDownloadButtonProps> = ({
   children = '엑셀 파일 다운로드',
   headers
 }) => {
-  /**
-   * 엑셀 파일 다운로드를 처리하는 핸들러 함수
-   * 1. 데이터 유효성 검사
-   * 2. headers가 있으면 영문 키를 한글 헤더명으로 변환
-   * 3. XLSX 라이브러리를 사용하여 엑셀 파일 생성 및 다운로드
-   */
+
   const handleExcelDownload = () => {
-    // 데이터 유효성 검사: 데이터가 없거나 빈 배열인 경우 경고
+    // 데이터 유효성 검사
     if (!data || data.length === 0) {
       alert('다운로드할 데이터가 없습니다.');
       return;

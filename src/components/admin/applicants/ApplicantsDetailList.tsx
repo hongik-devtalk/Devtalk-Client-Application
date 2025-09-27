@@ -33,8 +33,8 @@ const ApplicantsDetailList: React.FC<ApplicantsDetailListProps> = ({ applicants 
   const dataKeys = ['seminarName', 'studentId', 'department', 'grade', 'name', 'contact', 'attendanceType', 'referralSource', 'eventParticipation', 'sharedAccount', 'invitedFriend'] as const;
   return (
     <div className="w-full">
-      {/* 테이블이 화면보다 클 때 가로 스크롤바 표시 */}
-      <div className="overflow-x-auto">
+      {/* 테이블이 화면보다 클 때 가로/세로 스크롤바 표시 */}
+      <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-150px)]">
         <table className="min-w-max border-collapse">
 
           {/* 테이블 헤더 */}
