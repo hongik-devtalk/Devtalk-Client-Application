@@ -44,9 +44,7 @@ const ApplyQuestion = () => {
       <Button
         variant="default"
         text="신청하기"
-        onClick={() => {
-          handleClickApply;
-        }}
+        onClick={handleClickApply}
         className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
       />
     </>
