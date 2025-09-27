@@ -2,7 +2,6 @@ import Cta from '../../../components/common/Cta';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
-// import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import IntroDevtalk from '../../../assets/introDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
 import ExSeminar from '../../../assets/exSeminar.jpg';
@@ -13,8 +12,10 @@ import Carousel from '../../../components/LectureCard/Carousel';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardSpeaker';
 import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header />
@@ -99,7 +100,7 @@ const Home = () => {
               <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
             </div>
           </div>
-          <Button variant="default" />
+          <Button variant="default" text="10회차 세미나 신청하기" onClick={() => navigate('/seminar/apply-info')}/>
         </div>
       </div>
 
