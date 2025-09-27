@@ -50,7 +50,7 @@ const ApplicantsList = () => {
             className="cursor-pointer py-5 ml-[39px]"
             onClick={() => toggleExpanded(seminar.id)}
           >
-            <h3 className="text-white font-['Inter'] text-[24px] font-medium leading-normal">
+            <h3 className="text-white heading-2-semibold">
               {getSeminarTitle(seminar.id)}
             </h3>
           </div>
@@ -60,7 +60,7 @@ const ApplicantsList = () => {
               <div className="ml-[39px]">
                 {/* 신청자 개인정보 */}
                 <div
-                  className="flex items-center cursor-pointer text-gray-500 text-xl font-medium hover:opacity-70"
+                  className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
                   onClick={() => handlePersonalInfo(seminar.id)}
                 >
                   <span className="mr-4">•</span>
@@ -70,7 +70,7 @@ const ApplicantsList = () => {
               <div className="mt-[20px]">
                 {/* 연사별 질문 */}
                 <div
-                  className="flex items-center cursor-pointer text-gray-500 text-xl font-normal hover:opacity-70"
+                  className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
                   onClick={() => handleQuestions(seminar.id)}
                 >
                   <span className="mr-4">•</span>
