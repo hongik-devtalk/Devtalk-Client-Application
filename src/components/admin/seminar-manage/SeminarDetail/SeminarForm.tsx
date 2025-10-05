@@ -14,8 +14,20 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
   const handleSeminarNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value === '' || /^\d*$/.test(value)) {
-      const finalValue = value === '' ? null : parseInt(value, 10);
+      const finalValue = value === '' ? null : parseInt(value);
       onChange({ seminarNum: finalValue });
+    }
+  };
+
+  // 붙여넣기 이밴트 핸들러
+  const handleSeminarNumPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const pastedText = e.clipboardData.getData('text');
+    const numbersOnly = pastedText.replace(/\D/g, '');
+
+    if (numbersOnly) {
+      onChange({ seminarNum: parseInt(numbersOnly)});
     }
   };
 
@@ -47,6 +59,7 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
           placeholder="회차를 입력해주세요."
           value={data.seminarNum ?? ''}
           onChange={handleSeminarNumChange}
+          onPaste={handleSeminarNumPaste}
         />
         <FormField
           label="일정"
