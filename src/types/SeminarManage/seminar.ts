@@ -20,7 +20,7 @@ export interface Review {
 }
 
 export interface SeminarFormData {
-  title: string;
+  seminarNum: number | null;
   date: string;
   location: string;
   topic: string;
@@ -29,7 +29,7 @@ export interface SeminarFormData {
 
 export interface SeminarDetails {
   mainImageUrl: File | null;
-  title: string;
+  seminarNum: number | null;
   date: string;
   location: string;
   topic: string;

@@ -21,7 +21,7 @@ const initialSpeakerState: Speaker = {
 // mock data
 const initialData: SeminarDetails = {
   mainImageUrl: null,
-  title: '제 10회 Devtalk Seminar',
+  seminarNum: 10,
   date: '2025.10.4.18:30',
   location: '홍익대학교 L0201',
   topic: 'LLM을 파헤치다',
@@ -80,7 +80,7 @@ const blankSpeakerState: Speaker = {
 
 const blankData: SeminarDetails = {
   mainImageUrl: null,
-  title: '',
+  seminarNum: null,
   date: '',
   location: '',
   topic: '',
@@ -231,7 +231,7 @@ export const useSeminarState = (id: string | undefined) => {
 
     const {
       mainImageUrl,
-      title,
+      seminarNum,
       date,
       location,
       topic,
@@ -243,7 +243,7 @@ export const useSeminarState = (id: string | undefined) => {
     } = state.currentState;
 
     // 기본 필드 검증
-    if (!title.trim() || !date.trim() || !location.trim() || !topic.trim()) {
+    if (seminarNum === null || !date.trim() || !location.trim() || !topic.trim()) {
       return false;
     }
 

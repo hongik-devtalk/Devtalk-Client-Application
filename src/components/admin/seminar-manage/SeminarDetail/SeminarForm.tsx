@@ -10,6 +10,15 @@ interface SeminarFormProps {
 }
 
 const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
+  // 회차의 Input 이밴트 핸들러
+  const handleSeminarNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value === '' || /^\d*$/.test(value)) {
+      const finalValue = value === '' ? null : parseInt(value, 10);
+      onChange({ seminarNum: finalValue });
+    }
+  };
+
   // Input 이벤트 핸들러
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,11 +42,11 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
 
       <form>
         <FormField
-          label="제목"
-          id="title"
-          placeholder="제목을 입력해주세요."
-          value={data.title}
-          onChange={handleInputChange}
+          label="회차"
+          id="seminarNum"
+          placeholder="회차를 입력해주세요."
+          value={data.seminarNum ?? ''}
+          onChange={handleSeminarNumChange}
         />
         <FormField
           label="일정"
