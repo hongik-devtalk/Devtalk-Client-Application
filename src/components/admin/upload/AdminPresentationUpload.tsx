@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import deleteIcon from '../../../assets/icons/common/delete.svg';
+import type { FileData } from '../../../types/SeminarManage/seminarDetail.api';
 
 interface AdminPresentationUploadProps {
   onUpload: (files: File[]) => void;
   onRemove: (index: number) => void;
+  serverFiles?: FileData[];
+  onRemoveServer?: (index: number) => void;
   maxFiles?: number;
   accept?: string;
 }
@@ -11,6 +14,8 @@ interface AdminPresentationUploadProps {
 const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
   onUpload,
   onRemove,
+  serverFiles = [],
+  onRemoveServer,
   maxFiles = 10,
   accept = '.pdf,.ppt,.pptx,image/*',
 }) => {
@@ -64,17 +69,44 @@ const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
         </label>
       </div>
 
-      {/* 파일 개수 표시 */}
+      {/* 파일 개수 표시 (서버+로컬) */}
       <span className="flex items-center gap-1 mt-20 mb-16">
-        <span className={files.length ? 'text-green-300' : 'text-grey-300'}>{files.length}개</span>
+        <span className={serverFiles.length + files.length ? 'text-green-300' : 'text-grey-300'}>
+          {serverFiles.length + files.length}개
+        </span>
         <span className="text-grey-300"> / {maxFiles}개</span>
       </span>
 
       {/* 파일 정보 박스 */}
       <div className="space-y-8">
+        {/* 서버 파일 목록 */}
+        {serverFiles && serverFiles.length > 0 && (
+          <>
+            {serverFiles.map((file, i) => (
+              <div
+                key={`server-${i}`}
+                className="bg-grey-700 rounded-8 p-24 flex justify-between items-center"
+              >
+                <span className="text-grey-200 subhead-2-medium">
+                  {file.fileName} [{(file.fileSize / 1024).toFixed(0)}KB]
+                </span>
+                {onRemoveServer && (
+                  <button onClick={() => onRemoveServer(i)} className="cursor-pointer">
+                    <img src={deleteIcon} alt="삭제" />
+                  </button>
+                )}
+              </div>
+            ))}
+          </>
+        )}
+
+        {/* 로컬 업로드 파일 목록 */}
         {files.length > 0 ? (
           files.map((file, i) => (
-            <div key={i} className="bg-grey-700 rounded-8 p-24 flex justify-between items-center">
+            <div
+              key={`local-${i}`}
+              className="bg-grey-700 rounded-8 p-24 flex justify-between items-center"
+            >
               <span className="text-grey-200 subhead-2-medium">
                 {file.name} [{(file.size / 1024).toFixed(0)}KB]
               </span>
@@ -83,9 +115,9 @@ const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
               </button>
             </div>
           ))
-        ) : (
+        ) : serverFiles.length === 0 ? (
           <span className="text-grey-200">첨부된 파일 없음</span>
-        )}
+        ) : null}
       </div>
     </div>
   );
