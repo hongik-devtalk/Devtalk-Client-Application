@@ -1,12 +1,13 @@
 import type { SeminarDetailData, SpeakerData } from '../types/SeminarManage/seminarDetail.api';
 import type { SeminarDetailState, SpeakerState } from '../types/SeminarManage/seminar.state';
+import { formatIsoToInput } from './formatDate';
 
 export const mapApiDataToState = (apiData: SeminarDetailData): SeminarDetailState => {
   return {
     seminarId: apiData.seminarId,
     seminarNum: apiData.seminarNum,
     topic: apiData.topic,
-    seminarDate: apiData.seminarDate,
+    seminarDate: formatIsoToInput(apiData.seminarDate),
     place: apiData.place,
     liveLink: apiData.liveLink,
     thumbnailUrl: apiData.thumbnail?.fileUrl || null,
