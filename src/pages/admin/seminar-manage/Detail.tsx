@@ -7,6 +7,7 @@ import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
 import AdminModal from '../../../components/admin/common/AdminModal';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 // 페이지
 const Detail = () => {
@@ -25,23 +26,23 @@ const Detail = () => {
 
   const {
     currentState,
+    reviews,
     isLoading,
     error,
     isDirty,
     validationErrors,
     activationError,
     updateSeminarData,
+    updatePendingFiles,
+    updateReviews,
     handleBlur,
     hasErrors,
+    pendingFiles,
     setInitialState,
   } = useSeminarState(id);
 
   const { handleRegisterReviewToHome, handleUnregisterReviewFromHome, handleDeleteReview } =
-    useReviewActions({
-      currentState,
-      updateSeminarData,
-      setInitialState,
-    });
+    useReviewActions({ currentState, reviews: reviews ?? [], updateReviews, setInitialState });
 
   // 세미나 삭제
   const handleDeleteSeminar = () => {
@@ -103,7 +104,7 @@ const Detail = () => {
 
   // 로딩 상태
   if (isLoading) {
-    return <div className="text-white text-center p-20">데이터를 불러오는 중입니다...</div>;
+    return <LoadingSpinner />;
   }
 
   // 에러 상태
@@ -123,9 +124,12 @@ const Detail = () => {
       <MainContent
         showReviewList={true}
         currentState={currentState}
+        reviews={reviews ?? []}
+        pendingFiles={pendingFiles}
         validationErrors={validationErrors}
         activationError={activationError}
         updateSeminarData={updateSeminarData}
+        updatePendingFiles={updatePendingFiles}
         handleBlur={handleBlur}
         handleRegisterReviewToHome={handleRegisterReviewToHome}
         handleUnregisterReviewFromHome={handleUnregisterReviewFromHome}

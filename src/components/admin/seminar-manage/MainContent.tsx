@@ -1,4 +1,9 @@
-import type { SeminarDetails, FormErrors } from '../../../types/SeminarManage/seminar';
+import type {
+  SeminarState,
+  SeminarDetailState,
+  FormErrors,
+} from '../../../types/SeminarManage/seminar.state';
+import type { ReviewData } from '../../../types/SeminarManage/seminarReview.api';
 
 import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
 import SeminarForm from '../../../components/admin/seminar-manage/SeminarDetail/SeminarForm';
@@ -9,10 +14,13 @@ import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationD
 
 interface MainContentProps {
   showReviewList: boolean;
-  currentState: SeminarDetails;
+  currentState: SeminarDetailState;
+  reviews: ReviewData[];
+  pendingFiles: SeminarState['pendingFiles'];
   validationErrors: FormErrors;
   activationError: { seminar: string; application: string };
-  updateSeminarData: (data: Partial<SeminarDetails>) => void;
+  updateSeminarData: (data: Partial<SeminarDetailState>) => void;
+  updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   handleRegisterReviewToHome?: (reviewId: number) => void;
   handleUnregisterReviewFromHome?: (reviewId: number) => void;
@@ -22,9 +30,12 @@ interface MainContentProps {
 const MainContent = ({
   showReviewList,
   currentState,
+  reviews,
+  pendingFiles,
   validationErrors,
   activationError,
   updateSeminarData,
+  updatePendingFiles,
   handleBlur,
   handleRegisterReviewToHome,
   handleUnregisterReviewFromHome,
@@ -33,13 +44,22 @@ const MainContent = ({
   <main className="max-w-[1030px] min-w-[850px] mx-auto space-y-10 mb-[65px]">
     <AdminImageUpload
       title="세미나 썸네일 이미지"
-      onUpload={(files) => updateSeminarData({ mainImageUrl: files[0] })}
-      onRemove={() => updateSeminarData({ mainImageUrl: null })}
+      serverFileName={currentState.thumbnailFileName ?? undefined}
+      serverFileUrl={currentState.thumbnailUrl ?? undefined}
+      serverFileCount={currentState.thumbnailUrl ? 1 : 0}
+      pendingFile={pendingFiles.thumbnail ?? undefined}
+      onUpload={(files) => updatePendingFiles({ thumbnail: files[0] })}
+      onRemove={() => {
+        updatePendingFiles({ thumbnail: null });
+        updateSeminarData({ thumbnailUrl: null, thumbnailFileName: null });
+      }}
     />
 
     <SeminarForm
       data={currentState}
-      onChange={updateSeminarData}
+      pendingFiles={pendingFiles}
+      updateSeminarData={updateSeminarData}
+      updatePendingFiles={updatePendingFiles}
       errors={validationErrors}
       onBlur={handleBlur}
     />
@@ -51,7 +71,7 @@ const MainContent = ({
 
     {showReviewList && (
       <ReviewList
-        reviews={currentState.reviews}
+        reviews={reviews}
         onRegisterToHome={handleRegisterReviewToHome}
         onUnregisterFromHome={handleUnregisterReviewFromHome}
         onDelete={handleDeleteReview}
