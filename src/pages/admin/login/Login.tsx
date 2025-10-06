@@ -16,10 +16,7 @@ const Login = () => {
         loginId: id,
         password: pw,
       });
-
       if (res.isSuccess && res.result) {
-        console.log('로그인 성공:', res);
-
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, res.result.accessToken);
         localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
 
@@ -27,7 +24,6 @@ const Login = () => {
         navigate('/admin/home/promo');
       }
     } catch (err) {
-      console.error('로그인 실패:', err);
       setError(true);
     }
   };
