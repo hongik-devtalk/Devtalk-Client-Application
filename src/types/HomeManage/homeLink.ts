@@ -1,15 +1,11 @@
 import type { CommonResponse } from '../common';
 
-export interface HomeLinkResponse {
-  result: {
-    url: string | null;
-  };
-}
+export type HomeLinkResponse = CommonResponse<{ url: string | null }>;
 
 export interface PostHomeLinkRequest {
   url: string;
 }
 
-export interface PostHomeLinkResponse extends CommonResponse {}
+export type PostHomeLinkResponse = CommonResponse;
 
-export interface DeleteHomeLinkResponse extends CommonResponse {}
+export type DeleteHomeLinkResponse = CommonResponse;
