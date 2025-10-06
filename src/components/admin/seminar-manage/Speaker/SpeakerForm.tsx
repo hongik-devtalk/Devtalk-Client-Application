@@ -1,15 +1,15 @@
 import SingleSpeakerForm from './SingleSpeakerForm';
-import type { Speaker } from '../../../../types/SeminarManage/seminar';
+import type { SpeakerState } from '../../../../types/SeminarManage/seminar.state';
 
 interface SpeakerFormProps {
-  speakers: Speaker[];
-  onChange: (updatedSpeakers: Speaker[]) => void;
+  speakers: SpeakerState[];
+  onChange: (updatedSpeakers: SpeakerState[]) => void;
 }
 
 const SpeakerForm = ({ speakers, onChange }: SpeakerFormProps) => {
   const handleSpeakerChange = (
     index: number,
-    field: keyof Speaker,
+    field: keyof SpeakerState,
     value: string | File | null
   ) => {
     const updatedSpeakers = speakers.map((speaker, i) =>

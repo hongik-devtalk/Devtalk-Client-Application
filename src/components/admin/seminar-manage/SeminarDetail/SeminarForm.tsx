@@ -1,21 +1,34 @@
 import FormField from './FormField';
 import AdminPresentationUpload from '../../upload/AdminPresentationUpload';
-import type { SeminarFormData } from '../../../../types/SeminarManage/seminar';
+import type {
+  FormErrors,
+  SeminarDetailState,
+  SeminarState,
+} from '../../../../types/SeminarManage/seminar.state';
 
 interface SeminarFormProps {
-  data: SeminarFormData;
-  onChange: (updatedData: Partial<SeminarFormData>) => void;
-  errors: { date?: string };
+  data: SeminarDetailState;
+  pendingFiles: SeminarState['pendingFiles'];
+  updateSeminarData: (data: Partial<SeminarDetailState>) => void;
+  updatePendingFiles: (data: Partial<SeminarState['pendingFiles']>) => void;
+  errors: FormErrors;
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
+const SeminarForm = ({
+  data,
+  pendingFiles,
+  updateSeminarData,
+  updatePendingFiles,
+  errors,
+  onBlur,
+}: SeminarFormProps) => {
   // 회차의 Input 이밴트 핸들러
   const handleSeminarNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value === '' || /^\d*$/.test(value)) {
       const finalValue = value === '' ? null : parseInt(value);
-      onChange({ seminarNum: finalValue });
+      updateSeminarData({ seminarNum: finalValue });
     }
   };
 
@@ -27,25 +40,25 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
     const numbersOnly = pastedText.replace(/\D/g, '');
 
     if (numbersOnly) {
-      onChange({ seminarNum: parseInt(numbersOnly)});
+      updateSeminarData({ seminarNum: parseInt(numbersOnly) });
     }
   };
 
   // Input 이벤트 핸들러
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    onChange({ [name]: value });
+    updateSeminarData({ [name]: value });
   };
 
   // 파일 업로드 핸들러
   const handleFileUpload = (newFiles: File[]) => {
-    onChange({ presentationFiles: [...data.presentationFiles, ...newFiles] });
+    updatePendingFiles({ materials: [...pendingFiles.materials, ...newFiles] });
   };
 
   // 파일 제거 핸들러
   const handleFileRemove = (indexToRemove: number) => {
-    const updatedFiles = data.presentationFiles.filter((_, index) => index !== indexToRemove);
-    onChange({ presentationFiles: updatedFiles });
+    const updatedFiles = pendingFiles.materials.filter((_, index) => index !== indexToRemove);
+    updatePendingFiles({ materials: updatedFiles });
   };
 
   return (
@@ -63,18 +76,18 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
         />
         <FormField
           label="일정"
-          id="date"
+          id="seminarDate"
           placeholder="일정을 입력해주세요. (ex: 2025.10.8.18:00)"
-          value={data.date}
+          value={data.seminarDate}
           onChange={handleInputChange}
           onBlur={onBlur}
           error={errors.date}
         />
         <FormField
           label="장소"
-          id="location"
+          id="place"
           placeholder="장소를 입력해주세요."
-          value={data.location}
+          value={data.place}
           onChange={handleInputChange}
         />
         <FormField
@@ -87,7 +100,15 @@ const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
         />
 
         <p className="subhead-1-medium text-white mb-[16px]">발표자료</p>
-        <AdminPresentationUpload onUpload={handleFileUpload} onRemove={handleFileRemove} />
+        <AdminPresentationUpload
+          onUpload={handleFileUpload}
+          onRemove={handleFileRemove}
+          serverFiles={data.materials}
+          onRemoveServer={(index) => {
+            const updated = data.materials.filter((_, i) => i !== index);
+            updateSeminarData({ materials: updated });
+          }}
+        />
       </form>
     </div>
   );

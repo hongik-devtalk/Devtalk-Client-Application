@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
 import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
-import type { Review } from '../../../../types/SeminarManage/seminar';
+import type { ReviewData } from '../../../../types/SeminarManage/seminarReview.api';
+import { formatDate } from '../../../../utils/formatDate';
 
 interface ReviewListItemCardProps {
-  review: Review;
+  review: ReviewData;
   onRegisterToHome?: (reviewId: number) => void;
   onUnregisterFromHome?: (reviewId: number) => void;
   onDelete?: (reviewId: number) => void;
@@ -63,7 +64,7 @@ const ReviewListItemCard = ({
           <p>
             {review.department} {review.grade}학년
           </p>
-          <p>{review.createdAt}</p>
+          <p>{formatDate(review.createdAt)}</p>
         </div>
 
         <p className="body-1-medium text-white whitespace-pre-line line-clamp-3">
