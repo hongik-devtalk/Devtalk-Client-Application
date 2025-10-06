@@ -62,7 +62,7 @@ const ReviewListItemCard = ({
 
         <div className="flex justify-between body-2-medium text-grey-300 mb-[6px]">
           <p>
-            {review.department} {review.grade}학년
+            {review.department} {review.grade}
           </p>
           <p>{formatDate(review.createdAt)}</p>
         </div>
