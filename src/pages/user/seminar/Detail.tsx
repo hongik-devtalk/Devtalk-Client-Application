@@ -22,6 +22,7 @@ const SeminarDetail = () => {
       secondRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [secondVisible]);
+
   return (
     <div>
       <div className="flex flex-col gap-32 bg-black">
@@ -35,10 +36,10 @@ const SeminarDetail = () => {
         >
           <div className="heading-3-semibold text-white">연사 소개</div>
           <div className="flex flex-col gap-10 justify-center items-center bg-black ">
-            <SeminarDetailLectureCard id={Number(id)} />
+            <SeminarDetailLectureCard seminarId={Number(id)} index={0} />
 
             <div ref={secondRef}>
-              <SeminarDetailLectureCard id={Number(id)} />
+              <SeminarDetailLectureCard seminarId={Number(id)} index={1} />
             </div>
           </div>
         </div>

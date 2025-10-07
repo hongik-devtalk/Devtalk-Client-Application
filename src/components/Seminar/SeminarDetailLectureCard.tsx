@@ -3,40 +3,50 @@ import speakerEx from '../../assets/images/speakerEx.jpg';
 import type { SeminarSessionResponse } from '../../types/SeminarDetail/seminarDetail';
 import { getSeminarSession } from '../../apis/seminarDetail';
 
-const SeminarDetailLectureCard = ({ id }: { id: number }) => {
+const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; index: number }) => {
   const { data, isLoading } = useQuery<SeminarSessionResponse>({
-    queryKey: ['seminarDetail', id],
-    queryFn: () => getSeminarSession(id),
+    queryKey: ['seminarDetail', 1],
+    queryFn: () => getSeminarSession(1),
   });
 
-  const sessions = data?.result ?? [];
+  const session = data?.result?.[index]; // 첫 번째 세션 카드
+  if (!session) return null;
+  const { title, description, speaker } = session;
 
   return (
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start">
       {isLoading && <div>Loading...</div>}
       <div className="absolute top-0 w-full h-[427px] top-gradient" />
       <div className="absolute bottom-0 w-full h-[200px] bottom-gradient" />
-      <img src={speakerEx} alt="연사 이미지" className="w-[335px] h-[427px] object-cover " />
+      <img
+        src={speaker.profileUrl}
+        alt="연사 이미지"
+        className="w-[335px] h-[427px] object-cover "
+      />
       <div className="flex flex-col w-[295px] gap-[20px] items-center absolute top-[300px] ">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex gap-[8px] items-center body-2-semibold text-white ">
-            연사 <span className="subhead-1-semibold text-gradient">{sessions.speaker.name}</span>님
+            연사 <span className="subhead-1-semibold text-gradient">{speaker.name}</span>님
           </div>
-          <p className="body-1-medium text-white">{sessions.speaker.oraganization}</p>
+          <p className="body-1-medium text-white">{speaker.oraganization}</p>
         </div>
         <ul className="w-[273px] h-[140px] pl-5 body-2-medium text-grey-200 list-disc list-outside">
-          <li>前 Toss Securities Data Scientist (2021)</li>
+          <li>{speaker.history}</li>
+          {/**
+          * <li>前 Toss Securities Data Scientist (2021)</li>
           <li>前 Kakao Corp Data Scientist (2020)</li>
           <li>성균관대학교 통계학 학사 졸업</li>
           <li>F사 프로젝트 멘토/ 강사 (2020~2023)</li>
           <li>N사 부스트 캠프 멘토/강사 (2022~2023)</li>
           <li>S사 부트캠프 데이터 분석 멘토/강사 (2023~2024)</li>
+          * 
+          */}
         </ul>
       </div>
       <div className="absolute bottom-[52px] h-[332px] flex flex-col gap-[39px] items-center justify-center w-full">
         <div className="w-[237px] h-[93px] flex flex-col gap-[9px] justify-center items-center heading-3-semibold">
           <div className="text-gradient">Session #1</div>
-          <div className="text-white">{sessions[0].title}</div>
+          <div className="text-white">{title}</div>
         </div>
         <div className="w-[295px] body-2-medium text-grey-200 text-left">
           {/*<p>
@@ -56,7 +66,7 @@ const SeminarDetailLectureCard = ({ id }: { id: number }) => {
             <span className="text-gradient">추론(Reasoning)과 에이전트(Agent)</span>라는 핵심
             키워드를 쉽고 명확하게 알아봅시다!
           </p>*/}
-          <p>{sessions[0].description}</p>
+          <p>{description}</p>
         </div>
       </div>
     </div>
