@@ -5,6 +5,7 @@ import type {
   SeminarDetailState,
   SeminarState,
 } from '../../../../types/SeminarManage/seminar.state';
+import { useCallback } from 'react';
 
 interface SeminarFormProps {
   data: SeminarDetailState;
@@ -24,42 +25,72 @@ const SeminarForm = ({
   onBlur,
 }: SeminarFormProps) => {
   // 회차의 Input 이밴트 핸들러
-  const handleSeminarNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    if (value === '' || /^\d*$/.test(value)) {
-      const finalValue = value === '' ? null : parseInt(value);
-      updateSeminarData({ seminarNum: finalValue });
-    }
-  };
+  const handleSeminarNumChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      if (value === '' || /^\d*$/.test(value)) {
+        const finalValue = value === '' ? null : parseInt(value);
+        updateSeminarData({ seminarNum: finalValue });
+      }
+    },
+    [updateSeminarData]
+  );
 
   // 붙여넣기 이밴트 핸들러
-  const handleSeminarNumPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSeminarNumPaste = useCallback(
+    (e: React.ClipboardEvent<HTMLInputElement>) => {
+      e.preventDefault();
 
-    const pastedText = e.clipboardData.getData('text');
-    const numbersOnly = pastedText.replace(/\D/g, '');
+      const pastedText = e.clipboardData.getData('text');
+      const numbersOnly = pastedText.replace(/\D/g, '');
 
-    if (numbersOnly) {
-      updateSeminarData({ seminarNum: parseInt(numbersOnly) });
-    }
-  };
+      if (numbersOnly) {
+        updateSeminarData({ seminarNum: parseInt(numbersOnly) });
+      }
+    },
+    [updateSeminarData]
+  );
 
   // Input 이벤트 핸들러
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    updateSeminarData({ [name]: value });
-  };
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      updateSeminarData({ [name]: value });
+    },
+    [updateSeminarData]
+  );
 
   // 파일 업로드 핸들러
-  const handleFileUpload = (newFiles: File[]) => {
-    updatePendingFiles({ materials: [...pendingFiles.materials, ...newFiles] });
-  };
+  const handleFileUpload = useCallback(
+    (newFiles: File[]) => {
+      updatePendingFiles({ materials: [...pendingFiles.materials, ...newFiles] });
+    },
+    [pendingFiles.materials, updatePendingFiles]
+  );
 
-  // 파일 제거 핸들러
-  const handleFileRemove = (indexToRemove: number) => {
-    const updatedFiles = pendingFiles.materials.filter((_, index) => index !== indexToRemove);
-    updatePendingFiles({ materials: updatedFiles });
-  };
+  // 로컬 파일 제거 핸들러
+  const handleFileRemove = useCallback(
+    (indexToRemove: number) => {
+      const updatedFiles = pendingFiles.materials.filter((_, index) => index !== indexToRemove);
+      updatePendingFiles({ materials: updatedFiles });
+    },
+    [pendingFiles.materials, updatePendingFiles]
+  );
+
+  // 서버 파일 제거 핸들러
+  const handleServerFileRemove = useCallback(
+    (indexToRemove: number) => {
+      const fileToDelete = data.materials[indexToRemove];
+
+      const updatedMaterials = data.materials.filter((_, i) => i !== indexToRemove);
+      updateSeminarData({ materials: updatedMaterials });
+
+      updatePendingFiles({
+        deletedMaterialUrls: [...pendingFiles.deletedMaterialUrls, fileToDelete.fileUrl],
+      });
+    },
+    [data.materials, pendingFiles.deletedMaterialUrls, updateSeminarData, updatePendingFiles]
+  );
 
   return (
     <div className="bg-grey-900 p-6 rounded-10">
@@ -104,10 +135,7 @@ const SeminarForm = ({
           onUpload={handleFileUpload}
           onRemove={handleFileRemove}
           serverFiles={data.materials}
-          onRemoveServer={(index) => {
-            const updated = data.materials.filter((_, i) => i !== index);
-            updateSeminarData({ materials: updated });
-          }}
+          onRemoveServer={handleServerFileRemove}
         />
       </form>
     </div>

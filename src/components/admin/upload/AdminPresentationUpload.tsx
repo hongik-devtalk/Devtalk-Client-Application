@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import deleteIcon from '../../../assets/icons/common/delete.svg';
 import type { FileData } from '../../../types/SeminarManage/seminarDetail.api';
 
@@ -10,6 +10,29 @@ interface AdminPresentationUploadProps {
   maxFiles?: number;
   accept?: string;
 }
+
+const FileItem = memo(
+  ({
+    fileName,
+    fileSize,
+    onRemove,
+  }: {
+    fileName: string;
+    fileSize: number;
+    onRemove?: () => void;
+  }) => (
+    <div className="bg-grey-700 rounded-8 p-24 flex justify-between items-center">
+      <span className="text-grey-200 subhead-2-medium">
+        {fileName} [{(fileSize / 1024).toFixed(0)}KB]
+      </span>
+      {onRemove && (
+        <button onClick={onRemove} className="cursor-pointer" type="button">
+          <img src={deleteIcon} alt="삭제" />
+        </button>
+      )}
+    </div>
+  )
+);
 
 const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
   onUpload,
@@ -80,44 +103,29 @@ const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
       {/* 파일 정보 박스 */}
       <div className="space-y-8">
         {/* 서버 파일 목록 */}
-        {serverFiles && serverFiles.length > 0 && (
-          <>
-            {serverFiles.map((file, i) => (
-              <div
-                key={`server-${i}`}
-                className="bg-grey-700 rounded-8 p-24 flex justify-between items-center"
-              >
-                <span className="text-grey-200 subhead-2-medium">
-                  {file.fileName} [{(file.fileSize / 1024).toFixed(0)}KB]
-                </span>
-                {onRemoveServer && (
-                  <button onClick={() => onRemoveServer(i)} className="cursor-pointer">
-                    <img src={deleteIcon} alt="삭제" />
-                  </button>
-                )}
-              </div>
-            ))}
-          </>
-        )}
+        {serverFiles.map((file, i) => (
+          <FileItem
+            key={`server-${file.fileUrl}-${i}`}
+            fileName={file.fileName}
+            fileSize={file.fileSize}
+            onRemove={onRemoveServer ? () => onRemoveServer(i) : undefined}
+          />
+        ))}
 
         {/* 로컬 업로드 파일 목록 */}
-        {files.length > 0 ? (
-          files.map((file, i) => (
-            <div
-              key={`local-${i}`}
-              className="bg-grey-700 rounded-8 p-24 flex justify-between items-center"
-            >
-              <span className="text-grey-200 subhead-2-medium">
-                {file.name} [{(file.size / 1024).toFixed(0)}KB]
-              </span>
-              <button onClick={() => handleRemove(i)} className="cursor-pointer">
-                <img src={deleteIcon} alt="삭제" />
-              </button>
-            </div>
-          ))
-        ) : serverFiles.length === 0 ? (
+        {files.map((file, i) => (
+          <FileItem
+            key={`local-${file.name}-${i}`}
+            fileName={file.name}
+            fileSize={file.size}
+            onRemove={() => handleRemove(i)}
+          />
+        ))}
+
+        {/* 파일 없음 표시 */}
+        {serverFiles.length === 0 && files.length === 0 && (
           <span className="text-grey-200">첨부된 파일 없음</span>
-        ) : null}
+        )}
       </div>
     </div>
   );
