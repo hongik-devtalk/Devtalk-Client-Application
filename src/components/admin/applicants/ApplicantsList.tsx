@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSeminarNums } from '../../../hooks/Applicants/useSeminarNums';
 
 // 세미나 데이터 타입 정의
 interface SeminarData {
@@ -8,17 +9,13 @@ interface SeminarData {
 
 const ApplicantsList = () => {
   const navigate = useNavigate();
+  const { data: seminarNumsData } = useSeminarNums();
 
-  // 세미나 목록 목데이터 (API 연동 시 이 부분을 fetch로 교체)
-  const seminars: SeminarData[] = [
-    { id: 10 },
-    { id: 9 },
-    { id: 8 },
-    { id: 7 },
-    { id: 6 },
-    { id: 5 },
-    { id: 4 },
-  ];
+  // API 응답에서 세미나 번호 추출 및 내림차순 정렬
+  const seminars: SeminarData[] =
+    seminarNumsData?.result?.seminarNums
+      ?.map((num) => ({ id: num }))
+      .sort((a, b) => b.id - a.id) || [];
 
   // 세미나 제목 생성 함수
   const getSeminarTitle = (id: number) => `제 ${id}회 Devtalk Seminar`;
