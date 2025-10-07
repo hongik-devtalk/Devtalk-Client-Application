@@ -27,22 +27,24 @@ const Detail = () => {
   const {
     currentState,
     reviews,
-    isLoading,
+    isLoading: isSeminarLoading,
     error,
     isDirty,
     validationErrors,
     activationError,
     updateSeminarData,
     updatePendingFiles,
-    updateReviews,
     handleBlur,
     hasErrors,
     pendingFiles,
-    setInitialState,
   } = useSeminarState(id);
 
-  const { handleRegisterReviewToHome, handleUnregisterReviewFromHome, handleDeleteReview } =
-    useReviewActions({ currentState, reviews: reviews ?? [], updateReviews, setInitialState });
+  const {
+    handleRegisterReviewToHome,
+    handleUnregisterReviewFromHome,
+    handleDeleteReview,
+    isLoading: isReviewLoading,
+  } = useReviewActions({ currentState });
 
   // 세미나 삭제
   const handleDeleteSeminar = () => {
@@ -101,6 +103,8 @@ const Detail = () => {
   const handleCloseModal = () => {
     setModalConfig({ isOpen: false, variant: null, reviewId: null });
   };
+
+  const isLoading = isSeminarLoading || isReviewLoading;
 
   // 로딩 상태
   if (isLoading) {

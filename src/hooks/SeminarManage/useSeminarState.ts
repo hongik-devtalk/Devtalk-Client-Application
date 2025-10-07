@@ -66,32 +66,27 @@ export const useSeminarState = (id: string | undefined) => {
     },
   });
 
-  // 데이터 로딩
+  // 이펙트 1: 세미나 상세 정보 로딩 및 상태 설정
   useEffect(() => {
     if (!id) {
-      // 추가하기
       setState((prev) => ({
         ...prev,
         initialState: blankData,
         currentState: blankData,
         isLoading: false,
       }));
-
       return;
     }
 
-    const isLoading = isDetailLoading || isReviewLoading;
-    const error = detailError || reviewError;
-
-    if (isLoading) {
-      setState((prev) => ({ ...prev, isLoading: true }));
+    if (isDetailLoading) {
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
       return;
     }
 
-    if (error) {
+    if (detailError) {
       setState((prev) => ({
         ...prev,
-        error: '데이터를 불러오는 데 실패했습니다.',
+        error: '세미나 정보를 불러오는 데 실패했습니다.',
         isLoading: false,
       }));
       return;
@@ -99,24 +94,42 @@ export const useSeminarState = (id: string | undefined) => {
 
     if (detailResponse?.result) {
       const formattedData = mapApiDataToState(detailResponse.result);
-      const reviewsData = reviewResponse?.result || [];
       setState((prev) => ({
         ...prev,
         initialState: formattedData,
         currentState: formattedData,
-        reviews: reviewsData,
-        isLoading: false,
+        isLoading: prev.isLoading && isReviewLoading, // 리뷰 로딩이 끝나야 최종 로딩 완료
       }));
     }
-  }, [
-    id,
-    detailResponse,
-    reviewResponse,
-    isDetailLoading,
-    isReviewLoading,
-    detailError,
-    reviewError,
-  ]);
+  }, [id, detailResponse, isDetailLoading, detailError]);
+
+  // 이펙트 2: 후기 목록 로딩 및 상태 설정
+  useEffect(() => {
+    // isDetailLoading이 끝나고 seminarId가 확정된 후에 실행
+    if (isDetailLoading || !id) return;
+
+    if (isReviewLoading) {
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
+      return;
+    }
+
+    if (reviewError) {
+      setState((prev) => ({
+        ...prev,
+        error: '후기 정보를 불러오는 데 실패했습니다.',
+        isLoading: false,
+      }));
+      return;
+    }
+
+    // reviewResponse가 undefined인 경우 (데이터가 없는 경우) 빈 배열로 처리
+    const reviewsData = reviewResponse?.result || [];
+    setState((prev) => ({
+      ...prev,
+      reviews: reviewsData,
+      isLoading: false,
+    }));
+  }, [id, reviewResponse, isReviewLoading, reviewError, isDetailLoading]);
 
   // isDirty 상태 감지
   useEffect(() => {
