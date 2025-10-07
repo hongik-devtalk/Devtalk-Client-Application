@@ -3,15 +3,12 @@ import {
   useRegisterReviewToHome,
   useUnregisterReviewFromHome,
 } from './useSeminarReviews';
-import type { SeminarDetailState } from '../../types/SeminarManage/seminar.state';
 
 interface UseReviewActionsProps {
-  currentState: SeminarDetailState | null;
+  seminarId: number | undefined;
 }
 
-export const useReviewActions = ({ currentState }: UseReviewActionsProps) => {
-  const seminarId = currentState?.seminarId;
-
+export const useReviewActions = ({ seminarId }: UseReviewActionsProps) => {
   const { mutate: deleteReview, isPending: isDeleting } = useDeleteSeminarReview(seminarId);
   const { mutate: registerReview, isPending: isRegistering } = useRegisterReviewToHome(seminarId);
   const { mutate: unregisterReview, isPending: isUnregistering } =

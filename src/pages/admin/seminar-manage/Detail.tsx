@@ -8,11 +8,13 @@ import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
 import AdminModal from '../../../components/admin/common/AdminModal';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useSeminarDelete } from '../../../hooks/SeminarManage/useSeminarDetail';
 
 // 페이지
 const Detail = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const seminarId = id ? parseInt(id) : undefined;
 
   const [modalConfig, setModalConfig] = useState<{
     isOpen: boolean;
@@ -44,7 +46,9 @@ const Detail = () => {
     handleUnregisterReviewFromHome,
     handleDeleteReview,
     isLoading: isReviewLoading,
-  } = useReviewActions({ currentState });
+  } = useReviewActions({ seminarId });
+
+  const deleteSeminarMutation = useSeminarDelete(seminarId);
 
   // 세미나 삭제
   const handleDeleteSeminar = () => {
@@ -89,10 +93,17 @@ const Detail = () => {
   };
 
   // 모달에서 삭제하기 클릭 시
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (modalConfig.variant === 'deleteSeminar') {
-      console.log(`${id}번 세미나 삭제`);
-      navigate(-1);
+      if (!seminarId) return;
+
+      try {
+        await deleteSeminarMutation.mutateAsync(seminarId);
+        navigate('/admin/seminars');
+      } catch (error) {
+        alert('세미나 삭제에 실패했습니다. 다시 시도해주세요.');
+        console.error(error);
+      }
     } else if (modalConfig.variant === 'deleteReview' && modalConfig.reviewId !== null) {
       handleDeleteReview?.(modalConfig.reviewId);
     } else if (modalConfig.variant === 'cancel') {
