@@ -56,9 +56,7 @@ const SeminarDetail = () => {
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0">
-        <Cta />
-      </div>
+      <div className="fixed bottom-0">{/*<Cta />*/}</div>
       <div className="h-[250px]" />
     </div>
   );
