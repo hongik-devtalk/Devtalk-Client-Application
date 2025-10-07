@@ -48,6 +48,17 @@ export const formatInputToIso = (inputString: string): string => {
     return inputString;
   }
 
-  const [year, month, day, hours, minutes] = match;
+  const [, year, month, day, hours, minutes] = match;
+  return `${year}-${month}-${day}T${hours}:${minutes}:00`;
+};
+
+// Date 객체 -> YYYY-MM-DDTHH:mm:ss
+export const formatDateToIso = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
   return `${year}-${month}-${day}T${hours}:${minutes}:00`;
 };
