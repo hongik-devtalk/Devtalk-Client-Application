@@ -47,7 +47,7 @@ const ReviewListItemCard = ({
   };
 
   return (
-    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between h-[220px] border-none">
+    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between min-h-[220px] border-none">
       <div>
         <div className="flex justify-between items-start mb-3">
           <StarRating rating={review.score} />
@@ -67,7 +67,7 @@ const ReviewListItemCard = ({
           <p>{formatDate(review.createdAt)}</p>
         </div>
 
-        <p className="body-1-medium text-white whitespace-pre-line line-clamp-3">
+        <p className="body-1-medium text-white whitespace-pre-line">
           {review.content}
         </p>
       </div>
@@ -77,7 +77,7 @@ const ReviewListItemCard = ({
           <span className="text-grey-400">다음에 듣고 싶은 주제:</span> {review.nextTopic}
         </p>
 
-        <div className="relative" ref={menuRef}>
+        <div className="relative flex-shrink-0" ref={menuRef}>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <img src={moremenu} className="cursor-pointer" />
           </button>
