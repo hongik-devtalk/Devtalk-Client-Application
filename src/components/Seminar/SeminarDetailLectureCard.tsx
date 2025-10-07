@@ -1,17 +1,28 @@
+import { useQuery } from '@tanstack/react-query';
 import speakerEx from '../../assets/images/speakerEx.jpg';
+import type { SeminarSessionResponse } from '../../types/SeminarDetail/seminarDetail';
+import { getSeminarSession } from '../../apis/seminarDetail';
 
-const SeminarDetailLectureCard = () => {
+const SeminarDetailLectureCard = ({ id }: { id: number }) => {
+  const { data, isLoading } = useQuery<SeminarSessionResponse>({
+    queryKey: ['seminarDetail', id],
+    queryFn: () => getSeminarSession(id),
+  });
+
+  const sessions = data?.result ?? [];
+
   return (
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start">
+      {isLoading && <div>Loading...</div>}
       <div className="absolute top-0 w-full h-[427px] top-gradient" />
       <div className="absolute bottom-0 w-full h-[200px] bottom-gradient" />
       <img src={speakerEx} alt="연사 이미지" className="w-[335px] h-[427px] object-cover " />
       <div className="flex flex-col w-[295px] gap-[20px] items-center absolute top-[300px] ">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex gap-[8px] items-center body-2-semibold text-white ">
-            연사 <span className="subhead-1-semibold text-gradient">김데브</span>님
+            연사 <span className="subhead-1-semibold text-gradient">{sessions.speaker.name}</span>님
           </div>
-          <p className="body-1-medium text-white">前 Kakao · Toss Data Scientist</p>
+          <p className="body-1-medium text-white">{sessions.speaker.oraganization}</p>
         </div>
         <ul className="w-[273px] h-[140px] pl-5 body-2-medium text-grey-200 list-disc list-outside">
           <li>前 Toss Securities Data Scientist (2021)</li>
@@ -25,10 +36,10 @@ const SeminarDetailLectureCard = () => {
       <div className="absolute bottom-[52px] h-[332px] flex flex-col gap-[39px] items-center justify-center w-full">
         <div className="w-[237px] h-[93px] flex flex-col gap-[9px] justify-center items-center heading-3-semibold">
           <div className="text-gradient">Session #1</div>
-          <div className="text-white">Data Scientist가 바라보는 AI의 지난 10년과 현재</div>
+          <div className="text-white">{sessions[0].title}</div>
         </div>
         <div className="w-[295px] body-2-medium text-grey-200 text-left">
-          <p>
+          {/*<p>
             <span className="text-gradient">ChatGPT 3년차,</span> LLM은 더욱 어려운 문제를 해결하고
             실제 작업을 수행하는 수준으로 발전했습니다.
           </p>
@@ -44,7 +55,8 @@ const SeminarDetailLectureCard = () => {
             LLM의 놀라운 능력의 비밀,{' '}
             <span className="text-gradient">추론(Reasoning)과 에이전트(Agent)</span>라는 핵심
             키워드를 쉽고 명확하게 알아봅시다!
-          </p>
+          </p>*/}
+          <p>{sessions[0].description}</p>
         </div>
       </div>
     </div>

@@ -13,15 +13,18 @@ const SeminarDeailCard = ({ id }: { id: number }) => {
   const { seminarNum, topic, thumbnailUrl, seminarDate, place, fileUrls } = data?.result || {};
   const formDate = formatDate(seminarDate ?? '');
 
+  //
   const handleDownloadFiles = (fileUrls: string[]) => {
-    const url = URL.createObjectURL(new Blob(fileUrls));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'download';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    fileUrls.forEach((fileUrl) => {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = ''; // 파일 이름을 지정하지 않으면 서버에서 제공하는 이름으로 다운로드됨
+      link.rel = 'noopener noreferrer';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
   };
 
   return (
