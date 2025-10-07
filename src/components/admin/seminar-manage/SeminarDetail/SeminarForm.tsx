@@ -13,7 +13,6 @@ interface SeminarFormProps {
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (data: Partial<SeminarState['pendingFiles']>) => void;
   errors: FormErrors;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const SeminarForm = ({
@@ -22,7 +21,6 @@ const SeminarForm = ({
   updateSeminarData,
   updatePendingFiles,
   errors,
-  onBlur,
 }: SeminarFormProps) => {
   // 회차의 Input 이밴트 핸들러
   const handleSeminarNumChange = useCallback(
@@ -111,7 +109,6 @@ const SeminarForm = ({
           placeholder="일정을 입력해주세요. (ex: 2025.10.8.18:00)"
           value={data.seminarDate}
           onChange={handleInputChange}
-          onBlur={onBlur}
           error={errors.date}
         />
         <FormField

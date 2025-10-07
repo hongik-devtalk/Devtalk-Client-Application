@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
+import { useSeminarState } from '../../../hooks/SeminarManage/detail/useSeminarState';
 
 import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
@@ -12,15 +12,8 @@ const Add = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // id 없이 훅을 호출하여 add 모드
-  const {
-    currentState,
-    isDirty,
-    updateSeminarData,
-    handleBlur,
-    hasErrors,
-    validationErrors,
-    activationError,
-  } = useSeminarState(undefined);
+  const { currentState, isDirty, updateSeminarData, hasErrors, validationErrors, activationError } =
+    useSeminarState(undefined);
 
   // 저장
   const handleSave = () => {
@@ -57,7 +50,6 @@ const Add = () => {
         showReviewList={false}
         currentState={currentState}
         updateSeminarData={updateSeminarData}
-        handleBlur={handleBlur}
         validationErrors={validationErrors}
         activationError={activationError}
       />

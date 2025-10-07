@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { ReviewListResponse } from '../../types/SeminarManage/seminarReview.api';
+import type { ReviewListResponse } from '../../../types/SeminarManage/seminarReview.api';
 import {
   getSeminarReview,
   deleteSeminarReview,
   patchReviewRegister,
   patchReviewUnregister,
-} from '../../apis/SeminarDetail/seminarReviewApi';
-import { QUERY_KEYS } from '../../constants/queryKey';
+} from '../../../apis/SeminarDetail/seminarReviewApi';
+import { QUERY_KEYS } from '../../../constants/queryKey';
 
 // 세미나 후기 목록 조회
 export const useSeminarReviews = (seminarId: number | undefined) => {

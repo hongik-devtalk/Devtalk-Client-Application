@@ -16,7 +16,6 @@ const FormField = ({
   placeholder,
   value,
   onChange,
-  onBlur,
   onPaste,
   error,
   maxLength,
@@ -32,7 +31,6 @@ const FormField = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
         onPaste={onPaste}
         maxLength={maxLength}
       />

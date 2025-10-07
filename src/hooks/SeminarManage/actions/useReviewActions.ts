@@ -2,7 +2,7 @@ import {
   useDeleteSeminarReview,
   useRegisterReviewToHome,
   useUnregisterReviewFromHome,
-} from './useSeminarReviews';
+} from '../data/useSeminarReviews';
 
 interface UseReviewActionsProps {
   seminarId: number | undefined;

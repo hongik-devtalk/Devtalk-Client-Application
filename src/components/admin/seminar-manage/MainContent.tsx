@@ -21,7 +21,6 @@ interface MainContentProps {
   activationError: { seminar: string; application: string };
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
-  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   handleRegisterReviewToHome?: (reviewId: number) => void;
   handleUnregisterReviewFromHome?: (reviewId: number) => void;
   handleDeleteReview?: (reviewId: number) => void;
@@ -36,7 +35,6 @@ const MainContent = ({
   activationError,
   updateSeminarData,
   updatePendingFiles,
-  handleBlur,
   handleRegisterReviewToHome,
   handleUnregisterReviewFromHome,
   handleDeleteReview,
@@ -61,7 +59,6 @@ const MainContent = ({
       updateSeminarData={updateSeminarData}
       updatePendingFiles={updatePendingFiles}
       errors={validationErrors}
-      onBlur={handleBlur}
     />
 
     <SpeakersForm

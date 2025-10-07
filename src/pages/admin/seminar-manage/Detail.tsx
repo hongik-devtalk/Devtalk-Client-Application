@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
-import { useReviewActions } from '../../../hooks/SeminarManage/useReviewActions';
-import { useSeminarUpdateActions } from '../../../hooks/SeminarManage/useSeminarActions';
+import { useSeminarState } from '../../../hooks/SeminarManage/detail/useSeminarState';
+import { useReviewActions } from '../../../hooks/SeminarManage/actions/useReviewActions';
+import { useSeminarUpdateActions } from '../../../hooks/SeminarManage/actions/useSeminarActions';
 
 import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
@@ -35,7 +35,6 @@ const Detail = () => {
     activationError,
     updateSeminarData,
     updatePendingFiles,
-    handleBlur,
     hasErrors,
     pendingFiles,
   } = useSeminarState(id);
@@ -152,7 +151,6 @@ const Detail = () => {
         activationError={activationError}
         updateSeminarData={updateSeminarData}
         updatePendingFiles={updatePendingFiles}
-        handleBlur={handleBlur}
         handleRegisterReviewToHome={handleRegisterReviewToHome}
         handleUnregisterReviewFromHome={handleUnregisterReviewFromHome}
         handleDeleteReview={handleDeleteReviewModal}

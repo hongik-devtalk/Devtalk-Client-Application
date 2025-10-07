@@ -3,15 +3,15 @@ import type {
   SeminarDetailResponse,
   UpdateSeminarRequest,
   UpdateSeminarFilesRequest,
-} from '../../types/SeminarManage/seminarDetail.api';
+} from '../../../types/SeminarManage/seminarDetail.api';
 
 import {
   deleteSeminar,
   getSeminarDetail,
   updateSeminar,
   updateSeminarFiles,
-} from '../../apis/SeminarDetail/seminarDetailApi';
-import { QUERY_KEYS } from '../../constants/queryKey';
+} from '../../../apis/SeminarDetail/seminarDetailApi';
+import { QUERY_KEYS } from '../../../constants/queryKey';
 
 // 세미나 상세 조회
 export const useSeminarDetail = (seminarId: number | undefined) => {

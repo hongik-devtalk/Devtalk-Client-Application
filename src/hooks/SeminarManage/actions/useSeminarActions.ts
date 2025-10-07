@@ -1,6 +1,10 @@
-import type { SeminarDetailState, SeminarState } from '../../types/SeminarManage/seminar.state';
-import { useSeminarUpdate, useSeminarFilesUpdate, useSeminarDelete } from './useSeminarDetail';
-import { mapStateToUpdateRequest } from '../../utils/seminarMapper';
+import type { SeminarDetailState, SeminarState } from '../../../types/SeminarManage/seminar.state';
+import {
+  useSeminarUpdate,
+  useSeminarFilesUpdate,
+  useSeminarDelete,
+} from '../data/useSeminarDetail';
+import { mapStateToUpdateRequest } from '../../../utils/seminarMapper';
 
 // 세미나 수정 액션 훅
 export const useSeminarUpdateActions = (seminarId: number | undefined) => {
