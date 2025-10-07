@@ -16,20 +16,20 @@ const Reviews = () => {
 
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reviewToRemove, setReviewToRemove] = useState<number | null>(null);
+  const [reviewToRemove, setReviewToRemove] = useState<string | null>(null);
 
   useEffect(() => {
     if (Array.isArray(data?.result)) {
       const mapped = data.result.map((r, i) => ({
-        reviewId: Number(r.reviewId),
+        reviewId: r.reviewId,
         score: r.rating,
         content: r.content,
         createdAt: r.createdAt,
         isPublic: r.visible,
         rank: r.order ?? i + 1,
-        department: '-',
-        grade: 0,
-        nextTopic: '',
+        department: r.department ?? '-',
+        grade: r.grade ?? '',
+        nextTopic: r.nextTopic ?? '',
       }));
       setReviews(mapped);
     }
@@ -37,7 +37,7 @@ const Reviews = () => {
 
   const updateRanks = (list: Review[]): Review[] => list.map((r, i) => ({ ...r, rank: i + 1 }));
 
-  const moveUp = (id: number) => {
+  const moveUp = (id: string) => {
     setReviews((prev) => {
       const idx = prev.findIndex((r) => r.reviewId === id);
       if (idx > 0) {
@@ -51,7 +51,7 @@ const Reviews = () => {
     });
   };
 
-  const moveDown = (id: number) => {
+  const moveDown = (id: string) => {
     setReviews((prev) => {
       const idx = prev.findIndex((r) => r.reviewId === id);
       if (idx < prev.length - 1) {
@@ -66,7 +66,7 @@ const Reviews = () => {
   };
 
   // 삭제 클릭 시 모달 오픈
-  const handleRemoveClick = (id: number) => {
+  const handleRemoveClick = (id: string) => {
     setReviewToRemove(id);
     setIsModalOpen(true);
   };

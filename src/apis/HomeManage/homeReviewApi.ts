@@ -11,7 +11,7 @@ export const getHomeReviews = async (): Promise<HomeReviewListResponse> => {
   return res.data;
 };
 
-export const deleteHomeReview = async (reviewId: number): Promise<DeleteHomeReviewResponse> => {
+export const deleteHomeReview = async (reviewId: string): Promise<DeleteHomeReviewResponse> => {
   const res = await adminInstance.delete<DeleteHomeReviewResponse>(
     `/admin/home/reviews/${reviewId}`
   );

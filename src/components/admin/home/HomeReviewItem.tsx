@@ -3,10 +3,10 @@ import StarRating from '../seminar-manage/Review/StarRating';
 import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
 
 export interface Review {
-  reviewId: number;
+  reviewId: string;
   score: number;
   department: string;
-  grade: number;
+  grade: string;
   content: string;
   nextTopic: string;
   isPublic: boolean;
@@ -16,9 +16,9 @@ export interface Review {
 
 interface HomeReviewItemProps {
   review: Review;
-  onMoveUp: (id: number) => void;
-  onMoveDown: (id: number) => void;
-  onDelete: (id: number) => void;
+  onMoveUp: (id: string) => void;
+  onMoveDown: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
@@ -42,7 +42,7 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
   }, []);
 
   return (
-    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between h-[220px] border-none">
+    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between min-h-[220px] border-none">
       <div>
         <div className="flex justify-between items-start mb-3">
           <StarRating rating={review.score} />
@@ -57,7 +57,7 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
 
         <div className="flex justify-between body-2-medium text-grey-300 mb-[6px]">
           <p>
-            {review.department} {review.grade}학년
+            {review.department} {review.grade}
           </p>
           <p>{review.createdAt}</p>
         </div>

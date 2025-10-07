@@ -19,7 +19,7 @@ export const useHomeReviews = () =>
 export const useDeleteHomeReview = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (reviewId: number) => deleteHomeReview(reviewId),
+    mutationFn: (reviewId: string) => deleteHomeReview(reviewId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ADMIN_HOME_REVIEWS] });
     },
