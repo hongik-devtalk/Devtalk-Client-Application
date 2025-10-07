@@ -10,6 +10,11 @@ const SeminarPoster = () => {
     return <LoadingSpinner />;
   }
 
+  const getEndTime = (end?: string) => {
+    const endTime = end?.split(' ')[2];
+    return endTime || '';
+  };
+
   return (
     <div className="relative w-[376px] h-[585px]">
       {/* 배경 영상 */}
@@ -29,7 +34,9 @@ const SeminarPoster = () => {
           </div>
           <div className="flex gap-28">
             <p className="text-grey-300">일시</p>
-            <p className="text-grey-200">{seminar?.result?.seminarDate}</p>
+            <p className="text-grey-200">
+              {seminar?.result?.startDate}~{getEndTime(seminar?.result?.endDate)}
+            </p>
           </div>
           <div className="flex gap-28">
             <p className="text-grey-300">장소</p>
