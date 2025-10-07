@@ -2,19 +2,17 @@ import type { CommonResponse } from '../common';
 
 export interface Review {
   reviewId: number;
-  rank: number;
-  score: number;
+  order: number;
+  rating: number;
   department: string;
   grade: number;
   content: string;
   nextTopic: string;
-  isPublic: boolean;
+  visible: boolean;
   createdAt: string;
 }
 
-export type HomeReviewListResponse = CommonResponse<{
-  reviews: Review[];
-}>;
+export type HomeReviewListResponse = CommonResponse<Review[]>;
 
 export interface PutHomeReviewOrderRequest {
   orderedIds: number[];

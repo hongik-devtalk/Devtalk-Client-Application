@@ -1,49 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import HomeReviewItem from '../../../components/admin/home/HomeReviewItem';
 import type { Review } from '../../../components/admin/home/HomeReviewItem';
 import AdminModal from '../../../components/admin/common/AdminModal';
+import {
+  useHomeReviews,
+  useDeleteHomeReview,
+  usePutHomeReviewOrder,
+} from '../../../hooks/HomeManage/useHomeReview';
 
 const Reviews = () => {
-  // rank 추가한 mock 데이터 넣어둠
-  const [reviews, setReviews] = useState<Review[]>([
-    {
-      reviewId: 1,
-      rank: 1,
-      score: 5,
-      department: '컴퓨터공학과',
-      grade: 3,
-      content:
-        '부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다.\n부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다.',
-      nextTopic: '윤리적 AI를 위한 법안',
-      isPublic: true,
-      createdAt: '2025. 10. 4.(토) 오후 7:00',
-    },
-    {
-      reviewId: 2,
-      rank: 2,
-      score: 4,
-      department: '컴퓨터공학과',
-      grade: 2,
-      content: '요즘 핫한 주제로 강연을 들어서 너무 좋았습니다 !',
-      nextTopic: 'AI 모델 최적화 기법',
-      isPublic: true,
-      createdAt: '2025. 10. 4.(토) 오후 7:00',
-    },
-    {
-      reviewId: 3,
-      rank: 3,
-      score: 4,
-      department: '소프트웨어학과',
-      grade: 4,
-      content: '궁금했던 부분들을 잘 설명해주셔서 좋았습니다. 질문 또한 잘 받아주셔서 감사했습니다',
-      nextTopic: '대규모 언어 모델(LLM) 활용',
-      isPublic: true,
-      createdAt: '2025. 10. 4.(토) 오후 7:00',
-    },
-  ]);
+  const { data, isLoading } = useHomeReviews();
+  const deleteMutation = useDeleteHomeReview();
+  const putOrderMutation = usePutHomeReviewOrder();
 
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reviewToRemove, setReviewToRemove] = useState<number | null>();
+  const [reviewToRemove, setReviewToRemove] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (Array.isArray(data?.result)) {
+      const mapped = data.result.map((r, i) => ({
+        reviewId: Number(r.reviewId),
+        score: r.rating,
+        content: r.content,
+        createdAt: r.createdAt,
+        isPublic: r.visible,
+        rank: r.order ?? i + 1,
+        department: '-',
+        grade: 0,
+        nextTopic: '',
+      }));
+      setReviews(mapped);
+    }
+  }, [data]);
 
   const updateRanks = (list: Review[]): Review[] => list.map((r, i) => ({ ...r, rank: i + 1 }));
 
@@ -53,7 +43,9 @@ const Reviews = () => {
       if (idx > 0) {
         const newArr = [...prev];
         [newArr[idx - 1], newArr[idx]] = [newArr[idx], newArr[idx - 1]];
-        return updateRanks(newArr);
+        const updated = updateRanks(newArr);
+        putOrderMutation.mutate({ orderedIds: updated.map((r) => r.reviewId) });
+        return updated;
       }
       return prev;
     });
@@ -65,25 +57,34 @@ const Reviews = () => {
       if (idx < prev.length - 1) {
         const newArr = [...prev];
         [newArr[idx], newArr[idx + 1]] = [newArr[idx + 1], newArr[idx]];
-        return updateRanks(newArr);
+        const updated = updateRanks(newArr);
+        putOrderMutation.mutate({ orderedIds: updated.map((r) => r.reviewId) });
+        return updated;
       }
       return prev;
     });
   };
 
-  // 삭제하기 버튼을 클릭하면, 모달을 연다
+  // 삭제 클릭 시 모달 오픈
   const handleRemoveClick = (id: number) => {
     setReviewToRemove(id);
     setIsModalOpen(true);
   };
 
-  // 모달에서 '후기 삭제하기' 클릭 시
+  // 모달에서 '후기 삭제하기' 클릭 시 서버 요청
   const handleConfirmRemove = () => {
     if (reviewToRemove !== null) {
-      setReviews((prev) => prev.filter((r) => r.reviewId !== reviewToRemove));
-      setReviewToRemove(null);
+      deleteMutation.mutate(reviewToRemove, {
+        onSuccess: () => {
+          setReviews((prev) => prev.filter((r) => r.reviewId !== reviewToRemove));
+          setIsModalOpen(false);
+          setReviewToRemove(null);
+        },
+      });
     }
   };
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="space-y-40 ml-60 mr-60 mb-[175px]">
