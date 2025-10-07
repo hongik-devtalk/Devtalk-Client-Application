@@ -28,11 +28,12 @@ const Links = () => {
   const handleSave = () => {
     if (!link.trim()) {
       deleteMutation.mutate();
-    } else if (link !== originalLink) {
+    } else {
       postMutation.mutate({ url: link });
     }
   };
 
+  // 링크에 변경 사항 있을 때만 버튼 활성화
   const isModified = link !== originalLink;
 
   if (isLoading) return <LoadingSpinner />;
