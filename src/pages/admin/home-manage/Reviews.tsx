@@ -88,8 +88,8 @@ const Reviews = () => {
 
   return (
     <div className="space-y-40 ml-60 mr-60 mb-[175px]">
-      <h1 className="mt-60 heading-1-bold text-white">후기 관리</h1>
-      <div className="w-full max-w-[900px] min-w-[700px] mx-autorounded-10 grid grid-cols-2 gap-6">
+      <h1 className="mt-60 heading-1-bold text-white">후기 카드 갤러리</h1>
+      <div className="w-full max-w-[900px] min-w-[800px] mx-autorounded-10 grid grid-cols-2 gap-6">
         {reviews.map((review) => (
           <div key={review.reviewId} className="relative">
             <span className="absolute -top-3 -left-3 bg-grey-900 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm heading-1-semibold">

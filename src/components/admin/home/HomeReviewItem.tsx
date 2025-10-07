@@ -67,12 +67,12 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
         </p>
       </div>
 
-      <div className="flex justify-between items-center mt-[20px]">
-        <p className="text-sm text-white">
+      <div className="flex justify-between items-start mt-[20px] gap-4">
+        <p className="text-sm text-white break-words flex-1">
           <span className="text-grey-400">다음에 듣고 싶은 주제:</span> {review.nextTopic}
         </p>
 
-        <div className="relative" ref={menuRef}>
+        <div className="relative shrink-0" ref={menuRef}>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <img src={moremenu} className="cursor-pointer" />
           </button>
