@@ -62,7 +62,7 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
           <p>{review.createdAt}</p>
         </div>
 
-        <p className="body-1-medium text-white whitespace-pre-line line-clamp-3">
+        <p className="body-1-medium text-white white space-pre-line line-clamp-3">
           {review.content}
         </p>
       </div>
@@ -82,7 +82,10 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
               <ul className="caption-semibold flex flex-col">
                 <li className="border-b border-black">
                   <button
-                    onClick={() => onMoveUp(review.reviewId)}
+                    onClick={() => {
+                      onMoveUp(review.reviewId);
+                      setIsMenuOpen(false);
+                    }}
                     className="w-full text-center py-[6px] hover:bg-grey-600 rounded-t-md cursor-pointer"
                   >
                     순위 올리기

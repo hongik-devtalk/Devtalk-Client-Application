@@ -20,15 +20,15 @@ const Reviews = () => {
 
   useEffect(() => {
     if (Array.isArray(data?.result)) {
-      const mapped = data.result.map((r, i) => ({
+      const mapped = data.result.map((r) => ({
         reviewId: r.reviewId,
         score: r.rating,
         content: r.content,
         createdAt: r.createdAt,
         isPublic: r.visible,
-        rank: r.order ?? i + 1,
-        department: r.department ?? '-',
-        grade: r.grade ?? '',
+        rank: r.order,
+        department: r.department,
+        grade: r.grade,
         nextTopic: r.nextTopic ?? '',
       }));
       setReviews(mapped);
@@ -44,6 +44,7 @@ const Reviews = () => {
         const newArr = [...prev];
         [newArr[idx - 1], newArr[idx]] = [newArr[idx], newArr[idx - 1]];
         const updated = updateRanks(newArr);
+        // 새로 계산된 순위 서버로 보냄
         putOrderMutation.mutate({ orderedIds: updated.map((r) => r.reviewId) });
         return updated;
       }
@@ -58,6 +59,7 @@ const Reviews = () => {
         const newArr = [...prev];
         [newArr[idx], newArr[idx + 1]] = [newArr[idx + 1], newArr[idx]];
         const updated = updateRanks(newArr);
+        // 새로 계산된 순위 서버로 보냄
         putOrderMutation.mutate({ orderedIds: updated.map((r) => r.reviewId) });
         return updated;
       }
@@ -89,7 +91,7 @@ const Reviews = () => {
   return (
     <div className="space-y-40 ml-60 mr-60 mb-[175px]">
       <h1 className="mt-60 heading-1-bold text-white">후기 카드 갤러리</h1>
-      <div className="w-full max-w-[900px] min-w-[800px] mx-autorounded-10 grid grid-cols-2 gap-6">
+      <div className="w-full max-w-[900px] min-w-[800px] mx-auto rounded-10 grid grid-cols-2 gap-6">
         {reviews.map((review) => (
           <div key={review.reviewId} className="relative">
             <span className="absolute -top-3 -left-3 bg-grey-900 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm heading-1-semibold">
