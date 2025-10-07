@@ -19,7 +19,7 @@ export type SeminarDetailResponse = CommonResponse<SeminarDetail>;
 //세미나 세부정보 (세션)
 export interface SessionSpeaker {
   name: string;
-  oraganization: string;
+  organization: string;
   history: string;
   profileUrl: fileUrl;
   speakerId: number;
