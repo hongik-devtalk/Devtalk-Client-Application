@@ -6,9 +6,13 @@ import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
 import React, { useEffect, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getSeminarReview } from '../../../apis/seminarDetail';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const SeminarDetail = () => {
   const { id } = useParams();
+  const sessionId = Number(id);
   const lectureRef = useRef<HTMLDivElement>(null);
   const secondRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -23,11 +27,18 @@ const SeminarDetail = () => {
     }
   }, [secondVisible]);
 
+  const { data, isLoading } = useQuery({
+    queryKey: ['seminarReview', sessionId],
+    queryFn: () => getSeminarReview(sessionId),
+  });
+
+  const seminarReviews = data?.result || [];
+
   return (
     <div>
       <div className="flex flex-col gap-32 bg-black">
         <Header />
-        <SeminarDetailCard id={Number(id)} />
+        <SeminarDetailCard id={sessionId} />
         <div
           ref={lectureRef}
           className={`w-[375px] h-[2170px] flex flex-col gap-24 px-20 transition-all duration-500 ease-out transform ${
@@ -36,10 +47,10 @@ const SeminarDetail = () => {
         >
           <div className="heading-3-semibold text-white">연사 소개</div>
           <div className="flex flex-col gap-10 justify-center items-center bg-black ">
-            <SeminarDetailLectureCard seminarId={Number(id)} index={0} />
+            <SeminarDetailLectureCard seminarId={sessionId} index={0} />
 
             <div ref={secondRef}>
-              <SeminarDetailLectureCard seminarId={Number(id)} index={1} />
+              <SeminarDetailLectureCard seminarId={sessionId} index={1} />
             </div>
           </div>
         </div>
@@ -51,9 +62,18 @@ const SeminarDetail = () => {
         >
           <div className="heading-3-semibold text-white">후기</div>
           <div className="w-[335px] h-[435px] flex flex-col gap-12">
-            <ReviewCard session={Number(id)} rating={4} content="재밌어요" />
-            <ReviewCard session={Number(id)} rating={5} content="유익한 세미나였습니다." />
-            <ReviewCard session={Number(id)} rating={3} content="좋은 정보 감사합니다." />
+            {isLoading && <LoadingSpinner />}
+            {seminarReviews.length === 0 ? (
+              //등록된 후기가 없는 경우
+              <div className="body-2-medium text-grey-200">후기가 존재하지 않습니다.</div>
+            ) : (
+              //등록된 후기 중 최대 3개까지 표시
+              seminarReviews.slice(0, 3).map((review) => (
+                <div key={review.reviewId}>
+                  <ReviewCard session={sessionId} rating={review.score} content={review.strength} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
