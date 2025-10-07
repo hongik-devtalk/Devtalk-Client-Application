@@ -61,6 +61,7 @@ export const useSeminarState = (id: string | undefined) => {
     activationError: { seminar: '', application: '' },
     pendingFiles: {
       thumbnail: null,
+      deletedMaterialUrls: [],
       materials: [],
       speakerProfiles: new Map(),
     },
@@ -206,10 +207,34 @@ export const useSeminarState = (id: string | undefined) => {
 
   // 파일 정보 업데이트
   const updatePendingFiles = (files: Partial<SeminarState['pendingFiles']>) => {
-    setState((prev) => ({
-      ...prev,
-      pendingFiles: { ...prev.pendingFiles, ...files },
-    }));
+    setState((prev) => {
+      const newPendingFiles = { ...prev.pendingFiles };
+
+      // speakerProfiles Map 병합
+      if (files.speakerProfiles) {
+        const newSpeakerProfiles = new Map(prev.pendingFiles.speakerProfiles);
+        files.speakerProfiles.forEach((value, key) => {
+          newSpeakerProfiles.set(key, value);
+        });
+        newPendingFiles.speakerProfiles = newSpeakerProfiles;
+      }
+
+      // 다른 파일들 병합
+      if (files.thumbnail !== undefined) {
+        newPendingFiles.thumbnail = files.thumbnail;
+      }
+      if (files.materials !== undefined) {
+        newPendingFiles.materials = files.materials;
+      }
+      if (files.deletedMaterialUrls !== undefined) {
+        newPendingFiles.deletedMaterialUrls = files.deletedMaterialUrls;
+      }
+
+      return {
+        ...prev,
+        pendingFiles: newPendingFiles,
+      };
+    });
   };
 
   // 유효성 검사
@@ -308,6 +333,7 @@ export const useSeminarState = (id: string | undefined) => {
       isDirty: false,
       pendingFiles: {
         thumbnail: null,
+        deletedMaterialUrls: [],
         materials: [],
         speakerProfiles: new Map(),
       },

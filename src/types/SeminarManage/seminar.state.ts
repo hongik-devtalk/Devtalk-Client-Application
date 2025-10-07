@@ -50,7 +50,7 @@ export interface SeminarState {
   pendingFiles: {
     thumbnail: File | null;
     materials: File[];
-    speakerProfiles: Map<number, File>;
+    speakerProfiles: Map<number, File | null>;
     deletedMaterialUrls: string[];
   };
 }

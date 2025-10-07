@@ -67,6 +67,7 @@ const MainContent = ({
     <SpeakersForm
       speakers={currentState.speakers}
       onChange={(speakers) => updateSeminarData({ speakers })}
+      updatePendingFiles={updatePendingFiles}
     />
 
     {showReviewList && (

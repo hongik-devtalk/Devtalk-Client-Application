@@ -1,12 +1,13 @@
 import SingleSpeakerForm from './SingleSpeakerForm';
-import type { SpeakerState } from '../../../../types/SeminarManage/seminar.state';
+import type { SpeakerState, SeminarState } from '../../../../types/SeminarManage/seminar.state';
 
 interface SpeakerFormProps {
   speakers: SpeakerState[];
   onChange: (updatedSpeakers: SpeakerState[]) => void;
+  updatePendingFiles: (data: Partial<SeminarState['pendingFiles']>) => void;
 }
 
-const SpeakerForm = ({ speakers, onChange }: SpeakerFormProps) => {
+const SpeakerForm = ({ speakers, onChange, updatePendingFiles }: SpeakerFormProps) => {
   const handleSpeakerChange = (
     index: number,
     field: keyof SpeakerState,
@@ -16,6 +17,24 @@ const SpeakerForm = ({ speakers, onChange }: SpeakerFormProps) => {
       i === index ? { ...speaker, [field]: value } : speaker
     );
     onChange(updatedSpeakers);
+
+    // 프로필 사진은 pendingFiles에도 저장
+    if (field === 'profileUrl' && value instanceof File) {
+      const speakerId = speakers[index].speakerId;
+      if (speakerId) {
+        updatePendingFiles({
+          speakerProfiles: new Map([[speakerId, value]]),
+        });
+      }
+    } else if (field === 'profileUrl' && value === null) {
+      // 파일 제거 시
+      const speakerId = speakers[index].speakerId;
+      if (speakerId) {
+        updatePendingFiles({
+          speakerProfiles: new Map([[speakerId, null]]),
+        });
+      }
+    }
   };
 
   return (

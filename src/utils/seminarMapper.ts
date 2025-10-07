@@ -1,6 +1,10 @@
-import type { SeminarDetailData, SpeakerData } from '../types/SeminarManage/seminarDetail.api';
+import type {
+  SeminarDetailData,
+  SpeakerData,
+  UpdateSeminarRequest,
+} from '../types/SeminarManage/seminarDetail.api';
 import type { SeminarDetailState, SpeakerState } from '../types/SeminarManage/seminar.state';
-import { formatIsoToInput } from './formatDate';
+import { formatIsoToInput, formatInputToIso, formatDateToIso } from './formatDate';
 
 export const mapApiDataToState = (apiData: SeminarDetailData): SeminarDetailState => {
   return {
@@ -29,5 +33,29 @@ export const mapApiDataToState = (apiData: SeminarDetailData): SeminarDetailStat
     seminarEndDate: new Date(apiData.activeEndDate),
     applicationStartDate: new Date(apiData.applyStartDate),
     applicationEndDate: new Date(apiData.applyEndDate),
+  };
+};
+
+export const mapStateToUpdateRequest = (state: SeminarDetailState): UpdateSeminarRequest => {
+  return {
+    seminarNum: state.seminarNum ?? 0,
+    seminarDate: formatInputToIso(state.seminarDate),
+    place: state.place,
+    topic: state.topic,
+    activeStartDate: formatDateToIso(state.seminarStartDate),
+    activeEndDate: formatDateToIso(state.seminarEndDate),
+    applyStartDate: formatDateToIso(state.applicationStartDate),
+    applyEndDate: formatDateToIso(state.applicationEndDate),
+    liveLink: state.liveLink || null, // 빈 문자열이면 null
+    speakers: state.speakers
+      .filter((speaker) => speaker.speakerId) // speakerId가 있는 것만
+      .map((speaker) => ({
+        speakerId: speaker.speakerId!,
+        name: speaker.name,
+        organization: speaker.organization,
+        history: speaker.history,
+        sessionTitle: speaker.sessionTitle,
+        sessionContent: speaker.sessionContent,
+      })),
   };
 };
