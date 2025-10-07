@@ -66,7 +66,7 @@ export const useSeminarState = (id: string | undefined) => {
     },
   });
 
-  // 이펙트 1: 세미나 상세 정보 로딩 및 상태 설정
+  // 세미나 상세 정보 로딩
   useEffect(() => {
     if (!id) {
       setState((prev) => ({
@@ -98,14 +98,13 @@ export const useSeminarState = (id: string | undefined) => {
         ...prev,
         initialState: formattedData,
         currentState: formattedData,
-        isLoading: prev.isLoading && isReviewLoading, // 리뷰 로딩이 끝나야 최종 로딩 완료
+        isLoading: prev.isLoading && isReviewLoading,
       }));
     }
   }, [id, detailResponse, isDetailLoading, detailError]);
 
-  // 이펙트 2: 후기 목록 로딩 및 상태 설정
+  // 후기 목록 로딩
   useEffect(() => {
-    // isDetailLoading이 끝나고 seminarId가 확정된 후에 실행
     if (isDetailLoading || !id) return;
 
     if (isReviewLoading) {
@@ -122,7 +121,6 @@ export const useSeminarState = (id: string | undefined) => {
       return;
     }
 
-    // reviewResponse가 undefined인 경우 (데이터가 없는 경우) 빈 배열로 처리
     const reviewsData = reviewResponse?.result || [];
     setState((prev) => ({
       ...prev,
@@ -157,13 +155,21 @@ export const useSeminarState = (id: string | undefined) => {
       application: '',
     };
 
-    if (seminarStartDate > seminarEndDate) {
+    const now = new Date();
+
+    // 현재 세미나 활성화 기간 검증
+    if (seminarStartDate < now) {
+      newErrors.seminar = '※ 과거의 날짜는 선택할 수 없습니다.';
+    } else if (seminarStartDate > seminarEndDate) {
       newErrors.seminar = '※ 시작일은 종료일보다 늦을 수 없습니다.';
     } else if (seminarStartDate.getTime() == seminarEndDate.getTime()) {
       newErrors.seminar = '※ 시작일과 종료일은 같을 수 없습니다.';
     }
 
-    if (applicationStartDate > applicationEndDate) {
+    // 세미나 신청 활성화 기간 검증
+    if (applicationStartDate < now) {
+      newErrors.application = '※ 과거의 날짜는 선택할 수 없습니다.';
+    } else if (applicationStartDate > applicationEndDate) {
       newErrors.application = '※ 시작일은 종료일보다 늦을 수 없습니다.';
     } else if (applicationStartDate.getTime() == applicationEndDate.getTime()) {
       newErrors.application = '※ 시작일과 종료일은 같을 수 없습니다.';
