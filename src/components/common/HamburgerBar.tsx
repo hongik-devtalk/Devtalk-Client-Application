@@ -9,6 +9,10 @@ type HamburgerBarProps = {
 const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
   const navigate = useNavigate();
 
+  const handleInquiryClick = () => {
+    window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
+  };
+
   return (
     <>
       {/* 햄버거 바 */}
@@ -42,7 +46,10 @@ const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
             <button className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200">
               FAQ
             </button>
-            <button className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200">
+            <button
+              onClick={handleInquiryClick}
+              className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200"
+            >
               문의하기
             </button>
           </nav>
