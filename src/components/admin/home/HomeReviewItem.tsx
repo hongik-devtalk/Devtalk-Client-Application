@@ -62,7 +62,7 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
           <p>{review.createdAt}</p>
         </div>
 
-        <p className="body-1-medium text-white white space-pre-line line-clamp-3">
+        <p className="body-1-medium text-white whitespace-pre-line line-clamp-3">
           {review.content}
         </p>
       </div>
