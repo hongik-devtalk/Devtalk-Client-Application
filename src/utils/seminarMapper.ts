@@ -3,6 +3,7 @@ import type {
   SpeakerData,
   UpdateSeminarRequest,
 } from '../types/SeminarManage/seminarDetail.api';
+import type { AddSeminarRequest } from '../types/SeminarManage/seminarAdd.api';
 import type { SeminarDetailState, SpeakerState } from '../types/SeminarManage/seminar.state';
 import { formatIsoToInput, formatInputToIso, formatDateToIso } from './formatDate';
 
@@ -51,6 +52,37 @@ export const mapStateToUpdateRequest = (state: SeminarDetailState): UpdateSemina
       .filter((speaker) => speaker.speakerId) // speakerId가 있는 것만
       .map((speaker) => ({
         speakerId: speaker.speakerId!,
+        name: speaker.name,
+        organization: speaker.organization,
+        history: speaker.history,
+        sessionTitle: speaker.sessionTitle,
+        sessionContent: speaker.sessionContent,
+      })),
+  };
+};
+
+export const mapStateToAddRequest = (state: SeminarDetailState): AddSeminarRequest => {
+  return {
+    seminarNum: state.seminarNum ?? 0,
+    seminarDate: formatInputToIso(state.seminarDate),
+    place: state.place,
+    topic: state.topic,
+    activeStartDate: formatDateToIso(state.seminarStartDate),
+    activeEndDate: formatDateToIso(state.seminarEndDate),
+    applyStartDate: formatDateToIso(state.applicationStartDate),
+    applyEndDate: formatDateToIso(state.applicationEndDate),
+    liveLink: state.liveLink || null,
+    speakers: state.speakers
+      .filter((speaker) => {
+        return (
+          speaker.name.trim() !== '' &&
+          speaker.organization.trim() !== '' &&
+          speaker.history.trim() !== '' &&
+          speaker.sessionTitle.trim() !== '' &&
+          speaker.sessionContent.trim() !== ''
+        );
+      })
+      .map((speaker) => ({
         name: speaker.name,
         organization: speaker.organization,
         history: speaker.history,

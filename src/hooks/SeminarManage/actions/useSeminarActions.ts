@@ -4,7 +4,10 @@ import {
   useSeminarFilesUpdate,
   useSeminarDelete,
 } from '../data/useSeminarDetail';
+import { useSeminarAdd } from '../data/useSeminarAdd';
 import { mapStateToUpdateRequest } from '../../../utils/seminarMapper';
+import type { AddSeminarRequest } from '../../../types/SeminarManage/seminarAdd.api';
+import type { PendingFiles } from '../../../types/SeminarManage/seminarFile.api';
 
 // 세미나 수정
 export const useSeminarUpdateActions = (seminarId: number | undefined) => {
@@ -25,7 +28,7 @@ export const useSeminarUpdateActions = (seminarId: number | undefined) => {
       const updateRequest = mapStateToUpdateRequest(currentState);
       await updateSeminarMutation.mutateAsync(updateRequest);
 
-      // 파일 수정 
+      // 파일 수정
       const hasFileChanges =
         pendingFiles.thumbnail ||
         pendingFiles.materials.length > 0 ||
@@ -82,5 +85,26 @@ export const useSeminarUpdateActions = (seminarId: number | undefined) => {
       updateSeminarMutation.isPending ||
       updateFilesMutation.isPending ||
       deleteSeminarMutation.isPending,
+  };
+};
+
+// 세미나 추가
+export const useSeminarAddActions = () => {
+  const addSeminarMutation = useSeminarAdd();
+
+  const handleAddSeminar = async (data: AddSeminarRequest, pendingFiles: PendingFiles) => {
+    try {
+      await addSeminarMutation.mutateAsync({ data, fileData: pendingFiles });
+      return { success: true };
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message || '세미나 추가에 실패했습니다. 다시 시도해주세요.';
+      throw new Error(errorMessage);
+    }
+  };
+
+  return {
+    handleAddSeminar,
+    isLoading: addSeminarMutation.isPending,
   };
 };

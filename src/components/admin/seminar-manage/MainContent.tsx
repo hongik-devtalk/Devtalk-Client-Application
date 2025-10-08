@@ -15,12 +15,13 @@ import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationD
 interface MainContentProps {
   showReviewList: boolean;
   currentState: SeminarDetailState;
-  reviews: ReviewData[];
+  reviews?: ReviewData[];
   pendingFiles: SeminarState['pendingFiles'];
   validationErrors: FormErrors;
   activationError: { seminar: string; application: string };
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
+  updateSpeakerProfile: (key: number, value: File | null) => void;
   handleRegisterReviewToHome?: (reviewId: number) => void;
   handleUnregisterReviewFromHome?: (reviewId: number) => void;
   handleDeleteReview?: (reviewId: number) => void;
@@ -35,6 +36,7 @@ const MainContent = ({
   activationError,
   updateSeminarData,
   updatePendingFiles,
+  updateSpeakerProfile,
   handleRegisterReviewToHome,
   handleUnregisterReviewFromHome,
   handleDeleteReview,
@@ -64,12 +66,12 @@ const MainContent = ({
     <SpeakersForm
       speakers={currentState.speakers}
       onChange={(speakers) => updateSeminarData({ speakers })}
-      updatePendingFiles={updatePendingFiles}
+      updateSpeakerProfile={updateSpeakerProfile}
     />
 
     {showReviewList && (
       <ReviewList
-        reviews={reviews}
+        reviews={reviews ?? []}
         onRegisterToHome={handleRegisterReviewToHome}
         onUnregisterFromHome={handleUnregisterReviewFromHome}
         onDelete={handleDeleteReview}
