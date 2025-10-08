@@ -37,7 +37,7 @@ const LiveVerification = () => {
       {isPending && <LoadingSpinner />}
       <div className="flex flex-col px-20 pt-28">
         <p className="flex text-white heading-2-bold pb-32">세미나 신청자 인증</p>
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 pb-[381px]">
           <input
             type="text"
             placeholder="학번"
@@ -54,7 +54,7 @@ const LiveVerification = () => {
           />
         </div>
       </div>
-      <div className="flex px-20 pt-[381px]">
+      <div className="flex px-20 pt-[20px] pb-[89px]">
         <Button text="인증하기" variant="default" onClick={handleSumbmit} />
       </div>
     </>
