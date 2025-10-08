@@ -11,13 +11,11 @@ const Live = () => {
 
   const handleAttend = () => {
     mutate(undefined, {
-      onSuccess: (res) => {
-        console.log('세미나 참석 완료', res);
+      onSuccess: () => {
         // navigate('/')
         // 추후 세미나 링크 추가
       },
-      onError: (err) => {
-        console.log('세미나 참석 실패', err);
+      onError: () => {
         alert('세미나 입장에 실패했습니다. 다시 시도해주세요.');
       },
     });
