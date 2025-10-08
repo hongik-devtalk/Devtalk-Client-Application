@@ -2,12 +2,12 @@ import { Button } from '../../../components/Button/Button';
 import seminarLive from '../../../assets/images/seminarLive.svg';
 import Header from '../../../components/common/Header';
 import { useSeminarAttend } from '../../../hooks/SeminarLive/useSeminarAttend';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const Live = () => {
   const { mutate, isPending } = useSeminarAttend();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleAttend = () => {
     mutate(undefined, {
@@ -32,7 +32,11 @@ const Live = () => {
       <div className="flex px-20 pt-20 pb-[89px]">
         <div className="flex flex-col gap-16">
           <Button text="세미나 Live 보러가기" variant="default" onClick={handleAttend} />
-          <Button text="세미나 후기 남기기" variant="sub" />
+          <Button
+            text="세미나 후기 남기기"
+            variant="sub"
+            onClick={() => navigate('/seminar/review')}
+          />
         </div>
       </div>
     </>
