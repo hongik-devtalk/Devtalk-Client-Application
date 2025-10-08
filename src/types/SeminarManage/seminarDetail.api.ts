@@ -1,11 +1,5 @@
 import type { CommonResponse } from '../common';
-
-export interface FileData {
-  fileName: string;
-  fileExtension: string;
-  fileSize: number;
-  fileUrl: string;
-}
+import type { FileData } from './seminarFile.api';
 
 export interface SpeakerData {
   speakerId?: number;

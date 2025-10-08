@@ -4,12 +4,11 @@ import type {
   UpdateSeminarRequest,
   UpdateSeminarFilesRequest,
 } from '../../../types/SeminarManage/seminarDetail.api';
-
 import {
   deleteSeminar,
   getSeminarDetail,
-  updateSeminar,
-  updateSeminarFiles,
+  putSeminar,
+  patchSeminarFiles,
 } from '../../../apis/SeminarDetail/seminarDetailApi';
 import { QUERY_KEYS } from '../../../constants/queryKey';
 
@@ -33,7 +32,7 @@ export const useSeminarDelete = (seminarId: number | undefined) => {
         queryClient.removeQueries({
           queryKey: [QUERY_KEYS.ADMIN_SEMINAR_DETAILS, seminarId],
         });
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ADMIN_SEMINAR_CARDS, seminarId] });
+        queryClient.refetchQueries({ queryKey: [QUERY_KEYS.ADMIN_SEMINAR_CARDS, seminarId] });
       }
     },
   });
@@ -44,7 +43,7 @@ export const useSeminarUpdate = (seminarId: number | undefined) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: UpdateSeminarRequest) => updateSeminar(seminarId!, data),
+    mutationFn: (data: UpdateSeminarRequest) => putSeminar(seminarId!, data),
     onSuccess: async () => {
       if (seminarId) {
         await queryClient.refetchQueries({
@@ -64,7 +63,7 @@ export const useSeminarFilesUpdate = (seminarId: number | undefined) => {
 
   return useMutation({
     mutationFn: (params: Omit<UpdateSeminarFilesRequest, 'seminarId'>) =>
-      updateSeminarFiles(seminarId!, params),
+      patchSeminarFiles(seminarId!, params),
     onSuccess: async () => {
       if (seminarId) {
         await queryClient.refetchQueries({

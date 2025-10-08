@@ -2,6 +2,9 @@ import React, { useState, memo } from 'react';
 import deleteIcon from '../../../assets/icons/common/delete.svg';
 import type { FileData } from '../../../types/SeminarManage/seminarDetail.api';
 
+const MAX_FILE_SIZE_MB = 50;
+const MAX_FILE_SIZE_BITES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
 interface AdminPresentationUploadProps {
   onUpload: (files: File[]) => void;
   onRemove: (index: number) => void;
@@ -23,7 +26,7 @@ const FileItem = memo(
   }) => (
     <div className="bg-grey-700 rounded-8 p-24 flex justify-between items-center">
       <span className="text-grey-200 subhead-2-medium">
-        {fileName} [{(fileSize / 1024).toFixed(0)}KB]
+        {fileName} [{(fileSize / (1024 * 1024)).toFixed(1)}MB]
       </span>
       {onRemove && (
         <button onClick={onRemove} className="cursor-pointer" type="button">
@@ -46,14 +49,36 @@ const AdminPresentationUpload: React.FC<AdminPresentationUploadProps> = ({
 
   const handleFiles = (newFiles: FileList | null) => {
     if (!newFiles) return;
+
     const fileArray = Array.from(newFiles);
 
-    if (files.length + fileArray.length > maxFiles) {
+    const validFiles: File[] = [];
+    const oversizedFiles: string[] = [];
+
+    fileArray.forEach((file) => {
+      if (file.size > MAX_FILE_SIZE_BITES) {
+        oversizedFiles.push(file.name);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (oversizedFiles.length > 0) {
+      alert(
+        `${oversizedFiles.join('\n')}\n\n위 파일은 ${MAX_FILE_SIZE_MB}MB를 초과하여 업로드 할 수 없습니다.`
+      );
+    }
+
+    if (validFiles.length === 0) {
+      return;
+    }
+
+    if (serverFiles.length + files.length + validFiles.length > maxFiles) {
       alert(`최대 ${maxFiles}개까지만 업로드할 수 있습니다.`);
       return;
     }
 
-    const updated = [...files, ...fileArray];
+    const updated = [...files, ...validFiles];
     setFiles(updated);
     onUpload(updated);
   };

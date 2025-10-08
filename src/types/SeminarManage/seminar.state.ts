@@ -1,4 +1,5 @@
-import type { FileData } from './seminarDetail.api';
+import type { FileData } from './seminarFile.api';
+import type { PendingFiles } from './seminarFile.api';
 import type { ReviewData } from './seminarReview.api';
 
 export interface SpeakerState {
@@ -31,6 +32,9 @@ export interface SeminarDetailState {
 
 export interface FormErrors {
   date?: string;
+  thumbnail?: string;
+  speakers?: Map<number, string>;
+  general?: string;
 }
 
 export interface SeminarState {
@@ -47,10 +51,5 @@ export interface SeminarState {
   };
 
   // 사용자가 업로드/삭제하여 변경된 파일
-  pendingFiles: {
-    thumbnail: File | null;
-    materials: File[];
-    speakerProfiles: Map<number, File | null>;
-    deletedMaterialUrls: string[];
-  };
+  pendingFiles: PendingFiles;
 }

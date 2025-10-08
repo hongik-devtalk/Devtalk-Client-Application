@@ -1,4 +1,3 @@
-// hooks/SeminarManage/useSeminarState.ts
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSeminarData } from '../data/useSeminarData';
 import { useSeminarValidation } from './useSeminarValidation';
@@ -87,8 +86,7 @@ export const useSeminarState = (id: string | undefined) => {
   }, [initialState, currentState, pendingFiles]);
 
   // 유효성 검사
-  const { validationErrors, activationError, isRequiredFieldsFilled, hasErrors } =
-    useSeminarValidation(currentState, pendingFiles);
+  const validation = useSeminarValidation(currentState, pendingFiles, seminarId ? 'edit' : 'add');
 
   // 상태 업데이트 함수
   const updateSeminarData = useCallback((updatedData: Partial<SeminarDetailState>) => {
@@ -98,6 +96,19 @@ export const useSeminarState = (id: string | undefined) => {
   // 파일 업데이트 함수
   const updatePendingFiles = useCallback((updates: Partial<SeminarState['pendingFiles']>) => {
     setPendingFiles((prev) => ({ ...prev, ...updates }));
+  }, []);
+
+  // 연사 프로필 업데이트 함수
+  const updateSpeakerProfile = useCallback((key: number, value: File | null) => {
+    setPendingFiles((prev) => {
+      const newSpeakerProfiles = new Map(prev.speakerProfiles);
+      if (value === null) {
+        newSpeakerProfiles.delete(key);
+      } else {
+        newSpeakerProfiles.set(key, value);
+      }
+      return { ...prev, speakerProfiles: newSpeakerProfiles };
+    });
   }, []);
 
   const setInitialState = useCallback((newState: SeminarDetailState) => {
@@ -118,13 +129,11 @@ export const useSeminarState = (id: string | undefined) => {
     isLoading,
     error: error ? '데이터를 불러오는데 실패했습니다.' : null,
     isDirty,
-    validationErrors,
-    activationError,
     pendingFiles,
-    hasErrors,
-    isRequiredFieldsFilled,
+    ...validation,
     updateSeminarData,
     updatePendingFiles,
+    updateSpeakerProfile,
     setInitialState,
   };
 };

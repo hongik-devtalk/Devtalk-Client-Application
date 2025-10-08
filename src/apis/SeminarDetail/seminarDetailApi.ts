@@ -19,7 +19,7 @@ export const deleteSeminar = async (seminarId: number): Promise<EmptyResultRespo
 };
 
 // 세미나 기본 정보 수정
-export const updateSeminar = async (
+export const putSeminar = async (
   seminarId: number,
   payload: UpdateSeminarRequest
 ): Promise<EmptyResultResponse> => {
@@ -28,7 +28,7 @@ export const updateSeminar = async (
 };
 
 // 세미나 파일 수정
-export const updateSeminarFiles = async (
+export const patchSeminarFiles = async (
   seminarId: number,
   params: UpdateSeminarFilesRequest
 ): Promise<EmptyResultResponse> => {
@@ -37,7 +37,7 @@ export const updateSeminarFiles = async (
   // FormData 생성
   const formData = new FormData();
 
-  // deleteMaterialUrls 추가 
+  // deleteMaterialUrls 추가
   if (deleteMaterialUrls.length > 0) {
     deleteMaterialUrls.forEach((url) => {
       formData.append('deleteMaterialUrls', url);
