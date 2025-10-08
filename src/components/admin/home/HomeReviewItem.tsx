@@ -93,7 +93,10 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
                 </li>
                 <li className="border-b border-black">
                   <button
-                    onClick={() => onMoveDown(review.reviewId)}
+                    onClick={() => {
+                      onMoveDown(review.reviewId);
+                      setIsMenuOpen(false);
+                    }}
                     className="w-full text-center py-[6px] hover:bg-grey-600 cursor-pointer"
                   >
                     순위 내리기
