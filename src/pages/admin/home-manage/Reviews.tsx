@@ -20,18 +20,7 @@ const Reviews = () => {
 
   useEffect(() => {
     if (Array.isArray(data?.result)) {
-      const mapped = data.result.map((r) => ({
-        reviewId: r.reviewId,
-        score: r.rating,
-        content: r.content,
-        createdAt: r.createdAt,
-        isPublic: r.visible,
-        rank: r.order,
-        department: r.department,
-        grade: r.grade,
-        nextTopic: r.nextTopic ?? '',
-      }));
-      setReviews(mapped);
+      setReviews(data.result);
     }
   }, [data]);
 
@@ -95,7 +84,7 @@ const Reviews = () => {
         {reviews.map((review) => (
           <div key={review.reviewId} className="relative">
             <span className="absolute -top-3 -left-3 bg-grey-900 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm heading-1-semibold">
-              {review.rank}
+              {review.order}
             </span>
             <HomeReviewItem
               key={review.reviewId}

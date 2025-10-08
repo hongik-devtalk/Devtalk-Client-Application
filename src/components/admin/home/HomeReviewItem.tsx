@@ -4,14 +4,14 @@ import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
 
 export interface Review {
   reviewId: string;
-  score: number;
+  rating: number;
+  visible: boolean;
+  order: number;
+  content: string;
   department: string;
   grade: string;
-  content: string;
   nextTopic: string;
-  isPublic: boolean;
   createdAt: string;
-  rank: number;
 }
 
 interface HomeReviewItemProps {
@@ -45,13 +45,13 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
     <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between min-h-[220px] border-none">
       <div>
         <div className="flex justify-between items-start mb-3">
-          <StarRating rating={review.score} />
+          <StarRating rating={review.rating} />
           <span
             className={`caption-semibold px-3 py-1 rounded-full ${
-              review.isPublic ? 'bg-green-500/20 text-green-300' : 'bg-green-900/20 text-green-800'
+              review.visible ? 'bg-green-500/20 text-green-300' : 'bg-green-900/20 text-green-800'
             }`}
           >
-            {review.isPublic ? '공개' : '비공개'}
+            {review.visible ? '공개' : '비공개'}
           </span>
         </div>
 
@@ -77,7 +77,7 @@ const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
             <img src={moremenu} className="cursor-pointer" />
           </button>
 
-          {isMenuOpen && review.isPublic && (
+          {isMenuOpen && review.visible && (
             <div className="absolute bottom-0 right-0 translate-y-full w-[140px] bg-grey-800 rounded-md z-10">
               <ul className="caption-semibold flex flex-col">
                 <li className="border-b border-black">
