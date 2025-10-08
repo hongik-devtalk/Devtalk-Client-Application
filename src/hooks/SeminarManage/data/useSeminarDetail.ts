@@ -45,9 +45,9 @@ export const useSeminarUpdate = (seminarId: number | undefined) => {
 
   return useMutation({
     mutationFn: (data: UpdateSeminarRequest) => updateSeminar(seminarId!, data),
-    onSuccess: () => {
+    onSuccess: async () => {
       if (seminarId) {
-        queryClient.invalidateQueries({
+        await queryClient.refetchQueries({
           queryKey: [QUERY_KEYS.ADMIN_SEMINAR_DETAILS, seminarId],
         });
         queryClient.invalidateQueries({
@@ -65,9 +65,9 @@ export const useSeminarFilesUpdate = (seminarId: number | undefined) => {
   return useMutation({
     mutationFn: (params: Omit<UpdateSeminarFilesRequest, 'seminarId'>) =>
       updateSeminarFiles(seminarId!, params),
-    onSuccess: () => {
+    onSuccess: async () => {
       if (seminarId) {
-        queryClient.invalidateQueries({
+        await queryClient.refetchQueries({
           queryKey: [QUERY_KEYS.ADMIN_SEMINAR_DETAILS, seminarId],
         });
         queryClient.invalidateQueries({

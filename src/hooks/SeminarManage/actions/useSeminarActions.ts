@@ -6,7 +6,7 @@ import {
 } from '../data/useSeminarDetail';
 import { mapStateToUpdateRequest } from '../../../utils/seminarMapper';
 
-// 세미나 수정 액션 훅
+// 세미나 수정
 export const useSeminarUpdateActions = (seminarId: number | undefined) => {
   const updateSeminarMutation = useSeminarUpdate(seminarId);
   const updateFilesMutation = useSeminarFilesUpdate(seminarId);
@@ -25,7 +25,7 @@ export const useSeminarUpdateActions = (seminarId: number | undefined) => {
       const updateRequest = mapStateToUpdateRequest(currentState);
       await updateSeminarMutation.mutateAsync(updateRequest);
 
-      // 파일 수정 (파일이 변경된 경우에만)
+      // 파일 수정 
       const hasFileChanges =
         pendingFiles.thumbnail ||
         pendingFiles.materials.length > 0 ||

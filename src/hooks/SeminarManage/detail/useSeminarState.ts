@@ -58,9 +58,16 @@ export const useSeminarState = (id: string | undefined) => {
       return;
     }
 
-    if (seminarData && !initialState) {
+    if (seminarData) {
       setInitialStateValue(seminarData);
       setCurrentState(seminarData);
+
+      setPendingFiles({
+        thumbnail: null,
+        deletedMaterialUrls: [],
+        materials: [],
+        speakerProfiles: new Map(),
+      });
     }
   }, [id, seminarData, initialState]);
 

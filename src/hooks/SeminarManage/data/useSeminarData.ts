@@ -1,6 +1,7 @@
 import { useSeminarDetail } from './useSeminarDetail';
 import { useSeminarReviews } from './useSeminarReviews';
 import { mapApiDataToState } from '../../../utils/seminarMapper';
+import { useMemo } from 'react';
 
 export const useSeminarData = (seminarId: number | undefined) => {
   const {
@@ -15,9 +16,14 @@ export const useSeminarData = (seminarId: number | undefined) => {
     error: reviewError,
   } = useSeminarReviews(seminarId);
 
-  const seminarData = detailResponse?.result ? mapApiDataToState(detailResponse.result) : null;
+  const seminarData = useMemo(() => {
+    if (!detailResponse?.result) return null;
+    return mapApiDataToState(detailResponse.result);
+  }, [detailResponse?.result]);
 
-  const reviews = reviewResponse?.result || [];
+  const reviews = useMemo(() => {
+    return reviewResponse?.result || [];
+  }, [reviewResponse?.result]);
 
   return {
     seminarData,

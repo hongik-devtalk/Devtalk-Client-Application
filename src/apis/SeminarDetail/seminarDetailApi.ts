@@ -37,7 +37,7 @@ export const updateSeminarFiles = async (
   // FormData 생성
   const formData = new FormData();
 
-  // deleteMaterialUrls 추가 (배열을 JSON 문자열로 변환하거나 각각 추가)
+  // deleteMaterialUrls 추가 
   if (deleteMaterialUrls.length > 0) {
     deleteMaterialUrls.forEach((url) => {
       formData.append('deleteMaterialUrls', url);
