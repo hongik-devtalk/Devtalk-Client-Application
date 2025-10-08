@@ -10,6 +10,9 @@ const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
   const navigate = useNavigate();
 
   const handleInquiryClick = () => {
+    {
+      /* 추후 하드코딩 바꾸기 */
+    }
     window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
   };
 
