@@ -30,7 +30,7 @@ const Questions = () => {
     speaker2: speakers[1]?.speakerName || '두번째 연사',
   };
 
-  const getSeminarTitle = (id: string) => `제 ${id}회 Devtalk Seminar`;
+  const seminarTitle = `제 ${questionsData?.result?.seminarNum}회 Devtalk Seminar`;
 
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
@@ -46,11 +46,11 @@ const Questions = () => {
       <div className="flex items-center justify-between ml-[39px] mr-7 mb-[23px]">
         <div className="flex items-center">
           <BackButton className="w-7 h-7 flex-shrink-0 mr-[39px]" />
-          <h1 className="text-white heading-1-bold">{getSeminarTitle(id!)}-연사별 질문</h1>
+          <h1 className="text-white heading-1-bold">{seminarTitle}-연사별 질문</h1>
         </div>
         <ExcelDownloadButton
           data={applicants}
-          fileName={`${getSeminarTitle(id!)}_연사별_질문.xlsx`}
+          fileName={`${seminarTitle}_연사별_질문.xlsx`}
           className="subhead-1-semibold"
           headers={excelHeaders}
         />

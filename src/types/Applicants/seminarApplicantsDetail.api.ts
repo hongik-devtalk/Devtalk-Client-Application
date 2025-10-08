@@ -13,4 +13,9 @@ export interface ApplicantData {
   inflowPath: string;
 }
 
-export type SeminarApplicantsDetailResponse = CommonResponse<ApplicantData[]>;
+export interface SeminarApplicantsDetailResult {
+  seminarNum: number;
+  students: ApplicantData[];
+}
+
+export type SeminarApplicantsDetailResponse = CommonResponse<SeminarApplicantsDetailResult>;

@@ -24,7 +24,7 @@ const Detail = () => {
 
   // API 응답 데이터를 컴포넌트에서 사용하는 형식으로 변환
   const applicants =
-    applicantsData?.result?.map((applicant, index) => ({
+    applicantsData?.result?.students?.map((applicant, index) => ({
       id: index + 1,
       seminarName: applicant.topic,
       studentId: applicant.studentNum,
@@ -37,7 +37,7 @@ const Detail = () => {
       referralSource: getInflowPathLabel(applicant.inflowPath),
     })) || [];
 
-  const getSeminarTitle = (id: string) => `제 ${id}회 Devtalk Seminar`;
+  const seminarTitle = `제 ${applicantsData?.result?.seminarNum}회 Devtalk Seminar`;
 
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
@@ -57,11 +57,11 @@ const Detail = () => {
       <div className="flex items-center justify-between ml-[39px] mr-7 mb-[23px]">
         <div className="flex items-center">
           <BackButton className="w-7 h-7 flex-shrink-0 mr-[39px]" />
-          <h1 className="text-white heading-1-bold">{getSeminarTitle(id!)}-신청자 개인정보</h1>
+          <h1 className="text-white heading-1-bold">{seminarTitle}-신청자 개인정보</h1>
         </div>
         <ExcelDownloadButton
           data={applicants}
-          fileName={`${getSeminarTitle(id!)}_신청자_개인정보.xlsx`}
+          fileName={`${seminarTitle}_신청자_개인정보.xlsx`}
           className="subhead-1-semibold"
           headers={excelHeaders}
         />

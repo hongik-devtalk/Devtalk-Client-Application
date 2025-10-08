@@ -19,6 +19,7 @@ export interface Student {
 }
 
 export interface SeminarQuestionsResult {
+  seminarNum: number;
   speakers: Speaker[];
   students: Student[];
 }
