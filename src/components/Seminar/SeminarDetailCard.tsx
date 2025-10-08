@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getSeminarDetail } from '../../apis/seminarDetail';
 import LoadingSpinner from '../common/LoadingSpinner';
 import { formatDate } from '../../utils/formatDate';
+import { useState } from 'react';
+import axios from 'axios';
 
 const SeminarDetailCard = ({ id }: { id: number }) => {
   const { data, isLoading } = useQuery({
@@ -12,22 +14,43 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
 
   const { seminarId, topic, thumbnailUrl, seminarDate, place, fileUrls } = data?.result || {};
   const formDate = formatDate(seminarDate ?? '');
-  const handleDownloadFiles = () => {
+
+  // ✅ 다운로드 진행 중 UI용
+  const [downloading, setDownloading] = useState(false);
+
+  // ✅ blob 다운로드 방식
+  const handleDownloadFiles = async () => {
     if (!fileUrls || fileUrls.length === 0) {
       alert('다운로드할 파일이 없습니다.');
       return;
     }
 
-    fileUrls.forEach((url) => {
-      const fileName = url.split('/').pop() || 'download';
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
+    try {
+      setDownloading(true);
+
+      for (const url of fileUrls) {
+        const res = await axios.get(url, {
+          responseType: 'blob',
+        });
+
+        const filename = 'devtalik.pdf';
+        const blobUrl = URL.createObjectURL(res.data);
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(blobUrl);
+      }
+    } catch (e) {
+      console.error(e);
+      console.log('파일 다운로드 중 오류가 발생했습니다.', e);
+      alert('파일 다운로드 중 오류가 발생했습니다.');
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
@@ -52,7 +75,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
       </div>
       <div
         className="w-[102px] h-[25px] gap-10 px-8 py-4 rounded-4 bg-grey-900 cursor-pointer text-center flex items-center"
-        onClick={handleDownloadFiles}
+        onClick={() => handleDownloadFiles()}
       >
         <span className="text-gradient caption-semibold ">발표자료 다운로드</span>
       </div>
