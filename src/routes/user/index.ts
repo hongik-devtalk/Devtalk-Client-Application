@@ -3,6 +3,7 @@ import { Navigate, Outlet, type RouteObject } from 'react-router-dom';
 import { STORAGE_KEY } from '../../constants/key';
 import { userPublicRoutes } from './UserPublicRoutes';
 import { userProtectedRoutes } from './UserProtectedRoutes';
+import UserErrorPage from '../../pages/user/UserErrorPage';
 
 // 토큰 없는 채로 protected로 이동 시, 인증화면(/seminar/live/verification)으로 이동
 const UserProtectedWrapper = () => {
@@ -26,6 +27,10 @@ export const userRoutes = [
     children: [
       { element: React.createElement(UserPublicWrapper), children: userPublicRoutes },
       { element: React.createElement(UserProtectedWrapper), children: userProtectedRoutes },
+      {
+        path: '*',
+        element: React.createElement(UserErrorPage),
+      },
     ],
   },
 ] satisfies RouteObject[];
