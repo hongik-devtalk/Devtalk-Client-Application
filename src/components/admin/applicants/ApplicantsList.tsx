@@ -44,7 +44,7 @@ const ApplicantsList = () => {
       {seminars.map((seminar, index) => (
         <div key={seminar.seminarId}>
           {/* 세미나 제목 */}
-          <div className="cursor-pointer py-5" onClick={() => toggleExpanded(seminar.seminarNum)}>
+          <div className="cursor-pointer py-20" onClick={() => toggleExpanded(seminar.seminarNum)}>
             <h3 className="text-white heading-2-semibold">{getSeminarTitle(seminar.seminarNum)}</h3>
           </div>
 
@@ -76,7 +76,7 @@ const ApplicantsList = () => {
 
           {/* 세미나 사이 구분선 */}
           {index < seminars.length && (
-            <div className="w-[1119px] h-0 flex-shrink-0 border-b-[1.5px] border-white ml-[27px] mr-[41px]"></div>
+            <div className="w-full h-0 flex-shrink-0 border-b-[1.5px] border-white"></div>
           )}
         </div>
       ))}
