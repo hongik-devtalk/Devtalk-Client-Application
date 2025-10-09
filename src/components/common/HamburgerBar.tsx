@@ -9,6 +9,10 @@ type HamburgerBarProps = {
 const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
   const navigate = useNavigate();
 
+  const handleIntroduceClick = () => {
+    navigate('/');
+  };
+
   const handleInquiryClick = () => {
     {
       /* 추후 하드코딩 바꾸기 */
@@ -30,8 +34,11 @@ const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
           </div>
 
           <nav className="flex flex-col text-grey-300 subhead-1-semibold">
-            <button className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200">
-              데브톡 소개
+            <button
+              className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200"
+              onClick={handleIntroduceClick}
+            >
+              소개
             </button>
             <button
               className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200"
