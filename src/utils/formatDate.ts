@@ -1,5 +1,5 @@
 export const formatDate = (isoString: string) => {
-  //iso 형식으로 변환
+  //iso 형식으로 입력
   const safe = isoString.replace(/\./g, '-').replace(' ', 'T');
 
   const date = new Date(safe);
