@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
 import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
 import type { ReviewData } from '../../../../types/SeminarManage/seminarReview.api';
+import { formatAdminDate } from '../../../../utils/formatDate';
 
 interface ReviewListItemCardProps {
   review: ReviewData;
@@ -63,7 +64,7 @@ const ReviewListItemCard = ({
           <p>
             {review.department} {review.grade}
           </p>
-          <p>{review.createdAt}</p>
+          <p>{formatAdminDate(review.createdAt)}</p>
         </div>
 
         <p className="body-1-medium text-white whitespace-pre-line">{review.content}</p>
