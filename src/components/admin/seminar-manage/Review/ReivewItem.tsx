@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
 import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
 import type { ReviewData } from '../../../../types/SeminarManage/seminarReview.api';
-import { formatDate } from '../../../../utils/formatDate';
 
 interface ReviewListItemCardProps {
   review: ReviewData;
