@@ -26,7 +26,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
           responseType: 'blob',
         });
 
-        const filename = 'devtalik.pdf';
+        const filename = `devtalik_${seminarNum}회차`;
         const blobUrl = URL.createObjectURL(res.data);
 
         const a = document.createElement('a');
