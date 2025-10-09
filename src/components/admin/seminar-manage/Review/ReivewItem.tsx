@@ -64,12 +64,10 @@ const ReviewListItemCard = ({
           <p>
             {review.department} {review.grade}
           </p>
-          <p>{formatDate(review.createdAt)}</p>
+          <p>{review.createdAt}</p>
         </div>
 
-        <p className="body-1-medium text-white whitespace-pre-line">
-          {review.content}
-        </p>
+        <p className="body-1-medium text-white whitespace-pre-line">{review.content}</p>
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
