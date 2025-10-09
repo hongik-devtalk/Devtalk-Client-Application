@@ -35,6 +35,7 @@ const Detail = () => {
     activationError,
     updateSeminarData,
     updatePendingFiles,
+    updateSpeakerProfile,
     hasErrors,
     pendingFiles,
   } = useSeminarState(id);
@@ -151,6 +152,7 @@ const Detail = () => {
         activationError={activationError}
         updateSeminarData={updateSeminarData}
         updatePendingFiles={updatePendingFiles}
+        updateSpeakerProfile={updateSpeakerProfile}
         handleRegisterReviewToHome={handleRegisterReviewToHome}
         handleUnregisterReviewFromHome={handleUnregisterReviewFromHome}
         handleDeleteReview={handleDeleteReviewModal}

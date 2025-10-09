@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react';
 import deleteIcon from '../../../assets/icons/common/delete.svg';
-import type { FileData } from '../../../types/SeminarManage/seminarDetail.api';
+import type { FileData } from '../../../types/SeminarManage/seminarFile.api';
 
 const MAX_FILE_SIZE_MB = 50;
 const MAX_FILE_SIZE_BITES = MAX_FILE_SIZE_MB * 1024 * 1024;

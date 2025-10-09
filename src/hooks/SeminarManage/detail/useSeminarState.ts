@@ -58,8 +58,14 @@ export const useSeminarState = (id: string | undefined) => {
     }
 
     if (seminarData) {
-      setInitialStateValue(seminarData);
-      setCurrentState(seminarData);
+      // 2부의 연사진 정보가 없으면 빈 데이터로
+      const normalizedDate = {
+        ...seminarData,
+        speakers: [seminarData.speakers[0], seminarData.speakers[1] || { ...blankSpeakerState }],
+      };
+
+      setInitialStateValue(normalizedDate);
+      setCurrentState(normalizedDate);
 
       setPendingFiles({
         thumbnail: null,
@@ -68,7 +74,7 @@ export const useSeminarState = (id: string | undefined) => {
         speakerProfiles: new Map(),
       });
     }
-  }, [id, seminarData, initialState]);
+  }, [id, seminarData]);
 
   // isDirty 상태
   const isDirty = useMemo(() => {

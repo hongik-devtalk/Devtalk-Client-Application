@@ -32,7 +32,7 @@ export const useSeminarDelete = (seminarId: number | undefined) => {
         queryClient.removeQueries({
           queryKey: [QUERY_KEYS.ADMIN_SEMINAR_DETAILS, seminarId],
         });
-        queryClient.refetchQueries({ queryKey: [QUERY_KEYS.ADMIN_SEMINAR_CARDS, seminarId] });
+        queryClient.refetchQueries({ queryKey: [QUERY_KEYS.ADMIN_SEMINAR_CARDS] });
       }
     },
   });
