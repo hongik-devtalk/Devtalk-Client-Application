@@ -26,8 +26,8 @@ const SeminarDetail = () => {
 
   return (
     <div>
+      <Header />
       <div className="flex flex-col gap-32 bg-black">
-        <Header />
         <SeminarDetailCard id={Number(id)} />
         <div
           ref={lectureRef}
