@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getSeminarDetail } from '../../apis/seminarDetail';
 import LoadingSpinner from '../common/LoadingSpinner';
 import { formatDate } from '../../utils/formatDate';
-import { useState } from 'react';
 import axios from 'axios';
 
 const SeminarDetailCard = ({ id }: { id: number }) => {
@@ -12,13 +11,9 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
     enabled: Number.isFinite(id),
   });
 
-  const { seminarId, topic, thumbnailUrl, seminarDate, place, fileUrls } = data?.result || {};
+  const { seminarNum, topic, thumbnailUrl, seminarDate, place, fileUrls } = data?.result || {};
   const formDate = formatDate(seminarDate ?? '');
 
-  // ✅ 다운로드 진행 중 UI용
-  const [downloading, setDownloading] = useState(false);
-
-  // ✅ blob 다운로드 방식
   const handleDownloadFiles = async () => {
     if (!fileUrls || fileUrls.length === 0) {
       alert('다운로드할 파일이 없습니다.');
@@ -26,8 +21,6 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
     }
 
     try {
-      setDownloading(true);
-
       for (const url of fileUrls) {
         const res = await axios.get(url, {
           responseType: 'blob',
@@ -45,11 +38,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
         URL.revokeObjectURL(blobUrl);
       }
     } catch (e) {
-      console.error(e);
-      console.log('파일 다운로드 중 오류가 발생했습니다.', e);
       alert('파일 다운로드 중 오류가 발생했습니다.');
-    } finally {
-      setDownloading(false);
     }
   };
 
@@ -58,7 +47,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
       {isLoading && <LoadingSpinner />}
       <div className="w-[335px] gap-[31px] flex flex-col">
         <div className="flex flex-col gap-8 justify-between">
-          <div className="subhead-2-medium text-grey-100">{seminarId}회차</div>
+          <div className="subhead-2-medium text-grey-100">{seminarNum}회차</div>
           <div className="heading-2-bold text-gradient">{topic}</div>
         </div>
         <img src={thumbnailUrl} alt="seminar" className="h-[220px] rounded-8 object-cover " />
