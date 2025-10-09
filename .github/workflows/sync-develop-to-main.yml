@@ -3,8 +3,8 @@ name: Sync develop to main
 on:
   # 워크플로우 실행 조건들
   schedule:
-    # 30분마다 실행 (매 시간 0분, 30분)
-    - cron: '0,30 * * * *'
+    # 10분마다 실행 (매 시간 0, 10, 20, 30, 40, 50분)
+    - cron: '0,10,20,30,40,50 * * * *'
   workflow_dispatch: # GitHub UI에서 수동 실행 가능
 
 # GitHub Actions가 필요한 권한들
