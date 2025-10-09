@@ -1,5 +1,8 @@
 export const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
+  //iso 형식으로 변환
+  const safe = isoString.replace(/\./g, '-').replace(' ', 'T');
+
+  const date = new Date(safe);
 
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -25,7 +28,6 @@ export const formatDate = (isoString: string) => {
 // YYY-MM-DDTHH:mm:ss -> YYYY.MM.DD.HH:mm
 export const formatIsoToInput = (isoString: string): string => {
   if (!isoString) return '';
-
   const date = new Date(isoString);
 
   const year = date.getFullYear();
