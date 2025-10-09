@@ -52,7 +52,7 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
             >
               <p className="text-gradient">10회차 데브톡 신청하기</p> {/* 추후 하드코딩 바꾸기 */}
             </button>
-            <hr className="border-gray-700 mt-[28px] mb-[8px]" />
+            <hr className="border-grey-700 mt-[28px] mb-[8px]" />
             <button
               onClick={handleFAQClick}
               className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200"
