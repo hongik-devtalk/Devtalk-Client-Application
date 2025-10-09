@@ -12,7 +12,7 @@ import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const SeminarDetail = () => {
   const { id } = useParams();
-  const sessionId = Number(id);
+  const seminarId = Number(id);
   const lectureRef = useRef<HTMLDivElement>(null);
   const secondRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -29,8 +29,8 @@ const SeminarDetail = () => {
   }, [secondVisible]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['seminarReview', sessionId],
-    queryFn: () => getSeminarReview(sessionId),
+    queryKey: ['seminarReview', seminarId],
+    queryFn: () => getSeminarReview(seminarId),
   });
 
   const seminarReviews = data?.result || [];
@@ -39,19 +39,19 @@ const SeminarDetail = () => {
     <div>
       <div className="flex flex-col gap-32 bg-black">
         <Header />
-        <SeminarDetailCard id={sessionId} />
+        <SeminarDetailCard id={seminarId} />
         <div
           ref={lectureRef}
-          className={`w-[375px] h-[2170px] flex flex-col gap-24 px-20 transition-all duration-500 ease-out transform ${
+          className={`w-[375px] flex flex-col gap-24 px-20 transition-all duration-500 ease-out transform ${
             lectureVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           <div className="heading-3-semibold text-white">연사 소개</div>
           <div className="flex flex-col gap-10 justify-center items-center bg-black ">
-            <SeminarDetailLectureCard seminarId={sessionId} index={0} />
+            <SeminarDetailLectureCard seminarId={seminarId} index={0} />
 
             <div ref={secondRef}>
-              <SeminarDetailLectureCard seminarId={sessionId} index={1} />
+              <SeminarDetailLectureCard seminarId={seminarId} index={1} />
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ const SeminarDetail = () => {
               //등록된 후기 중 최대 3개까지 표시
               seminarReviews.slice(0, 3).map((review) => (
                 <div key={review.reviewId}>
-                  <ReviewCard session={sessionId} rating={review.score} content={review.strength} />
+                  <ReviewCard session={seminarId} rating={review.score} content={review.strength} />
                 </div>
               ))
             )}
