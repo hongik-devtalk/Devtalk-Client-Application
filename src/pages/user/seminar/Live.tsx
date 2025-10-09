@@ -1,11 +1,14 @@
 import { Button } from '../../../components/Button/Button';
 import seminarLive from '../../../assets/images/seminarLive.svg';
 import Header from '../../../components/common/Header';
+import { useState } from 'react';
 
 const Live = () => {
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   return (
     <>
-      <Header />
+      <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       <div className="flex flex-col pt-28 px-20 gap-24 pb-[10px]">
         <p className="text-white heading-2-bold">제 10회 Devtalk Seminar</p>
         <img src={seminarLive} alt="graphic" className="w-[335px] h-[435px]" />

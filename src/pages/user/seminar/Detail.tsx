@@ -5,7 +5,7 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const SeminarDetail = () => {
   const { id } = useParams();
@@ -17,6 +17,8 @@ const SeminarDetail = () => {
   const secondVisible = useIsVisible(secondRef as React.RefObject<HTMLDivElement>);
   const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
 
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (secondVisible && secondRef.current) {
@@ -26,7 +28,7 @@ const SeminarDetail = () => {
 
   return (
     <div>
-      <Header />
+      <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       <div className="flex flex-col gap-32 bg-black">
         <SeminarDetailCard id={Number(id)} />
         <div

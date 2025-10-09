@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/Button/Button';
 import Header from '../../../components/common/Header';
+import { useState } from 'react';
 
 const LiveVerification = () => {
   const navigate = useNavigate();
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   return (
     <>
-      <Header />
+      <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       <div className="flex flex-col px-20 pt-28">
         <p className="flex text-white heading-2-bold pb-32">세미나 신청자 인증</p>
         <div className="flex flex-col gap-12">
