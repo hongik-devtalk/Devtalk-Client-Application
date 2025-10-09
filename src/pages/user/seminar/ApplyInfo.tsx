@@ -7,10 +7,31 @@ import { useState, useEffect } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
+import { getSeminarList } from '../../../apis/seminarList';
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
   const [proceed, setProceed] = useState<null | (() => void)>(null);
+  const [backTo, setBackTo] = useState('/seminar');
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await getSeminarList();
+        const list = res?.result?.seminarList ?? [];
+        const activeSeminar = list.find((s: any) => s.isActive);
+        if (mounted && activeSeminar) {
+          setBackTo(`/seminar/${activeSeminar.seminarId}`);
+        }
+      } catch (e) {
+        console.error('세미나 리스트 조회 실패', e);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
@@ -32,7 +53,7 @@ const ApplyInfo = () => {
 
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
-      <ApplyHeader backTo="/seminar/:id" />
+      <ApplyHeader backTo={backTo} />
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
