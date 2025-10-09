@@ -11,7 +11,7 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
   const session = data?.result?.[index];
   const { title, description, speaker } = session || {};
 
-  return (
+  return session ? (
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start">
       {isLoading && <div>Loading...</div>}
       <div className="absolute top-0 w-full h-[427px] top-gradient" />
@@ -44,7 +44,7 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default SeminarDetailLectureCard;
