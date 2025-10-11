@@ -3,10 +3,11 @@ import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
 import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 import ApplyForm from '../../../components/SeminarApply/ApplyForm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
+import { useApplyFlow } from '../../../stores/useApplyFlow';
 import { getSeminarList } from '../../../apis/seminarList';
 import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
@@ -24,6 +25,8 @@ const ApplyInfo = () => {
     startDate: string;
     endDate: string;
   } | null>(null);
+  const { setSeminarId } = useApplyFlow();
+  const setOnceRef = useRef(false); // StrictMode 중복세팅 방지
 
   useEffect(() => {
     let mounted = true;
@@ -37,6 +40,12 @@ const ApplyInfo = () => {
 
         if (mounted && activeSeminar) {
           const seminarId = activeSeminar.seminarId;
+          // seminarId 기억
+          if (!setOnceRef.current) {
+            setSeminarId(seminarId);
+            setOnceRef.current = true;
+          }
+
           setBackTo(`/seminar/${seminarId}`);
 
           // 세미나 상세 조회 요청
@@ -55,7 +64,7 @@ const ApplyInfo = () => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [setSeminarId]);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
