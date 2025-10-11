@@ -91,12 +91,10 @@ const ApplyInfo = () => {
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
       <ApplyHeader backTo={backTo} />
-      {/* <ApplyHeader backTo="/seminar/:id" /> */}
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
             <h1 className="heading-2-bold text-white">제 {seminarNum}회 Devtalk Seminar</h1>
-            {/* <h1 className="heading-2-bold text-white">제 10회 Devtalk Seminar</h1> */}
             <div className="flex flex-col gap-48">
               {/* Outline 영역 */}
               <div className="flex flex-col gap-20">
@@ -105,12 +103,10 @@ const ApplyInfo = () => {
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">일시</p>
                     <p className="body-1-medium text-white">{seminarDate}</p>
-                    {/* <p className="body-1-medium text-white">2025. 10. 4.(토) 오후 6:30~8:30</p> */}
                   </div>
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">장소</p>
                     <p className="body-1-medium text-white">{place}</p>
-                    {/* <p className="body-1-medium text-white">홍익대학교 L0201</p> */}
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">
