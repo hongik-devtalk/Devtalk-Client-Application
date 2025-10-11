@@ -13,7 +13,7 @@ import type {
 } from '../../../types/Applicants/seminarApply';
 import { mapParticipation, mapInflowPath } from '../../../utils/mapEnums';
 
-const SESSION_IDS = [3, 4]; // 실제 세션 ID로 교체
+const SESSION_IDS = [1, 2]; // 실제 세션 ID로 교체
 
 const ApplyQuestion = () => {
   const draft = useApplyDraft();
