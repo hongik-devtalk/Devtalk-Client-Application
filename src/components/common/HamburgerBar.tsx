@@ -10,6 +10,7 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
 
   const handleIntroduceClick = () => {
     navigate('/');
+    _onClose();
   };
 
   const handleFAQClick = () => {
