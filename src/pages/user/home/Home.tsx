@@ -13,7 +13,7 @@ import Carousel from '../../../components/LectureCard/Carousel';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardSpeaker';
 import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 
@@ -33,6 +33,7 @@ const Home = () => {
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const seminarId = 1;
 
   const now = new Date();
   const isActive = now > new Date(seminar.activeStartDate) && now < new Date(seminar.activeEndDate);
@@ -99,16 +100,16 @@ const Home = () => {
 
             <div className="flex flex-col snap-center pb-[80px]">
               <Carousel>
-                <LectureCardMain />
-                <LectureCardSpeaker />
-                <LectureCardSession />
+                <LectureCardMain seminarId={seminarId} index={0} />
+                <LectureCardSpeaker seminarId={seminarId} index={0} />
+                <LectureCardSession seminarId={seminarId} index={0} />
               </Carousel>
             </div>
             <div className="flex flex-col snap-center">
               <Carousel>
-                <LectureCardMain />
-                <LectureCardSpeaker />
-                <LectureCardSession />
+                <LectureCardMain seminarId={seminarId} index={1} />
+                <LectureCardSpeaker seminarId={seminarId} index={1} />
+                <LectureCardSession seminarId={seminarId} index={1} />
               </Carousel>
             </div>
           </div>
