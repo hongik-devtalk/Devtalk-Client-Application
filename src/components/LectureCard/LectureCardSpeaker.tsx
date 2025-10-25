@@ -43,7 +43,7 @@ export const LectureCardSpeaker = ({ seminarId, index }: LectureCardMainProps) =
       </div>
 
       {/* 경력 리스트 */}
-      <ul className="pl-[16px] pt-[30px] w-[273px] h-[140px] body-2-medium text-grey-200 text-left list-disc pb-[8px]">
+      <ul className="pl-[16px] pt-[36px] w-[273px] body-2-medium text-grey-200 text-left list-disc pb-[8px]">
         {speaker?.history?.split(',').map((item, idx) => (
           <li key={idx}>{item.trim()}</li>
         ))}

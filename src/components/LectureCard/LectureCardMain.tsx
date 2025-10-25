@@ -31,7 +31,7 @@ export const LectureCardMain = ({ seminarId, index }: LectureCardMainProps) => {
 
       {/* 텍스트 정보 */}
       <div className="absolute bottom-[35px] p-[16px] text-center gap-[20px] flex flex-col w-full">
-        <div className="flex flex-col gap-[16px]">
+        <div className="flex flex-col gap-4">
           <p className="flex gap-[8px] items-center justify-center">
             <span className="body-2-semibold text-white">연사</span>
             <div className="flex items-center justify-center gap-4">
