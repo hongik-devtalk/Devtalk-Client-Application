@@ -30,8 +30,6 @@ export const mapApiDataToState = (apiData: SeminarDetailData): SeminarDetailStat
         profileFileName: apiSpeaker.profile?.fileName || null,
       })
     ),
-    seminarStartDate: new Date(apiData.activeStartDate),
-    seminarEndDate: new Date(apiData.activeEndDate),
     applicationStartDate: new Date(apiData.applyStartDate),
     applicationEndDate: new Date(apiData.applyEndDate),
   };
@@ -43,8 +41,6 @@ export const mapStateToUpdateRequest = (state: SeminarDetailState): UpdateSemina
     seminarDate: formatInputToIso(state.seminarDate),
     place: state.place,
     topic: state.topic,
-    activeStartDate: formatDateToIso(state.seminarStartDate),
-    activeEndDate: formatDateToIso(state.seminarEndDate),
     applyStartDate: formatDateToIso(state.applicationStartDate),
     applyEndDate: formatDateToIso(state.applicationEndDate),
     liveLink: state.liveLink || null, // 빈 문자열이면 null
@@ -67,8 +63,6 @@ export const mapStateToAddRequest = (state: SeminarDetailState): AddSeminarReque
     seminarDate: formatInputToIso(state.seminarDate),
     place: state.place,
     topic: state.topic,
-    activeStartDate: formatDateToIso(state.seminarStartDate),
-    activeEndDate: formatDateToIso(state.seminarEndDate),
     applyStartDate: formatDateToIso(state.applicationStartDate),
     applyEndDate: formatDateToIso(state.applicationEndDate),
     liveLink: state.liveLink || null,

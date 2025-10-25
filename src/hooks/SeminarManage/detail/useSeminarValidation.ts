@@ -4,7 +4,7 @@ import type { PendingFiles } from '../../../types/SeminarManage/seminarFile.api'
 
 interface ValidationResult {
   dateFormatError: string | undefined;
-  validateActivationDates: { seminar: string; application: string };
+  validateActivationDates: { application: string };
   fileErrors: {
     thumbnail: string;
     speakers: Map<number, string>;
@@ -31,32 +31,17 @@ export const useSeminarValidation = (
   // ==================== 활성화 날짜 검증 ====================
   const validateActivationDates = useMemo(() => {
     if (!currentState) {
-      return { seminar: '', application: '' };
+      return { application: '' };
     }
 
-    const { seminarStartDate, seminarEndDate, applicationStartDate, applicationEndDate } =
-      currentState;
-    const newErrors = { seminar: '', application: '' };
-    const now = new Date();
-
-    // 세미나 활성화 기간 검증
-    if (seminarStartDate < now) {
-      newErrors.seminar = '※ 과거의 날짜는 선택할 수 없습니다.';
-    } else if (seminarStartDate > seminarEndDate) {
-      newErrors.seminar = '※ 시작일은 종료일보다 늦을 수 없습니다.';
-    } else if (seminarStartDate.getTime() === seminarEndDate.getTime()) {
-      newErrors.seminar = '※ 시작일과 종료일은 같을 수 없습니다.';
-    }
+    const { applicationStartDate, applicationEndDate } = currentState;
+    const newErrors = { application: '' };
 
     // 신청 기간 검증
-    if (applicationStartDate < now) {
-      newErrors.application = '※ 과거의 날짜는 선택할 수 없습니다.';
-    } else if (applicationStartDate > applicationEndDate) {
+    if (applicationStartDate > applicationEndDate) {
       newErrors.application = '※ 시작일은 종료일보다 늦을 수 없습니다.';
     } else if (applicationStartDate.getTime() === applicationEndDate.getTime()) {
       newErrors.application = '※ 시작일과 종료일은 같을 수 없습니다.';
-    } else if (applicationStartDate < seminarStartDate || applicationEndDate > seminarEndDate) {
-      newErrors.application = '※ 현재 세미나 활성화 기간에서 벗어난 기간입니다.';
     }
 
     return newErrors;
@@ -121,8 +106,6 @@ export const useSeminarValidation = (
       place,
       topic,
       speakers,
-      seminarStartDate,
-      seminarEndDate,
       applicationStartDate,
       applicationEndDate,
     } = currentState;
@@ -223,12 +206,6 @@ export const useSeminarValidation = (
     }
 
     // 날짜 검증
-    if (!seminarStartDate) {
-      errors.push('세미나 활성화 시작일을 선택해주세요.');
-    }
-    if (!seminarEndDate) {
-      errors.push('세미나 활성화 종료일을 선택해주세요.');
-    }
     if (!applicationStartDate) {
       errors.push('신청 기간 시작일을 선택해주세요.');
     }
@@ -246,7 +223,6 @@ export const useSeminarValidation = (
 
   const hasErrors =
     !!dateFormatError ||
-    !!validateActivationDates.seminar ||
     !!validateActivationDates.application ||
     !!validateFiles.thumbnail ||
     validateFiles.speakers.size > 0 ||
@@ -265,9 +241,6 @@ export const useSeminarValidation = (
     }
 
     // 활성화 날짜 에러
-    if (validateActivationDates.seminar) {
-      return validateActivationDates.seminar;
-    }
     if (validateActivationDates.application) {
       return validateActivationDates.application;
     }

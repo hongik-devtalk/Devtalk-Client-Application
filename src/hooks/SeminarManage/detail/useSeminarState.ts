@@ -27,8 +27,6 @@ const blankData: SeminarDetailState = {
   thumbnailFileName: null,
   materials: [],
   speakers: [blankSpeakerState, blankSpeakerState],
-  seminarStartDate: new Date(),
-  seminarEndDate: new Date(),
   applicationStartDate: new Date(),
   applicationEndDate: new Date(),
 };
