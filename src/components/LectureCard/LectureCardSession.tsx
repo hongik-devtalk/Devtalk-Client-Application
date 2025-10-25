@@ -14,7 +14,7 @@ export const LectureCardSession = ({ seminarId, index }: LectureCardMainProps) =
   });
 
   const session = data?.result?.[index];
-  const { title, description, speaker } = session || {};
+  const { title, description } = session || {};
 
   return (
     <div

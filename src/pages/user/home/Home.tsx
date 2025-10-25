@@ -13,7 +13,7 @@ import Carousel from '../../../components/LectureCard/Carousel';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardSpeaker';
 import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 
@@ -231,7 +231,9 @@ const Home = () => {
             </div>
           )}
 
-          <Footer />
+          <div className="snap-none">
+            <Footer />
+          </div>
         </div>
       </div>
     </>
