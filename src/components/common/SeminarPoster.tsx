@@ -3,17 +3,12 @@ import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
 import LoadingSpinner from './LoadingSpinner';
 
 const SeminarPoster = () => {
-  const seminarId = 9;
+  const seminarId = 1;
   const { data: seminar, isLoading } = useGetUserSeminar(seminarId);
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
-  const getEndTime = (end?: string) => {
-    const endTime = end?.split(' ')[2];
-    return endTime || '';
-  };
 
   return (
     <div className="relative w-[376px] h-[585px]">
@@ -34,9 +29,7 @@ const SeminarPoster = () => {
           </div>
           <div className="flex gap-28">
             <p className="text-grey-300">일시</p>
-            <p className="text-grey-200">
-              {seminar?.result?.startDate}~{getEndTime(seminar?.result?.endDate)}
-            </p>
+            <p className="text-grey-200">{seminar?.result?.seminarDate}</p>
           </div>
           <div className="flex gap-28">
             <p className="text-grey-300">장소</p>
