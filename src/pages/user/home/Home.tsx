@@ -67,7 +67,7 @@ const Home = () => {
     <>
       <div>
         <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
-        <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
+        <div className="pt-[56px] snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
           <div className="snap-center">
             <SeminarPoster />
           </div>
@@ -231,7 +231,7 @@ const Home = () => {
             </div>
           )}
 
-          <div className="snap-none">
+          <div className="h-[122px]snap-none">
             <Footer />
           </div>
         </div>
