@@ -77,14 +77,14 @@ const Home = () => {
               {isActive ? (
                 <Cta
                   bodyText="지금 바로 입장해 주세요!"
-                  buttonText="10회차 세미나 입장하기"
+                  buttonText="회차 세미나 입장하기"
                   onClick={() => navigate('seminar/live/verification')}
                   isActive={isActive}
                 />
               ) : (
                 <Cta
                   bodyText="데브톡에 빠져보세요!"
-                  buttonText="10회차 세미나 신청하기"
+                  buttonText="회차 세미나 신청하기"
                   onClick={() => navigate('/seminar/apply-info')}
                   isActive={isActive}
                 />

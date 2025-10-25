@@ -32,7 +32,7 @@ const Cta = ({ bodyText, buttonText, onClick, isActive }: CtaProps) => {
           </div>
         </div>
       )}
-      <Button variant="home" text={buttonText} onClick={onClick} />
+      <Button variant="home" text={buttonText} onClick={onClick} seminarId={seminarId} />
     </div>
   );
 };
