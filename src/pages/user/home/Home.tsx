@@ -197,7 +197,11 @@ const Home = () => {
               <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
               <div className="flex flex-col w-[335px] gap-28">
                 <div className="flex flex-col items-center gap-16">
-                  <img src={Ticket} alt="티켓 아이콘" className="w-[240px] h-[153px]" />
+                  <img
+                    src={Ticket}
+                    alt="티켓 아이콘"
+                    className="w-[240px] h-[153px] object-cover"
+                  />
                 </div>
                 <Button
                   variant="default"
@@ -211,7 +215,11 @@ const Home = () => {
               <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
               <div className="flex flex-col w-[335px] gap-28">
                 <div className="flex flex-col items-center gap-16">
-                  <img src={Timer} alt="타이머 아이콘" className="w-[240px] h-[153px]" />
+                  <img
+                    src={Timer}
+                    alt="타이머 아이콘"
+                    className="w-[240px] h-[153px] object-cover"
+                  />
                 </div>
                 <Button
                   variant="default"
