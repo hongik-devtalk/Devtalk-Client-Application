@@ -5,9 +5,13 @@ export const adminInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
 });
 
-export const refreshInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API_URL,
-});
+export const refreshInstance = (refresh: string): AxiosInstance =>
+  axios.create({
+    baseURL: import.meta.env.VITE_SERVER_API_URL,
+    headers: {
+      refreshToken: refresh,
+    },
+  });
 
 adminInstance.interceptors.request.use(
   (config) => {
@@ -31,7 +35,11 @@ adminInstance.interceptors.response.use(
     if (!status) return Promise.reject(status);
 
     //토큰 만료 오류
-    if (status === 419 && !originalRequest._retry) {
+    if (
+      (status === 419 && !originalRequest._retry) ||
+      (status === 403 && !originalRequest._retry)
+    ) {
+      console.log(status);
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
 
@@ -39,13 +47,15 @@ adminInstance.interceptors.response.use(
       if (!refreshToken) {
         localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
         localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
-        window.location.href = '/admin/login';
+        //window.location.href = '/admin/login';
         return Promise.reject(error);
       }
 
       //refreshToken으로 새 accessToken 발급
       try {
-        const { data } = await refreshInstance.post('/admin/refresh', { refreshToken });
+        const { data } = await refreshInstance(refreshToken).post('/admin/refresh');
+        console.log('리프레시 요청', status);
+
         const newAccessToken = data?.result.accessToken;
         const newRefreshToken = data?.result.refreshToken;
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, newAccessToken);
@@ -56,7 +66,7 @@ adminInstance.interceptors.response.use(
         //에러 발생시 로그인 페이지으로 이동
         localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
         localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
-        window.location.replace('/admin/login');
+        //window.location.replace('/admin/login');
       }
     }
 
@@ -65,14 +75,14 @@ adminInstance.interceptors.response.use(
       //기존에 남아있던 토큰 삭제 후 어드민 로그인 페이지로 이동
       localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
       localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
-      window.location.replace('/admin/login');
+      //window.location.replace('/admin/login');
       return Promise.reject(error);
     }
 
     //접근 권한이 없는 경우
     if (status === 403) {
       //홈으로 이동
-      window.location.replace('/');
+      //window.location.replace('/');
       return Promise.reject(error);
     }
 
