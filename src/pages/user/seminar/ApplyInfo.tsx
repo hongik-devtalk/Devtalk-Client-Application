@@ -8,6 +8,20 @@ import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
 import { getShowSeminar } from '../../../apis/ShowSeminar/userShowSeminar';
 import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
+import { getSeminarSession } from '../../../apis/seminarDetail';
+
+type SeminarSession = {
+  sessionId: number;
+  title: string;
+  description: string;
+  speaker: {
+    name: string;
+    organization?: string;
+    history?: string;
+    profileUrl?: string;
+    speakerId: number;
+  };
+};
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
@@ -16,7 +30,7 @@ const ApplyInfo = () => {
   const [seminarNum, setSeminarNum] = useState<number | null>(null);
   const [seminarDate, setSeminarDate] = useState<string>('-');
   const [place, setPlace] = useState<string>('-');
-  const [sessionIds, setSessionIds] = useState<number[]>([]);
+  const [sessions, setSessions] = useState<SeminarSession[]>([]);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
@@ -53,7 +67,7 @@ const ApplyInfo = () => {
     fetchShowSeminar();
   }, []);
 
-  // seminarId 기반 상세조회 (일시/장소/세션)
+  // seminarId 기반 상세조회 (일시/장소)
   useEffect(() => {
     if (!seminarId) return;
 
@@ -63,7 +77,6 @@ const ApplyInfo = () => {
         if (res.isSuccess && res.result) {
           setSeminarDate(res.result.seminarDate);
           setPlace(res.result.place);
-          setSessionIds(res.result.sessionIds);
         }
       } catch (e) {
         console.error(e);
@@ -71,6 +84,22 @@ const ApplyInfo = () => {
     };
 
     fetchSeminarDetail();
+  }, [seminarId]);
+
+  // seminarId 기반 세션 목록 조회 추가
+  useEffect(() => {
+    if (!seminarId) return;
+    const fetchSessions = async () => {
+      try {
+        const res = await getSeminarSession(seminarId);
+        if (res.isSuccess && Array.isArray(res.result)) {
+          setSessions(res.result as SeminarSession[]);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchSessions();
   }, [seminarId]);
 
   return (
@@ -97,8 +126,18 @@ const ApplyInfo = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">
-                  <SpeakerInfo />
-                  <SpeakerInfo />
+                  {sessions.length > 0 ? (
+                    sessions.map((s) => (
+                      <SpeakerInfo
+                        key={s.sessionId}
+                        name={s.speaker.name}
+                        history={s.speaker.history}
+                        profileUrl={s.speaker.profileUrl}
+                      />
+                    ))
+                  ) : (
+                    <div className="text-grey-400 body-2-medium">세션 정보를 불러오는 중…</div>
+                  )}
                 </div>
               </div>
 
