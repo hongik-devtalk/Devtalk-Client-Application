@@ -4,11 +4,19 @@ type SpeakerCardProps = {
   name: string;
   title: string;
   history?: string;
+  organization?: string;
   description: string;
   profileUrl?: string;
 };
 
-const SpeakerCard = ({ name, title, history, description, profileUrl }: SpeakerCardProps) => {
+const SpeakerCard = ({
+  name,
+  title,
+  history,
+  organization,
+  description,
+  profileUrl,
+}: SpeakerCardProps) => {
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col w-[335px] h-[622px] rounded-12 bg-grey-800 gap-5 justify-center">
@@ -27,7 +35,7 @@ const SpeakerCard = ({ name, title, history, description, profileUrl }: SpeakerC
               <p className="heading-2-semibold text-white">{name}</p>
               <p className="subhead-1-semibold text-grey-200">님</p>
             </div>
-            <div className="body-2-medium text-grey-200 text-center">{history}</div>
+            <div className="body-2-medium text-grey-200 text-center">{organization}</div>
           </div>
         </div>
 

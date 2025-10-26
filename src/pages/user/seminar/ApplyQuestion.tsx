@@ -155,7 +155,7 @@ const ApplyQuestion = () => {
                   <SpeakerCard
                     name={s.speaker.name}
                     title={s.title}
-                    history={s.speaker.history ?? ''}
+                    organization={s.speaker.organization}
                     description={s.description}
                     profileUrl={s.speaker.profileUrl}
                   />
