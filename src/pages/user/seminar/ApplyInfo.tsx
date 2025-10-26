@@ -75,7 +75,7 @@ const ApplyInfo = () => {
 
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
-      <ApplyHeader backTo="/seminar/:id" />
+      <ApplyHeader backTo={seminarId ? `/seminar/${seminarId}` : '/seminar'} />
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
