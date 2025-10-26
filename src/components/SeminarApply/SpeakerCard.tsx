@@ -9,14 +9,7 @@ type SpeakerCardProps = {
   profileUrl?: string;
 };
 
-const SpeakerCard = ({
-  name,
-  title,
-  history,
-  organization,
-  description,
-  profileUrl,
-}: SpeakerCardProps) => {
+const SpeakerCard = ({ name, title, organization, description, profileUrl }: SpeakerCardProps) => {
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col w-[335px] h-[622px] rounded-12 bg-grey-800 gap-5 justify-center">
