@@ -27,8 +27,8 @@ const blankData: SeminarDetailState = {
   thumbnailFileName: null,
   materials: [],
   speakers: [blankSpeakerState, blankSpeakerState],
-  applicationStartDate: new Date(),
-  applicationEndDate: new Date(),
+  applicationStartDate: null,
+  applicationEndDate: null,
 };
 
 export const useSeminarState = (id: string | undefined) => {

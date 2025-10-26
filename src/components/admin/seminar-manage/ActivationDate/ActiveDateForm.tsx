@@ -1,9 +1,9 @@
 import DateTimeSelector from './DateTimeSelector';
 
 interface ActiveDateProps {
-  applicationStartDate: Date;
-  applicationEndDate: Date;
-  onChange: (dateType: 'applicationStartDate' | 'applicationEndDate', newDate: Date) => void;
+  applicationStartDate: Date | null;
+  applicationEndDate: Date | null;
+  onChange: (dateType: 'applicationStartDate' | 'applicationEndDate', newDate: Date | null) => void;
   applicationDateError?: string;
 }
 

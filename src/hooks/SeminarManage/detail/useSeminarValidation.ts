@@ -30,7 +30,7 @@ export const useSeminarValidation = (
 
   // ==================== 활성화 날짜 검증 ====================
   const validateActivationDates = useMemo(() => {
-    if (!currentState) {
+    if (!currentState?.applicationStartDate || !currentState.applicationEndDate) {
       return { application: '' };
     }
 
@@ -106,8 +106,6 @@ export const useSeminarValidation = (
       place,
       topic,
       speakers,
-      applicationStartDate,
-      applicationEndDate,
     } = currentState;
 
     // 기본 필드 검증
@@ -205,13 +203,6 @@ export const useSeminarValidation = (
       });
     }
 
-    // 날짜 검증
-    if (!applicationStartDate) {
-      errors.push('신청 기간 시작일을 선택해주세요.');
-    }
-    if (!applicationEndDate) {
-      errors.push('신청 기간 종료일을 선택해주세요.');
-    }
 
     return { isValid: errors.length === 0, errors };
   }, [currentState, pendingFiles, mode]);
