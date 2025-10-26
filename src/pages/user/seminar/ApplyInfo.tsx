@@ -141,6 +141,7 @@ const ApplyInfo = () => {
                         key={s.sessionId}
                         name={s.speaker.name}
                         history={s.speaker.history}
+                        organization={s.speaker.organization}
                         profileUrl={s.speaker.profileUrl}
                       />
                     ))

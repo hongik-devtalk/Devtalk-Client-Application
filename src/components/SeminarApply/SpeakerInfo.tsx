@@ -2,7 +2,7 @@ import sampleSpeaker from '../../assets/images/sampleSpeaker.svg';
 
 type SpeakerInfoProps = {
   name: string;
-  //organization?: string;
+  organization?: string;
   history?: string; // \n 포함 가능
   profileUrl?: string;
   roleLabel?: string; // 기본: "연사님"
@@ -11,13 +11,11 @@ type SpeakerInfoProps = {
 
 const SpeakerInfo = ({
   name,
-  history,
+  organization,
   profileUrl,
   roleLabel = '연사님',
   className = '',
 }: SpeakerInfoProps) => {
-  const subtitle = history ?? '';
-
   return (
     <div className={`w-[335px] h-[100px] rounded-8 bg-grey-900 flex px-12 ${className}`}>
       <div className="flex flex-row gap-6 items-center">
@@ -37,7 +35,14 @@ const SpeakerInfo = ({
             <p className="subhead-1-semibold text-white truncate">{name}</p>
             <p className="body-2-medium text-grey-300">{roleLabel}</p>
           </div>
-          {subtitle && <p className="body-2-medium text-grey-200 truncate">{subtitle}</p>}
+          {organization && (
+            <p
+              className="body-2-medium text-grey-200 overflow-x-auto whitespace-nowrap max-w-[200px] pr-2"
+              style={{ scrollbarWidth: 'none' }}
+            >
+              {organization}
+            </p>
+          )}
         </div>
       </div>
     </div>
