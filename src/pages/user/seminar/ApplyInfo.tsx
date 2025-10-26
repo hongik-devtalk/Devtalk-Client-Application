@@ -9,6 +9,7 @@ import { useApplyDraft } from '../../../stores/useApplyDraft';
 import { getShowSeminar } from '../../../apis/ShowSeminar/userShowSeminar';
 import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
 import { getSeminarSession } from '../../../apis/seminarDetail';
+import { useApplyFlow } from '../../../stores/useApplyFlow';
 
 type SeminarSession = {
   sessionId: number;
@@ -32,6 +33,10 @@ const ApplyInfo = () => {
   const [place, setPlace] = useState<string>('-');
   const [sessions, setSessions] = useState<SeminarSession[]>([]);
 
+  const globalSeminarId = useApplyFlow((s) => s.seminarId);
+  const setSeminarIdGlobal = useApplyFlow((s) => s.setSeminarId);
+  const resetFlow = useApplyFlow((s) => s.reset);
+
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
     if (
@@ -50,53 +55,57 @@ const ApplyInfo = () => {
     }
   }, [blocker]);
 
-  // 홈 노출 세미나 조회
+  // 1) 홈 노출 세미나 조회
   useEffect(() => {
     const fetchShowSeminar = async () => {
       try {
         const res = await getShowSeminar();
-        if (res.isSuccess) {
+        if (res?.isSuccess) {
           setSeminarNum(res.result?.seminarNum ?? null);
           setSeminarId(res.result?.seminarId ?? null);
         }
       } catch (e) {
-        console.error(e);
+        console.error('getShowSeminar error:', e);
       }
     };
-
     fetchShowSeminar();
   }, []);
 
-  // seminarId 기반 상세조회 (일시/장소)
+  // 2) seminarId를 전역에 반영 (값이 바뀔 때만)
+  useEffect(() => {
+    if (seminarId != null && globalSeminarId !== seminarId) {
+      setSeminarIdGlobal(seminarId);
+    }
+  }, [seminarId, globalSeminarId, setSeminarIdGlobal]);
+
+  // 3) seminarId 기반 상세조회 (일시/장소)
   useEffect(() => {
     if (!seminarId) return;
-
     const fetchSeminarDetail = async () => {
       try {
         const res = await getUserSeminar(seminarId);
-        if (res.isSuccess && res.result) {
+        if (res?.isSuccess && res.result) {
           setSeminarDate(res.result.seminarDate);
           setPlace(res.result.place);
         }
       } catch (e) {
-        console.error(e);
+        console.error('getUserSeminar error:', e);
       }
     };
-
     fetchSeminarDetail();
   }, [seminarId]);
 
-  // seminarId 기반 세션 목록 조회 추가
+  // 4) seminarId 기반 세션 목록 조회
   useEffect(() => {
     if (!seminarId) return;
     const fetchSessions = async () => {
       try {
         const res = await getSeminarSession(seminarId);
-        if (res.isSuccess && Array.isArray(res.result)) {
+        if (res?.isSuccess && Array.isArray(res.result)) {
           setSessions(res.result as SeminarSession[]);
         }
       } catch (e) {
-        console.error(e);
+        console.error('getSeminarSession error:', e);
       }
     };
     fetchSessions();
@@ -168,6 +177,7 @@ const ApplyInfo = () => {
         onConfirm={() => {
           useApplyDraft.getState().reset();
           sessionStorage.removeItem('apply-draft');
+          resetFlow();
           setExitOpen(false);
           proceed?.();
         }}
