@@ -6,10 +6,17 @@ import { useState, useEffect } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
+import { getShowSeminar } from '../../../apis/ShowSeminar/userShowSeminar';
+import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
   const [proceed, setProceed] = useState<null | (() => void)>(null);
+  const [seminarId, setSeminarId] = useState<number | null>(null);
+  const [seminarNum, setSeminarNum] = useState<number | null>(null);
+  const [seminarDate, setSeminarDate] = useState<string>('-');
+  const [place, setPlace] = useState<string>('-');
+  const [sessionIds, setSessionIds] = useState<number[]>([]);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
@@ -29,13 +36,52 @@ const ApplyInfo = () => {
     }
   }, [blocker]);
 
+  // 홈 노출 세미나 조회
+  useEffect(() => {
+    const fetchShowSeminar = async () => {
+      try {
+        const res = await getShowSeminar();
+        if (res.isSuccess) {
+          setSeminarNum(res.result?.seminarNum ?? null);
+          setSeminarId(res.result?.seminarId ?? null);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchShowSeminar();
+  }, []);
+
+  // seminarId 기반 상세조회 (일시/장소/세션)
+  useEffect(() => {
+    if (!seminarId) return;
+
+    const fetchSeminarDetail = async () => {
+      try {
+        const res = await getUserSeminar(seminarId);
+        if (res.isSuccess && res.result) {
+          setSeminarDate(res.result.seminarDate);
+          setPlace(res.result.place);
+          setSessionIds(res.result.sessionIds);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchSeminarDetail();
+  }, [seminarId]);
+
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
       <ApplyHeader backTo="/seminar/:id" />
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
-            <h1 className="heading-2-bold text-white">제 테스트회 Devtalk Seminar</h1>
+            <h1 className="heading-2-bold text-white">
+              {seminarNum !== null ? `제 ${seminarNum}회 Devtalk Seminar` : 'DevTalk Seminar'}
+            </h1>
             <div className="flex flex-col gap-48">
               {/* Outline 영역 */}
               <div className="flex flex-col gap-20">
@@ -43,11 +89,11 @@ const ApplyInfo = () => {
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">일시</p>
-                    <p className="body-1-medium text-white">일시테스트</p>
+                    <p className="body-1-medium text-white">{seminarDate}</p>
                   </div>
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">장소</p>
-                    <p className="body-1-medium text-white">장소테스트</p>
+                    <p className="body-1-medium text-white">{place}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">
