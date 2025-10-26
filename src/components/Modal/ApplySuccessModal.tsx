@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getSeminarList } from '../../apis/seminarList';
 import { useApplyFlow } from '../../stores/useApplyFlow';
 
 interface ApplySuccessModalProps {
