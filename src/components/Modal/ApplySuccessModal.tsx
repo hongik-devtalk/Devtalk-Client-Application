@@ -14,7 +14,7 @@ const ApplySuccessModal: React.FC<ApplySuccessModalProps> = ({ open, onClose, ty
 
   const message =
     type === 'online'
-      ? '온라인 접속 링크는 행사 전날 메일로 안내되며, \n당일 오프라인 참여로 전환 가능합니다 😊'
+      ? '온라인 접속 링크는 \n 행사 전날 메일로 안내됩니다 😊'
       : '즐겁고 유익한 시간이 되실 수 있도록 \n열심히 준비하겠습니다 😊';
 
   const handleClose = async () => {
