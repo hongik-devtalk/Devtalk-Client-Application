@@ -22,6 +22,7 @@ type SeminarSession = {
   description: string;
   speaker: {
     name: string;
+    organization?: string;
     profileUrl?: string;
     history?: string;
     speakerId: number;
@@ -154,6 +155,7 @@ const ApplyQuestion = () => {
                   <SpeakerCard
                     name={s.speaker.name}
                     title={s.title}
+                    history={s.speaker.history ?? ''}
                     description={s.description}
                     profileUrl={s.speaker.profileUrl}
                   />
