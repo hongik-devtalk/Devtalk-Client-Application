@@ -100,13 +100,7 @@ export const useSeminarValidation = (
     if (!currentState) return { isValid: false, errors: [] as string[] };
 
     const errors: string[] = [];
-    const {
-      seminarNum,
-      seminarDate,
-      place,
-      topic,
-      speakers,
-    } = currentState;
+    const { seminarNum, seminarDate, place, topic, speakers } = currentState;
 
     // 기본 필드 검증
     if (seminarNum === null) {
@@ -202,7 +196,6 @@ export const useSeminarValidation = (
         }
       });
     }
-
 
     return { isValid: errors.length === 0, errors };
   }, [currentState, pendingFiles, mode]);

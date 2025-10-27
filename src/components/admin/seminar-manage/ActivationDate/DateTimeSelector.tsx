@@ -24,6 +24,11 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
     if (part === 'day') newDate.setDate(value as number);
     if (part === 'hour') newDate.setHours(value as number);
     if (part === 'minute') newDate.setMinutes(value as number);
+
+    const roundedMinutes = Math.floor(newDate.getMinutes() / 15) * 15;
+    newDate.setMinutes(roundedMinutes);
+    newDate.setSeconds(0, 0);
+
     onDateChange(newDate);
   };
 
