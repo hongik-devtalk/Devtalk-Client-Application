@@ -231,7 +231,7 @@ const Home = () => {
             </div>
           )}
 
-          <div className="h-[122px]snap-none">
+          <div className="h-[122px] snap-start">
             <Footer />
           </div>
         </div>
