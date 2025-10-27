@@ -60,9 +60,12 @@ const ApplyInfo = () => {
     const fetchShowSeminar = async () => {
       try {
         const res = await getShowSeminar();
-        if (res?.isSuccess) {
+        if (res?.isSuccess && res.result?.applicantActivate) {
           setSeminarNum(res.result?.seminarNum ?? null);
           setSeminarId(res.result?.seminarId ?? null);
+        } else {
+          setSeminarNum(null);
+          setSeminarId(null);
         }
       } catch (e) {
         console.error('getShowSeminar error:', e);
