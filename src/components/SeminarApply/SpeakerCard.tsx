@@ -28,7 +28,17 @@ const SpeakerCard = ({ name, title, organization, description, profileUrl }: Spe
               <p className="heading-2-semibold text-white">{name}</p>
               <p className="subhead-1-semibold text-grey-200">님</p>
             </div>
-            <div className="body-2-medium text-grey-200 text-center">{organization}</div>
+            <div
+              className="
+    body-2-medium text-grey-200 text-center
+    overflow-x-auto whitespace-nowrap
+    max-w-[260px] px-2
+    scrollbar-none
+  "
+              style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+            >
+              {organization}
+            </div>
           </div>
         </div>
 
