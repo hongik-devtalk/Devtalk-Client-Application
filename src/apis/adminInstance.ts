@@ -39,7 +39,6 @@ adminInstance.interceptors.response.use(
       (status === 419 && !originalRequest._retry) ||
       (status === 403 && !originalRequest._retry)
     ) {
-      console.log(status);
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
 
@@ -54,8 +53,6 @@ adminInstance.interceptors.response.use(
       //refreshToken으로 새 accessToken 발급
       try {
         const { data } = await refreshInstance(refreshToken).post('/admin/refresh');
-        console.log('리프레시 요청', status);
-
         const newAccessToken = data?.result.accessToken;
         const newRefreshToken = data?.result.refreshToken;
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, newAccessToken);
