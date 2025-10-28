@@ -1,15 +1,15 @@
 import type { CommonResponse } from '../common';
 
-interface showSeminar {
+interface ShowSeminar {
   seminarId: number;
   seminarNum: number;
   applicantActivate: boolean;
   liveActivate: boolean;
 }
 
-export type showSeminarResponse = CommonResponse<showSeminar[]>;
+export type ShowSeminarResponse = CommonResponse<ShowSeminar>;
 
-export interface showSeminarRequest {
+export interface ShowSeminarRequest {
   seminarNum: number | null;
   applicantActivate: boolean;
   liveActivate: boolean;

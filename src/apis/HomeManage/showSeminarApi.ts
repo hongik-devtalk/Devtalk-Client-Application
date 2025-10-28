@@ -1,12 +1,12 @@
-import type { showSeminarRequest, showSeminarResponse } from '../../types/HomeManage/showSeminar';
+import type { ShowSeminarRequest, ShowSeminarResponse } from '../../types/HomeManage/showSeminar';
 import { adminInstance } from '../adminInstance';
 
-export const postShowSemiar = async ({
+export const postShowSeminar = async ({
   seminarNum,
   applicantActivate,
   liveActivate,
-}: showSeminarRequest): Promise<showSeminarResponse> => {
-  const res = await adminInstance.post<showSeminarResponse>('/admin/show-seminar', {
+}: ShowSeminarRequest): Promise<ShowSeminarResponse> => {
+  const res = await adminInstance.post<ShowSeminarResponse>('/admin/show-seminar', {
     seminarNum,
     applicantActivate,
     liveActivate,
