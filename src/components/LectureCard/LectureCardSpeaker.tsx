@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import speakerEx from '../../assets/images/speakerEx.jpg';
 import type { SeminarSessionResponse } from '../../types/SeminarDetail/seminarDetail';
 import { getSeminarSession } from '../../apis/seminarDetail';
 
@@ -27,7 +26,7 @@ export const LectureCardSpeaker = ({ seminarId, index }: LectureCardMainProps) =
     >
       {/* 프로필 이미지 */}
       <img
-        src={speaker?.profileUrl || speakerEx}
+        src={speaker?.profileUrl}
         alt="연사 이미지"
         className="rounded-full w-[150px] h-[150px] object-cover mt-[26px] mb-[18px]"
       />
@@ -44,9 +43,13 @@ export const LectureCardSpeaker = ({ seminarId, index }: LectureCardMainProps) =
 
       {/* 경력 리스트 */}
       <ul className="pl-[16px] pt-[36px] w-[273px] body-2-medium text-grey-200 text-left list-disc pb-[8px]">
-        {speaker?.history?.split(',').map((item, idx) => (
-          <li key={idx}>{item.trim()}</li>
-        ))}
+        {speaker?.history
+          ?.split('-')
+          .map((item) => item.trim())
+          .filter(Boolean)
+          .map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}{' '}
       </ul>
     </div>
   );
