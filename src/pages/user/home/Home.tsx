@@ -203,8 +203,6 @@ const Home = () => {
             </div>
           </div>
 
-          <div ref={bottomRef} className="w-full h-[1px]" />
-
           {/* 신청하기 */}
           {!isLoading && (
             <>
@@ -250,6 +248,8 @@ const Home = () => {
           <div className="h-[122px] snap-start">
             <Footer />
           </div>
+
+          <div ref={bottomRef} className="w-full h-[1px]" />
         </div>
       </div>
     </>
