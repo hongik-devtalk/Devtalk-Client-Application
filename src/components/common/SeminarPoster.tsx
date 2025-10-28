@@ -1,21 +1,16 @@
 import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
-import LoadingSpinner from './LoadingSpinner';
 import { useShowSeminar } from '../../contexts/ShowSeminarContext';
 import { useEffect, useState } from 'react';
 
 const SeminarPoster = () => {
   const { seminarId, seminarNum } = useShowSeminar();
-  const { data: seminar, isLoading } = useGetUserSeminar(seminarId ?? 1);
+  const { data: seminar } = useGetUserSeminar(seminarId ?? 1);
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowText(true), 800);
     return () => clearTimeout(timer);
   }, []);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <div className="relative w-[376px] h-[585px]">
