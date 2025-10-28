@@ -16,6 +16,7 @@ import { LectureCardSession } from '../../../components/LectureCard/LectureCardS
 import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
+import BackgroundVideo from '../../../components/common/BackgroundVideo';
 
 // 임시 하드코딩
 type SeminarInfo = {
@@ -67,8 +68,11 @@ const Home = () => {
       <div>
         <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
         <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
-          <div className="snap-center">
-            <SeminarPoster />
+          <div className="snap-center relative w-[376px] h-[585px] mx-auto">
+            <BackgroundVideo />
+            <div className="relative z-10">
+              <SeminarPoster />
+            </div>
           </div>
 
           {!hideCTA && !hamburgerOpen && (

@@ -1,14 +1,8 @@
-import mainPoster from '../../assets/videos/mainPoster.mp4';
 import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
-import LoadingSpinner from './LoadingSpinner';
 
 const SeminarPoster = () => {
   const seminarId = 9;
-  const { data: seminar, isLoading } = useGetUserSeminar(seminarId);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  const { data: seminar } = useGetUserSeminar(seminarId);
 
   const getEndTime = (end?: string) => {
     const endTime = end?.split(' ')[2];
@@ -17,9 +11,6 @@ const SeminarPoster = () => {
 
   return (
     <div className="relative w-[376px] h-[585px]">
-      {/* 배경 영상 */}
-      <video src={mainPoster} autoPlay loop muted playsInline className="object-over" />
-
       {/* 텍스트 */}
       <div className="absolute top-0 pt-32 pl-20 flex flex-col justify-center w-[335px] h-[196px]">
         <div className="flex flex-col gap-4">
