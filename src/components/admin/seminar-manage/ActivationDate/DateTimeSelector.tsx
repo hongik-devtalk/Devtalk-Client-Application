@@ -39,7 +39,7 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
   const yearOptions = useMemo(
     () => [
       { value: '', label: '선택' },
-      ...Array.from({ length: 3 }, (_, i) => new Date().getFullYear() + i).map((y) => ({
+      ...Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - 2 + i).map((y) => ({
         value: y,
         label: String(y),
       })),
