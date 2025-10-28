@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
+import BackgroundVideo from '../../../components/common/BackgroundVideo';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -87,9 +88,12 @@ const Home = () => {
     <>
       <div>
         <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
-        <div className="pt-[56px] snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
-          <div className="snap-center">
-            <SeminarPoster />
+        <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
+          <div className="snap-center relative w-[376px] h-[585px] mx-auto pt-[56px]">
+            <BackgroundVideo />
+            <div className="relative z-10">
+              <SeminarPoster />
+            </div>
           </div>
 
           {/* CTA */}
