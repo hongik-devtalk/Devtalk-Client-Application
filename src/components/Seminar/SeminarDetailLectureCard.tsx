@@ -21,7 +21,7 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
           alt="연사 이미지"
           className="w-full h-[427px] object-cover block"
         />
-        <div className="absolute inset-0 h-[427px] image-gradient" />
+        <div className="absolute inset-0 h-[430px] image-gradient" />
         <div className="w-full h-[606px] -mt-[2px] bottom-gradient" />
       </div>
 
@@ -33,9 +33,13 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
           <p className="body-1-medium text-white">{speaker?.organization}</p>
         </div>
         <ul className="w-[273px] h-[140px] pl-5 body-2-medium text-grey-200 list-disc list-outside">
-          {speaker?.history?.split(',').map((item, idx) => (
-            <li key={idx}>{item.trim()}</li>
-          ))}
+          {speaker?.history
+            ?.split('-')
+            .map((item) => item.trim())
+            .filter(Boolean)
+            .map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
         </ul>
       </div>
       <div className="absolute bottom-[52px] h-[332px] w-[295px] flex flex-col gap-[39px] items-center justify-center">
