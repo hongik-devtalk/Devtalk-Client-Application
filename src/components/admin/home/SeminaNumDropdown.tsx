@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Select } from '@headlessui/react';
-import dropdown from '/src/assets/icons/common/dropdownDown.svg';
+import dropdown from '/src/assets/icons/common/dropdown.svg';
 
 interface SeminaNumDropdownProps {
   options: number[];
@@ -9,7 +9,6 @@ interface SeminaNumDropdownProps {
 }
 
 const SeminaNumDropdown = ({ options, selected, onChange }: SeminaNumDropdownProps) => {
-  // “없음” 고정 + 내림차순 정렬
   const sortedOptions = useMemo(() => {
     return [
       '없음',
