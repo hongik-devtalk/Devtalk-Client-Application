@@ -15,11 +15,16 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start bg-black">
       {isLoading && <div>Loading...</div>}
 
-      <div className="relative w-[335px] h-[427px] overflow-hidden">
-        <img src={speaker?.profileUrl} alt="연사 이미지" className="w-full h-full object-cover " />
-        <div className="absolute inset-0 image-gradient" />
+      <div className="relative w-[335px] overflow-hidden">
+        <img
+          src={speaker?.profileUrl}
+          alt="연사 이미지"
+          className="w-full h-[427px] object-cover block"
+        />
+        <div className="absolute inset-0 h-[427px] image-gradient" />
+        <div className="w-full h-[606px] -mt-[2px] bottom-gradient" />
       </div>
-      <div className="w-full h-[606px] bottom-gradient" />
+
       <div className="flex flex-col w-[295px] gap-[20px] items-center absolute top-[300px] z-10 ">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex gap-[8px] items-center body-2-semibold text-white ">
