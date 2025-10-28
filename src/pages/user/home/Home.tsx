@@ -34,6 +34,7 @@ const Home = () => {
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const seminarId = 1;
 
   const now = new Date();
   const isActive = now > new Date(seminar.activeStartDate) && now < new Date(seminar.activeEndDate);
@@ -80,14 +81,14 @@ const Home = () => {
               {isActive ? (
                 <Cta
                   bodyText="지금 바로 입장해 주세요!"
-                  buttonText="10회차 세미나 입장하기"
+                  buttonText="회차 세미나 입장하기"
                   onClick={() => navigate('seminar/live/verification')}
                   isActive={isActive}
                 />
               ) : (
                 <Cta
                   bodyText="데브톡에 빠져보세요!"
-                  buttonText="10회차 세미나 신청하기"
+                  buttonText="회차 세미나 신청하기"
                   onClick={() => navigate('/seminar/apply-info')}
                   isActive={isActive}
                 />
@@ -103,16 +104,16 @@ const Home = () => {
 
             <div className="flex flex-col snap-center pb-[80px]">
               <Carousel>
-                <LectureCardMain />
-                <LectureCardSpeaker />
-                <LectureCardSession />
+                <LectureCardMain seminarId={seminarId} index={0} />
+                <LectureCardSpeaker seminarId={seminarId} index={0} />
+                <LectureCardSession seminarId={seminarId} index={0} />
               </Carousel>
             </div>
             <div className="flex flex-col snap-center">
               <Carousel>
-                <LectureCardMain />
-                <LectureCardSpeaker />
-                <LectureCardSession />
+                <LectureCardMain seminarId={seminarId} index={1} />
+                <LectureCardSpeaker seminarId={seminarId} index={1} />
+                <LectureCardSession seminarId={seminarId} index={1} />
               </Carousel>
             </div>
           </div>
@@ -201,7 +202,11 @@ const Home = () => {
               <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
               <div className="flex flex-col w-[335px] gap-28">
                 <div className="flex flex-col items-center gap-16">
-                  <img src={Ticket} alt="티켓 아이콘" className="w-[240px] h-[153px]" />
+                  <img
+                    src={Ticket}
+                    alt="티켓 아이콘"
+                    className="w-[240px] h-[153px] object-cover"
+                  />
                 </div>
                 <Button
                   variant="default"
@@ -215,7 +220,11 @@ const Home = () => {
               <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
               <div className="flex flex-col w-[335px] gap-28">
                 <div className="flex flex-col items-center gap-16">
-                  <img src={Timer} alt="타이머 아이콘" className="w-[240px] h-[153px]" />
+                  <img
+                    src={Timer}
+                    alt="타이머 아이콘"
+                    className="w-[240px] h-[153px] object-cover"
+                  />
                 </div>
                 <Button
                   variant="default"
@@ -226,7 +235,9 @@ const Home = () => {
             </div>
           )}
 
-          <Footer />
+          <div className="h-[122px] snap-start">
+            <Footer />
+          </div>
         </div>
       </div>
     </>
