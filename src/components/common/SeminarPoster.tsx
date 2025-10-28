@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
 import LoadingSpinner from './LoadingSpinner';
+import { useShowSeminar } from '../../contexts/ShowSeminarContext';
 
 const SeminarPoster = () => {
-  const seminarId = 1;
-  const { data: seminar, isLoading } = useGetUserSeminar(seminarId);
+  const { seminarId, seminarNum } = useShowSeminar();
+  const { data: seminar, isLoading } = useGetUserSeminar(seminarId ?? 1);
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const SeminarPoster = () => {
       {showText && (
         <div className="absolute top-0 pt-32 pl-20 flex flex-col justify-center w-[335px] h-[196px]">
           <div className="flex flex-col gap-4">
-            <p className="text-grey-50 subhead-2-medium">{seminar?.result?.seminarNum}회차</p>
+            <p className="text-grey-50 subhead-2-medium">{seminarNum}회차</p>
             <p className="heading-1-bold text-gradient">{seminar?.result?.topic}</p>
           </div>
 
