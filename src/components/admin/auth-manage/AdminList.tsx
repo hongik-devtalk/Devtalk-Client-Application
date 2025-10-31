@@ -12,9 +12,6 @@ const AdminList = () => {
     { no: 7, name: '안데브', id: 'deeev7' },
     { no: 8, name: '강데브', id: 'deeev8' },
     { no: 9, name: '인데브', id: 'deeev9' },
-    { no: 10, name: '임데브', id: 'deeevvvvvv' },
-    { no: 11, name: '장데브', id: 'dee' },
-    { no: 12, name: '손데브', id: 'deeevasfd' },
   ];
 
   const [modalOpen, setModalOpen] = useState(false);
