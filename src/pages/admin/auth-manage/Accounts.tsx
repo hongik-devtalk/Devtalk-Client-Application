@@ -1,11 +1,18 @@
+import AdminList from '../../../components/admin/auth-manage/AdminList';
+
 const Accounts = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center">
-      <h1 className="heading-2-semibold text-green-400 mb-8">페이지 준비 중입니다!</h1>
-      <p className="body-2-medium text-grey-400">
-        관리자 아이디 관리 페이지를 개발 중이에요.
-        <br />곧 만나보실 수 있습니다!
-      </p>
+    <div className="space-y-40 mx-60 mb-[175px]">
+      <div className="flex items-center justify-between">
+        <h1 className="mt-60 heading-1-bold text-white">관리자 아이디 관리</h1>
+        <button
+          onClick={() => {}}
+          className="w-[175px] h-[52px] mt-60 rounded-8 heading-3-semibold flex items-center justify-center bg-green-300 text-black hover:opacity-80 hover:cursor-pointer"
+        >
+          아이디 추가하기
+        </button>
+      </div>
+      <AdminList />
     </div>
   );
 };
