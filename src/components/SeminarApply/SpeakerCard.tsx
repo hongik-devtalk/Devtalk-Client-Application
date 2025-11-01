@@ -50,7 +50,9 @@ const SpeakerCard = ({ name, title, organization, description, profileUrl }: Spe
           <div className="heading-3-semibold text-center text-white w-[267px] break-all">
             {title}
           </div>
-          <div className="body-2-medium text-grey-200 w-[295px]">{description}</div>
+          <div className="body-2-medium text-grey-200 w-[295px] whitespace-pre-wrap">
+            {description}
+          </div>
         </div>
       </div>
     </div>
