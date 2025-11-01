@@ -47,7 +47,9 @@ const SpeakerCard = ({ name, title, organization, description, profileUrl }: Spe
         </div>
 
         <div className="flex flex-col items-center gap-5">
-          <div className="heading-3-semibold text-center text-white">{title}</div>
+          <div className="heading-3-semibold text-center text-white w-[267px] break-all">
+            {title}
+          </div>
           <div className="body-2-medium text-grey-200 w-[295px]">{description}</div>
         </div>
       </div>
