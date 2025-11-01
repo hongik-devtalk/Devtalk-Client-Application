@@ -9,11 +9,4 @@
   body {
     @apply bg-background text-white font-sans;
   }
-
-  th,
-  td {
-    @apply text-inherit font-inherit leading-inherit;
-    font-weight: inherit;
-    color: inherit;
-  }
 }
