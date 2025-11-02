@@ -23,7 +23,6 @@ const SeminarDetail = () => {
   const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
 
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const { seminarNum: activeNum, liveActivate, applicantActivate } = useShowSeminar();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,6 +37,9 @@ const SeminarDetail = () => {
   });
 
   const seminarReviews = data?.result || [];
+
+  // 노출 회차 정보
+  const { seminarNum } = useShowSeminar();
 
   return (
     <div>
@@ -86,26 +88,15 @@ const SeminarDetail = () => {
           </div>
         </div>
       </div>
-
-      <div className="fixed bottom-0">
-        {liveActivate ? (
-          <Cta
-            bodyText="지금 바로 입장해 주세요!"
-            buttonText={`${activeNum}회차 세미나 입장하기`}
-            onClick={() => navigate('seminar/live/verification')}
-            isActive={true}
-          />
-        ) : applicantActivate ? (
+      {seminarNum && (
+        <div className="fixed bottom-0">
           <Cta
             bodyText="데브톡에 빠져보세요!"
-            buttonText={`${activeNum}회차 세미나 신청하기`}
+            buttonText={`${seminarNum}회차 데브톡 신청하기`}
             onClick={() => navigate('/seminar/apply-info')}
-            isActive={false}
           />
-        ) : (
-          <></>
-        )}
-      </div>
+        </div>
+      )}
       <div className="h-[250px]" />
     </div>
   );
