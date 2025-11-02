@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import AuthDeleteModal from '../auth-manage/AuthDeleteModal';
-import { maskText } from '../../../utils/maskText';
 
 const AdminList = () => {
   const admins = [
@@ -57,7 +56,7 @@ const AdminList = () => {
             >
               <td className="py-20 px-20 text-center">{String(admin.no).padStart(2, '0')}</td>
               <td className="py-20 px-24">{admin.name}</td>
-              <td className="py-20 px-24">{maskText(admin.id)}</td>
+              <td className="py-20 px-24">{admin.id}</td>
               <td
                 className="py-20 px-[44px] text-center text-status-error hover:text-shadow-status-error cursor-pointer"
                 onClick={() => {
