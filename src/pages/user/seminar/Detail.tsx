@@ -5,10 +5,11 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { act, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getSeminarReview } from '../../../apis/seminarDetail';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 
 const SeminarDetail = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const SeminarDetail = () => {
   const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
 
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const { seminarNum: activeNum, liveActivate, applicantActivate } = useShowSeminar();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -40,7 +42,7 @@ const SeminarDetail = () => {
   return (
     <div>
       <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
-      <div className="flex flex-col gap-32 bg-black">
+      <div className="flex flex-col gap-32 bg-black pt-[88px]">
         <SeminarDetailCard id={seminarId} />
         <div
           ref={lectureRef}
@@ -73,19 +75,36 @@ const SeminarDetail = () => {
               //등록된 후기 중 최대 3개까지 표시
               seminarReviews.slice(0, 3).map((review) => (
                 <div key={review.reviewId}>
-                  <ReviewCard session={seminarId} rating={review.score} content={review.strength} />
+                  <ReviewCard
+                    session={review.seminarNum}
+                    rating={review.score}
+                    content={review.strength}
+                  />
                 </div>
               ))
             )}
           </div>
         </div>
       </div>
+
       <div className="fixed bottom-0">
-        <Cta
-          bodyText="데브톡에 빠져보세요!"
-          buttonText="10회차 데브톡 신청하기"
-          onClick={() => navigate('/seminar/apply-info')}
-        />
+        {liveActivate ? (
+          <Cta
+            bodyText="지금 바로 입장해 주세요!"
+            buttonText={`${activeNum}회차 세미나 입장하기`}
+            onClick={() => navigate('seminar/live/verification')}
+            isActive={true}
+          />
+        ) : applicantActivate ? (
+          <Cta
+            bodyText="데브톡에 빠져보세요!"
+            buttonText={`${activeNum}회차 세미나 신청하기`}
+            onClick={() => navigate('/seminar/apply-info')}
+            isActive={false}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="h-[250px]" />
     </div>
