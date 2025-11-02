@@ -1,10 +1,11 @@
 import type { SeminarState, SeminarDetailState } from '../../../types/SeminarManage/seminar.state';
 
-import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
-import SeminarForm from '../../../components/admin/seminar-manage/SeminarDetail/SeminarForm';
-import SpeakersForm from '../../../components/admin/seminar-manage/Speaker/SpeakerForm';
-import LiveLinkInput from '../../../components/admin/seminar-manage/LiveLink/LiveLinkInput';
-import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationDate/ActiveDateForm';
+import AdminImageUpload from '../upload/AdminImageUpload';
+import SeminarForm from './SeminarDetail/SeminarForm';
+import SpeakersForm from './Speaker/SpeakerForm';
+import LiveLinkInput from './LiveLink/LiveLinkInput';
+import ActiveDateForm from './ActivationDate/ActiveDateForm';
+import ReviewLink from './Review/ReviewLink';
 
 interface MainContentProps {
   currentState: SeminarDetailState;
@@ -52,6 +53,8 @@ const MainContent = ({
       onChange={(speakers) => updateSeminarData({ speakers })}
       updateSpeakerProfile={updateSpeakerProfile}
     />
+
+    {currentState.seminarId && <ReviewLink seminarId={currentState.seminarId} />}
 
     <LiveLinkInput
       link={currentState.liveLink}
