@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useShowSeminar } from '../../contexts/ShowSeminarContext';
 import { getHomeLink } from '../../apis/HomeManage/homeLinkApi';
+import { getFAQLink } from '../../apis/HomeManage/homeFAQApi';
 import { useQuery } from '@tanstack/react-query';
 
 type HamburgerBarProps = {
@@ -16,16 +17,24 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
     queryFn: getHomeLink,
   });
 
+  const { data: faqLinkData } = useQuery({
+    queryKey: ['home', 'faqLink'],
+    queryFn: getFAQLink,
+  });
+
   const handleIntroduceClick = () => {
     navigate('/');
     _onClose();
   };
 
   const handleFAQClick = () => {
-    {
-      /* 추후 하드코딩 바꾸기 */
+    const url = faqLinkData?.result?.url;
+    console.log(url);
+    if (url) {
+      window.open(url, '_self');
+    } else {
+      console.error('FAQ 링크를 불러오지 못했습니다.');
     }
-    window.open('http://pf.kakao.com/_Gxbrwn/111023217', '_self');
   };
 
   const handleInquiryClick = () => {
