@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useShowSeminar } from '../../contexts/ShowSeminarContext';
+import { getHomeLink } from '../../apis/HomeManage/homeLinkApi';
+import { useQuery } from '@tanstack/react-query';
 
 type HamburgerBarProps = {
   isOpen: boolean;
@@ -8,6 +10,11 @@ type HamburgerBarProps = {
 
 const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
   const navigate = useNavigate();
+
+  const { data: inquiryLinkData } = useQuery({
+    queryKey: ['home', 'inquiryLink'],
+    queryFn: getHomeLink,
+  });
 
   const handleIntroduceClick = () => {
     navigate('/');
@@ -22,10 +29,13 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
   };
 
   const handleInquiryClick = () => {
-    {
-      /* 추후 하드코딩 바꾸기 */
+    const url = inquiryLinkData?.result?.url;
+    console.log(url);
+    if (url) {
+      window.open(url, '_self');
+    } else {
+      console.error('문의하기 링크를 불러오지 못했습니다.');
     }
-    window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
   };
 
   // 노출 회차 정보
