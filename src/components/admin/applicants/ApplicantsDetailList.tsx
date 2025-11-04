@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import emptybox from '../../../assets/icons/components/SeminarApply/emptybox.svg';
 import checkbox from '../../../assets/icons/components/SeminarApply/checkbox.svg';
 
@@ -31,11 +31,6 @@ const ApplicantsDetailList: React.FC<ApplicantsDetailListProps> = ({
   // 출석 상태 관리
   const [applicants, setApplicants] = useState(initialApplicants);
   const [isLoading, setIsLoading] = useState<number | null>(null);
-
-  // initialApplicants 변경 시 state 업데이트
-  useEffect(() => {
-    setApplicants(initialApplicants);
-  }, [initialApplicants]);
 
   // 공통 헤더 스타일
   const headerStyle = "border border-grey-400 px-5 py-3 text-center subhead-1-semibold text-white";
