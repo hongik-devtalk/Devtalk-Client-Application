@@ -2,15 +2,21 @@ import type { CommonResponse } from '../common';
 
 export interface ReviewData {
   reviewId: number;
-  score: number;
-  department: string;
-  grade: string;
   name: string;
-  content: string;
+  studentId: string;
+  department: string[];
+  grade: string;
+  score: number;
+  strength: string;
+  improvement: string;
   nextTopic: string;
   isPublic: boolean;
   isFeatured: boolean;
-  createdAt: string;
 }
 
-export type ReviewListResponse = CommonResponse<ReviewData[]>;
+export interface ReviewListData {
+  seminarNum: number;
+  review: ReviewData[];
+}
+
+export type ReviewListResponse = CommonResponse<ReviewListData>;
