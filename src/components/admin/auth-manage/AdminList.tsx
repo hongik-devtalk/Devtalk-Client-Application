@@ -1,10 +1,14 @@
 import { useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import AuthDeleteModal from '../auth-manage/AuthDeleteModal';
 import { useAdminAccountList } from '../../../hooks/AuthManage/useAdminAccountList';
+import { useDeleteAdminAccount } from '../../../hooks/AuthManage/useDeleteAdminAccount';
+import axios from 'axios';
 import type { AdminAccount } from '../../../types/auth';
 
 const AdminList = () => {
   const { data, isLoading, isError } = useAdminAccountList();
+  const deleteMutation = useDeleteAdminAccount();
   const admins = data?.adminIdList ?? [];
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,9 +22,27 @@ const AdminList = () => {
     setSelectedAdmin(admin);
   }, []);
 
-  const handleDelete = (adminId: number) => {
-    console.log(`관리자 ID ${adminId} 삭제`);
-    // TODO: 삭제 API 연동
+  const handleDelete = async (adminId: number) => {
+    try {
+      await deleteMutation.mutateAsync(adminId);
+      toast.success('관리자 권한을 삭제했어요.');
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        const status = e.response?.status;
+        const serverMsg = (e.response?.data as any)?.message;
+        if (status === 403) {
+          toast.error(serverMsg || '삭제 권한이 없습니다. 관리자 권한을 확인해주세요.');
+        } else if (status === 401) {
+          toast.error('인증이 만료되었어요. 다시 로그인해주세요.');
+        } else {
+          toast.error(serverMsg || '관리자 권한 삭제에 실패했어요.');
+        }
+      } else {
+        toast.error('알 수 없는 오류가 발생했어요.');
+      }
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
   };
 
   // 로딩 상태
@@ -94,8 +116,11 @@ const AdminList = () => {
           adminId={selectedAdmin.loginId}
           adminName={selectedAdmin.name}
           onConfirm={() => {
-            handleDelete(selectedAdmin.adminId);
-            setModalOpen(false);
+            if (!deleteMutation.isPending) {
+              handleDelete(selectedAdmin.adminId);
+              setModalOpen(false);
+              setContextMenu(null);
+            }
           }}
           onCancel={() => setModalOpen(false)}
         />
