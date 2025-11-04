@@ -1,15 +1,27 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import AdminList from '../../../components/admin/auth-manage/AdminList';
 import AddAdminForm from '../../../components/admin/auth-manage/AddAdminForm';
 import ArrowIcon from '../../../assets/icons/components/SeminarApply/arrow.svg';
+import { useAddAdminAccount } from '../../../hooks/AuthManage/useAddAdminAccount';
 
 const Accounts = () => {
   const [isAdding, setIsAdding] = useState(false);
+  const addAdminMutation = useAddAdminAccount();
 
-  const handleAddAdmin = (data: { name: string; userId: string; password: string }) => {
-    console.log('새 관리자 추가:', data);
-    // API 연동 후 수정
-    setIsAdding(false);
+  const handleAddAdmin = async (data: { name: string; userId: string; password: string }) => {
+    try {
+      await addAdminMutation.mutateAsync({
+        name: data.name,
+        loginId: data.userId,
+        password: data.password,
+      });
+      toast.success('관리자가 성공적으로 추가되었습니다.');
+      setIsAdding(false);
+    } catch (error) {
+      toast.error('관리자 추가에 실패했습니다.');
+      console.error('관리자 추가 실패:', error);
+    }
   };
 
   return (
@@ -40,7 +52,11 @@ const Accounts = () => {
       </div>
 
       {/* 본문 */}
-      {isAdding ? <AddAdminForm onSubmit={handleAddAdmin} /> : <AdminList />}
+      {isAdding ? (
+        <AddAdminForm onSubmit={handleAddAdmin} isLoading={addAdminMutation.isPending} />
+      ) : (
+        <AdminList />
+      )}
     </div>
   );
 };
