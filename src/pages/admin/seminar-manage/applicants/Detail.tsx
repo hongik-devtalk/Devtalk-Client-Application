@@ -23,6 +23,15 @@ const Detail = () => {
     return inflowPathMap[inflowPath] || inflowPath;
   };
 
+  // 출석 여부 매핑 함수
+  const getAttendanceLabel = (isAttendance: boolean | undefined) => {
+    const attendanceMap: { [key: string]: string } = {
+      'true': '출석',
+      'false': '미출석',
+    };
+    return attendanceMap[String(isAttendance)] || '';
+  };
+
   // 출석 체크 업데이트 핸들러
   const handleAttendanceUpdate = async (studentId: string, check: boolean) => {
     return new Promise<void>((resolve, reject) => {
@@ -55,6 +64,12 @@ const Detail = () => {
 
   const seminarTitle = `제 ${applicantsData?.result?.seminarNum}회 Devtalk Seminar`;
 
+  // 엑셀 다운로드용 데이터 (출석 여부를 한글로 변환)
+  const applicantsForExcel = applicants.map(applicant => ({
+    ...applicant,
+    isAttendance: getAttendanceLabel(applicant.isAttendance)
+  }));
+
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
     seminarName: '세미나명',
@@ -77,7 +92,7 @@ const Detail = () => {
           <h1 className="text-white heading-1-bold">{seminarTitle}-신청자 개인정보</h1>
         </div>
         <ExcelDownloadButton
-          data={applicants}
+          data={applicantsForExcel}
           fileName={`${seminarTitle}_신청자_개인정보.xlsx`}
           className="subhead-1-semibold"
           headers={excelHeaders}
