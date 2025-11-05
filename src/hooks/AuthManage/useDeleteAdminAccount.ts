@@ -9,7 +9,7 @@ export const useDeleteAdminAccount = () => {
   return useMutation({
     mutationFn: (adminId: number) => deleteAdminAccount(adminId),
     onSuccess: () => {
-      // 목록 리프레시
+      // 관리자 목록 다시 가져오기
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ADMIN_ACCOUNT_LIST] });
     },
   });

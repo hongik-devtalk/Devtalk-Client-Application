@@ -3,14 +3,11 @@ import { toast } from 'react-toastify';
 import AuthDeleteModal from '../auth-manage/AuthDeleteModal';
 import { useAdminAccountList } from '../../../hooks/AuthManage/useAdminAccountList';
 import { useDeleteAdminAccount } from '../../../hooks/AuthManage/useDeleteAdminAccount';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCurrentAdmin } from '../../../hooks/AuthManage/useCurrentAdmin';
-import { STORAGE_KEY } from '../../../constants/key';
 import type { AdminAccount } from '../../../types/auth';
 
 const AdminList = () => {
-  const navigate = useNavigate();
   const { data, isLoading, isError } = useAdminAccountList();
   const deleteMutation = useDeleteAdminAccount();
   const admins = data?.adminIdList ?? [];
@@ -24,7 +21,7 @@ const AdminList = () => {
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [selectedAdmin, setSelectedAdmin] = useState<AdminAccount | null>(null);
 
-  // 우클릭 메뉴 처리
+  // 우클릭 메뉴 처리 - 관리자 삭제
   const handleContextMenu = useCallback(
     (e: React.MouseEvent, admin: AdminAccount) => {
       e.preventDefault(); // 기본 컨텍스트 메뉴 방지
@@ -45,31 +42,16 @@ const AdminList = () => {
   const handleDelete = async (adminId: number) => {
     try {
       await deleteMutation.mutateAsync(adminId);
-      const deletingSelf = currentAdminId === adminId;
-      if (deletingSelf) {
-        // 내 계정 삭제 시 토큰 정리 후 로그인으로 이동
-        localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
-        localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
-        toast.success('내 계정이 삭제되어 로그아웃되었어요.');
-        navigate('/admin/login');
-        return;
-      }
-      toast.success('관리자 권한을 삭제했어요.');
+      toast.success('관리자 계정을 성공적으로 삭제했습니다.');
     } catch (e) {
       if (axios.isAxiosError(e)) {
         const status = e.response?.status;
+        if (status === 401 || status === 403) return;
         const serverMsg = (e.response?.data as any)?.message;
-        if (status === 403) {
-          toast.error(serverMsg || '삭제 권한이 없습니다. 관리자 권한을 확인해주세요.');
-        } else if (status === 401) {
-          toast.error('인증이 만료되었어요. 다시 로그인해주세요.');
-        } else {
-          toast.error(serverMsg || '관리자 권한 삭제에 실패했어요.');
-        }
+        toast.error(serverMsg || '관리자 계정 삭제에 실패했습니다.');
       } else {
-        toast.error('알 수 없는 오류가 발생했어요.');
+        toast.error('삭제 중 오류가 발생했습니다.');
       }
-      // eslint-disable-next-line no-console
       console.error(e);
     }
   };
