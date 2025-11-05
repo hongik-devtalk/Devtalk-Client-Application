@@ -3,28 +3,57 @@ import { toast } from 'react-toastify';
 import AuthDeleteModal from '../auth-manage/AuthDeleteModal';
 import { useAdminAccountList } from '../../../hooks/AuthManage/useAdminAccountList';
 import { useDeleteAdminAccount } from '../../../hooks/AuthManage/useDeleteAdminAccount';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useCurrentAdmin } from '../../../hooks/AuthManage/useCurrentAdmin';
+import { STORAGE_KEY } from '../../../constants/key';
 import type { AdminAccount } from '../../../types/auth';
 
 const AdminList = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useAdminAccountList();
   const deleteMutation = useDeleteAdminAccount();
   const admins = data?.adminIdList ?? [];
+  const { adminId: currentAdminId, loginId: currentLoginId } = useCurrentAdmin();
+  const isSelf = (admin: AdminAccount) =>
+    (currentAdminId != null && admin.adminId === currentAdminId) ||
+    (currentLoginId != null && admin.loginId === currentLoginId);
+  const isLastAdmin = admins.length <= 1;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [selectedAdmin, setSelectedAdmin] = useState<AdminAccount | null>(null);
 
   // 우클릭 메뉴 처리
-  const handleContextMenu = useCallback((e: React.MouseEvent, admin: AdminAccount) => {
-    e.preventDefault(); // 기본 컨텍스트 메뉴 방지
-    setContextMenu({ x: e.clientX, y: e.clientY });
-    setSelectedAdmin(admin);
-  }, []);
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent, admin: AdminAccount) => {
+      e.preventDefault(); // 기본 컨텍스트 메뉴 방지
+      if (isSelf(admin)) {
+        toast.error('본인 계정은 삭제할 수 없습니다. 다른 계정으로 진행해주세요.');
+        return;
+      }
+      if (isLastAdmin) {
+        toast.error('마지막 1개 계정은 삭제할 수 없습니다. 다른 관리자를 먼저 추가해주세요.');
+        return;
+      }
+      setContextMenu({ x: e.clientX, y: e.clientY });
+      setSelectedAdmin(admin);
+    },
+    [isLastAdmin, currentAdminId, currentLoginId]
+  );
 
   const handleDelete = async (adminId: number) => {
     try {
       await deleteMutation.mutateAsync(adminId);
+      const deletingSelf = currentAdminId === adminId;
+      if (deletingSelf) {
+        // 내 계정 삭제 시 토큰 정리 후 로그인으로 이동
+        localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
+        localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
+        toast.success('내 계정이 삭제되어 로그아웃되었어요.');
+        navigate('/admin/login');
+        return;
+      }
       toast.success('관리자 권한을 삭제했어요.');
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -84,29 +113,44 @@ const AdminList = () => {
             <th className="w-[120px] py-20 px-[44px] text-center">관리</th>
           </tr>
         </thead>
-
         {/* 바디 */}
         <tbody>
-          {admins.map((admin, index) => (
-            <tr
-              key={admin.adminId}
-              onContextMenu={(e) => handleContextMenu(e, admin)}
-              className="subhead-1-medium border-t border-grey-700 hover:bg-grey-800 transition-colors"
-            >
-              <td className="py-20 px-20 text-center">{String(index + 1).padStart(2, '0')}</td>
-              <td className="py-20 px-24">{admin.name}</td>
-              <td className="py-20 px-24">{admin.loginId}</td>
-              <td
-                className="py-20 px-[44px] text-center text-status-error hover:text-shadow-status-error cursor-pointer"
-                onClick={() => {
-                  setSelectedAdmin(admin);
-                  setModalOpen(true);
-                }}
+          {admins.map((admin, index) => {
+            const disabled = isSelf(admin) || isLastAdmin;
+            return (
+              <tr
+                key={admin.adminId}
+                onContextMenu={(e) => handleContextMenu(e, admin)}
+                className="subhead-1-medium border-t border-grey-700 hover:bg-grey-800 transition-colors"
               >
-                삭제
-              </td>
-            </tr>
-          ))}
+                <td className="py-20 px-20 text-center">{String(index + 1).padStart(2, '0')}</td>
+                <td className="py-20 px-24">{admin.name}</td>
+                <td className="py-20 px-24">{admin.loginId}</td>
+                <td
+                  className={
+                    disabled
+                      ? 'py-20 px-[44px] text-center text-grey-500 cursor-not-allowed opacity-60'
+                      : 'py-20 px-[44px] text-center text-status-error hover:text-shadow-status-error cursor-pointer'
+                  }
+                  aria-disabled={disabled}
+                  onClick={() => {
+                    if (disabled) return;
+                    setSelectedAdmin(admin);
+                    setModalOpen(true);
+                  }}
+                  title={
+                    disabled
+                      ? isSelf(admin)
+                        ? '본인 계정은 삭제할 수 없습니다. 다른 계정으로 진행해주세요.'
+                        : '마지막 1개 계정은 삭제할 수 없습니다. 다른 관리자를 먼저 추가해주세요.'
+                      : undefined
+                  }
+                >
+                  삭제
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 
