@@ -104,7 +104,7 @@ const ApplicantsDetailList: React.FC<ApplicantsDetailListProps> = ({
                 <td className={cellStyle}>
                   <button
                     onClick={() => toggleAttendance(applicant.id, applicant.studentId)}
-                    className="flex items-center justify-center w-full h-full disabled:opacity-50"
+                    className="flex items-center justify-center w-full h-full disabled:opacity-50 cursor-pointer"
                     type="button"
                     disabled={isLoading === applicant.id}
                   >

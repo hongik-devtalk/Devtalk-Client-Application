@@ -73,7 +73,7 @@ const Detail = () => {
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
     seminarName: '세미나명',
-    studentId: '학번',
+    studentNum: '학번',
     department: '학과',
     grade: '학년',
     name: '이름',
