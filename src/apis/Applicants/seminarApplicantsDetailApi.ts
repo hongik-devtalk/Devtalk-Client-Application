@@ -11,7 +11,7 @@ export const getSeminarApplicantsDetail = async (
 };
 
 // 세미나 신청자 출석 체크 업데이트
-export const updateAttendanceCheck = async (
+export const postupdateAttendanceCheck = async (
   seminarId: string,
   studentId: string,
   check: boolean

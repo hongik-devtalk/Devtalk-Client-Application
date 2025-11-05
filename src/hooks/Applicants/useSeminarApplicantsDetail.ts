@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { SeminarApplicantsDetailResponse } from '../../types/Applicants/seminarApplicantsDetail.api';
-import { getSeminarApplicantsDetail, updateAttendanceCheck } from '../../apis/Applicants/seminarApplicantsDetailApi';
+import { getSeminarApplicantsDetail, postupdateAttendanceCheck } from '../../apis/Applicants/seminarApplicantsDetailApi';
 import { QUERY_KEYS } from '../../constants/queryKey';
 
 // 세미나별 신청자 상세 정보 조회
@@ -18,7 +18,7 @@ export const useUpdateAttendanceCheck = (seminarId: string) => {
 
   return useMutation({
     mutationFn: (variables: { studentId: string; check: boolean }) =>
-      updateAttendanceCheck(seminarId, variables.studentId, variables.check),
+      postupdateAttendanceCheck(seminarId, variables.studentId, variables.check),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN_SEMINAR_APPLICANTS_DETAIL, seminarId],
