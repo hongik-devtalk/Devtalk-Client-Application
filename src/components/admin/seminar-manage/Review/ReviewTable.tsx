@@ -3,8 +3,9 @@ import ToggleSwitch from './ToggleSwitch';
 import CheckIcon from '../../../../assets/icons/components/Review/check.svg?react';
 
 interface ReviewTableProps {
-  reviews: ReviewData[];
+  reviews: ReviewData[] | undefined;
   handleToggle: (reviewId: number, newStatus: boolean) => void;
+  isLoading?: boolean;
 }
 
 const headers = [
@@ -21,8 +22,13 @@ const headers = [
   { name: '공개', width: 'w-[100px]' },
 ];
 
-const ReviewTable = ({ reviews, handleToggle }: ReviewTableProps) => {
+const ReviewTable = ({ reviews, handleToggle, isLoading }: ReviewTableProps) => {
   const defaultCellClass = 'px-5 py-5';
+  const NoWrapCellClass = `${defaultCellClass} whitespace-nowrap`;
+
+  if (!reviews || reviews?.length === 0) {
+    return <div className="text-center my-9 text-gray-400 subhead-1-medium">후기가 없습니다</div>;
+  }
 
   return (
     <div className="min-w-[1280px] overflow-x-auto rounded-8">
@@ -38,19 +44,19 @@ const ReviewTable = ({ reviews, handleToggle }: ReviewTableProps) => {
         </thead>
         <tbody className="bg-grey-900">
           {reviews.map((review, index) => (
-            <tr className="body-2-semibold">
-              <td className={defaultCellClass}>{index + 1}</td>
-              <td className={defaultCellClass}>{review.name}</td>
-              <td className={defaultCellClass}>{review.studentId}</td>
+            <tr key={index} className="body-2-semibold">
+              <td className={NoWrapCellClass}>{index + 1}</td>
+              <td className={NoWrapCellClass}>{review.name}</td>
+              <td className={NoWrapCellClass}>{review.studentNum}</td>
               <td className={`${defaultCellClass} whitespace-pre-line`}>
-                {review.department.join('\n')}
+                {review.department.split(',').join('\n')}
               </td>
-              <td className={defaultCellClass}>{review.grade}</td>
-              <td className={defaultCellClass}>{review.score}</td>
+              <td className={NoWrapCellClass}>{review.grade}</td>
+              <td className={NoWrapCellClass}>{review.score}</td>
               <td className={defaultCellClass}>{review.strength}</td>
               <td className={defaultCellClass}>{review.improvement}</td>
               <td className={defaultCellClass}>{review.nextTopic}</td>
-              <td className={defaultCellClass}>
+              <td className={NoWrapCellClass}>
                 <div className="flex items-center justify-center">
                   {review.isPublic ? '' : <CheckIcon />}
                 </div>
@@ -60,7 +66,7 @@ const ReviewTable = ({ reviews, handleToggle }: ReviewTableProps) => {
                   <ToggleSwitch
                     isEnabled={review.isFeatured}
                     onToggle={(newStatus) => handleToggle(review.reviewId, newStatus)}
-                    disabled={!review.isPublic}
+                    disabled={!review.isPublic || isLoading}
                   />
                 </div>
               </td>
@@ -68,10 +74,6 @@ const ReviewTable = ({ reviews, handleToggle }: ReviewTableProps) => {
           ))}
         </tbody>
       </table>
-
-      {reviews.length === 0 && (
-        <div className="text-center my-9 text-gray-400 subhead-1-medium">후기가 없습니다</div>
-      )}
     </div>
   );
 };

@@ -3,8 +3,8 @@ import type { CommonResponse } from '../common';
 export interface ReviewData {
   reviewId: number;
   name: string;
-  studentId: string;
-  department: string[];
+  studentNum: string;
+  department: string;
   grade: string;
   score: number;
   strength: string;
@@ -16,7 +16,7 @@ export interface ReviewData {
 
 export interface ReviewListData {
   seminarNum: number;
-  review: ReviewData[];
+  reviews: ReviewData[];
 }
 
 export type ReviewListResponse = CommonResponse<ReviewListData>;
