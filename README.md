@@ -138,11 +138,11 @@ Devtalk-Client-Application/
 
 ## 👥 Contributors
 
-| 이름                                         | 역할          | 담당 기능                                                                                                                     |
-| -------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| [@waldls](https://github.com/waldls)         | Frontend Lead | 세미나 신청하기 전반 UI/로직 구현, 활성화 세미나 & 세부정보 조회 및 유저 홈화면 컴포넌트 구현                                 |
-| [@jungyungee](https://github.com/jungyungee) | Frontend Lead | 디자인 시스템 및 레이아웃·라우팅 구조 설계, 어드민 홈화면·관리자 계정 관리 및 로그인 전반 UI/로직, 유저 세미나 신청 모달 구현 |
-| [@cchaeyoon](https://github.com/cchaeyoon)   | Frontend      | 유저 홈 화면 전반(메인 영상, 세미나/후기 카드) 및 유저 라이브(입장/출석체크) UI/로직 구현                                     |
-| [@wlsldm](https://github.com/wlsldm)         | Frontend      | 세미나 홈, 세미나 상세 페이지 및 리뷰 작성 UI/로직 구현                                                                       |
-| [@BeJunseok](https://github.com/BeJunseok)   | Frontend      | 어드민 세미나 관리 전반(세미나 카드 조회/상세정보/추가하기) UI/로직, 어드민 모달·레이아웃·메뉴바 구현                         |
-| [@wnsjun](https://github.com/wnsjun)         | Frontend      | 어드민 세미나 신청자 관리 전반(상세정보/출석관리) UI/로직, 이메일 템플릿 구현, 배포 및 자동화(CI/CD) 설정                     |
+| 이름                                         | 역할          | 담당 기능                                                                                                                                  |
+| -------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| [@waldls](https://github.com/waldls)         | Frontend Lead | 세미나 신청하기 전반 UI/로직 구현, 활성화 세미나 & 세부정보 조회 및 유저 홈화면 컴포넌트 구현, 오픈 그래프·메타태그 설정을 통한 SEO 최적화 |
+| [@jungyungee](https://github.com/jungyungee) | Frontend Lead | 디자인 시스템 및 레이아웃·라우팅 구조 설계, 어드민 홈화면·관리자 계정 관리 및 로그인 전반 UI/로직, 유저 세미나 신청 모달 구현              |
+| [@cchaeyoon](https://github.com/cchaeyoon)   | Frontend      | 유저 홈 화면 전반(메인 영상, 세미나/후기 카드) 및 유저 라이브(입장/출석체크) UI/로직 구현                                                  |
+| [@wlsldm](https://github.com/wlsldm)         | Frontend      | 세미나 홈, 세미나 상세 페이지 및 리뷰 작성 UI/로직 구현                                                                                    |
+| [@BeJunseok](https://github.com/BeJunseok)   | Frontend      | 어드민 세미나 관리 전반(세미나 카드 조회/상세정보/추가하기) UI/로직, 어드민 모달·레이아웃·메뉴바 구현                                      |
+| [@wnsjun](https://github.com/wnsjun)         | Frontend      | 어드민 세미나 신청자 관리 전반(상세정보/출석관리) UI/로직, 이메일 템플릿 구현, 배포 및 자동화(CI/CD) 설정                                  |
