@@ -18,12 +18,9 @@ import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 import BackgroundVideo from '../../../components/common/BackgroundVideo';
-<<<<<<< HEAD
 import { useHomeReviews } from '../../../hooks/HomeManage/useHomeReview';
 import { useSeminarReviews } from '../../../hooks/SeminarManage/data/useSeminarReviews';
-=======
 import ComingSoon from '../../../components/common/ComingSoon';
->>>>>>> 26818c592d2961f48e85d922090c997c059d57d2
 
 const Home = () => {
   const navigate = useNavigate();
@@ -65,7 +62,6 @@ const Home = () => {
   // 노출 회차 정보
   const { seminarId, seminarNum, liveActivate, applicantActivate, isLoading } = useShowSeminar();
   const { data } = useHomeReviews();
-  const { data: reviewListData } = useSeminarReviews(seminarId ?? undefined);
 
   let ctaElement = null;
   if (applicantActivate && liveActivate && seminarId) {
@@ -173,9 +169,10 @@ const Home = () => {
             <p className="text-white heading-2-bold">학우들의 후기</p>
             <div className="-mx-20">
               <InfiniteCarousel>
-                {data?.map((review, idx) => (
+                {data?.result?.map((review) => (
                   <ReviewCard
-                    session={reviewListData?.result?.seminarNum}
+                    key={review.reviewId}
+                    session={review.seminarNum}
                     rating={review.rating}
                     content={review.content}
                   />
