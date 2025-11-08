@@ -18,8 +18,12 @@ import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 import BackgroundVideo from '../../../components/common/BackgroundVideo';
+<<<<<<< HEAD
 import { useHomeReviews } from '../../../hooks/HomeManage/useHomeReview';
 import { useSeminarReviews } from '../../../hooks/SeminarManage/data/useSeminarReviews';
+=======
+import ComingSoon from '../../../components/common/ComingSoon';
+>>>>>>> 26818c592d2961f48e85d922090c997c059d57d2
 
 const Home = () => {
   const navigate = useNavigate();
@@ -58,12 +62,13 @@ const Home = () => {
   }, []);
   const hideCTA = exVisible || bottomVisible;
 
+  // 노출 회차 정보
   const { seminarId, seminarNum, liveActivate, applicantActivate, isLoading } = useShowSeminar();
   const { data } = useHomeReviews();
   const { data: reviewListData } = useSeminarReviews(seminarId ?? undefined);
 
   let ctaElement = null;
-  if (applicantActivate && liveActivate) {
+  if (applicantActivate && liveActivate && seminarId) {
     ctaElement = (
       <Cta
         bodyText="지금 바로 입장해 주세요!"
@@ -72,7 +77,7 @@ const Home = () => {
         isActive
       />
     );
-  } else if (applicantActivate && !liveActivate) {
+  } else if (applicantActivate && !liveActivate && seminarId) {
     ctaElement = (
       <Cta
         bodyText="데브톡에 빠져보세요!"
@@ -81,7 +86,7 @@ const Home = () => {
         isActive={false}
       />
     );
-  } else if (!applicantActivate && liveActivate) {
+  } else if (!applicantActivate && liveActivate && seminarId) {
     ctaElement = (
       <Cta
         bodyText="지금 바로 입장해 주세요!"
@@ -99,12 +104,19 @@ const Home = () => {
       <div>
         <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
         <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
-          <div className="snap-center relative w-[376px] h-[585px] mx-auto pt-[56px]">
-            <BackgroundVideo />
-            <div className="relative z-10">
-              <SeminarPoster />
+          {/* 배경 비디오 및 세미나 포스터*/}
+          {seminarId ? (
+            <div className="snap-center relative w-[376px] h-[585px] mx-auto pt-[56px]">
+              <BackgroundVideo />
+              <div className="relative z-10">
+                <SeminarPoster />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="snap-center relative w-[376px] h-[585px] mx-auto pt-[56px]">
+              <ComingSoon />
+            </div>
+          )}
 
           {/* CTA */}
           {!hideCTA && !hamburgerOpen && !isLoading && ctaElement && (
@@ -112,26 +124,28 @@ const Home = () => {
           )}
 
           {/* 강연 소개 카드 */}
-          <div className="flex flex-col pt-80 gap-32">
-            <div className="text-white heading-2-semibold px-20 snap-none">
-              다가오는 세미나 강연 소개
-            </div>
+          {seminarId && (
+            <div className="flex flex-col pt-80 gap-32">
+              <div className="text-white heading-2-semibold px-20 snap-none">
+                다가오는 세미나 강연 소개
+              </div>
 
-            <div className="flex flex-col snap-center pb-[80px]">
-              <Carousel>
-                <LectureCardMain seminarId={seminarId ?? 0} index={0} />
-                <LectureCardSpeaker seminarId={seminarId ?? 0} index={0} />
-                <LectureCardSession seminarId={seminarId ?? 0} index={0} />
-              </Carousel>
+              <div className="flex flex-col snap-center pb-[80px]">
+                <Carousel>
+                  <LectureCardMain seminarId={seminarId ?? 0} index={0} />
+                  <LectureCardSpeaker seminarId={seminarId ?? 0} index={0} />
+                  <LectureCardSession seminarId={seminarId ?? 0} index={0} />
+                </Carousel>
+              </div>
+              <div className="flex flex-col snap-center">
+                <Carousel>
+                  <LectureCardMain seminarId={seminarId ?? 0} index={1} />
+                  <LectureCardSpeaker seminarId={seminarId ?? 0} index={1} />
+                  <LectureCardSession seminarId={seminarId ?? 0} index={1} />
+                </Carousel>
+              </div>
             </div>
-            <div className="flex flex-col snap-center">
-              <Carousel>
-                <LectureCardMain seminarId={seminarId ?? 0} index={1} />
-                <LectureCardSpeaker seminarId={seminarId ?? 0} index={1} />
-                <LectureCardSession seminarId={seminarId ?? 0} index={1} />
-              </Carousel>
-            </div>
-          </div>
+          )}
 
           {/* 데브톡 소개 */}
           <div className="flex flex-col pt-[200px] px-20 pb-[92px] snap-none">
@@ -192,11 +206,13 @@ const Home = () => {
             </div>
           </div>
 
+          <div className="h-[120px]"></div>
+
           {/* 신청하기 */}
-          {!isLoading && (
+          {seminarId && !isLoading && (
             <>
               {liveActivate ? (
-                <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+                <div className="flex flex-col items-center px-20 pb-[100px] gap-16">
                   <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
                   <div className="flex flex-col w-[335px] gap-28">
                     <div className="flex flex-col items-center gap-16">
@@ -214,7 +230,7 @@ const Home = () => {
                   </div>
                 </div>
               ) : applicantActivate ? (
-                <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+                <div className="flex flex-col items-center px-20 pb-[100px] gap-16">
                   <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
                   <div className="flex flex-col w-[335px] gap-28">
                     <div className="flex flex-col items-center gap-16">
