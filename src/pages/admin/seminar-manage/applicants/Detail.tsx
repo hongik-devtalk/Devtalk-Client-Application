@@ -9,6 +9,22 @@ const Detail = () => {
   const { data: applicantsData } = useSeminarApplicantsDetail(id!);
   const { mutate: updateAttendance } = useUpdateAttendanceCheck(id!);
 
+  // 날짜 포맷 함수 (YYYY. M. DD 오전/오후 H:MM:SS)
+  const formatDateKorean = (dateString: string): string => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const period = hours >= 12 ? '오후' : '오전';
+    const hour12 = hours % 12 || 12;
+
+    return `${year}. ${month}. ${day} ${period} ${hour12}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
+
   // inflowPath 매핑 함수
   const getInflowPathLabel = (inflowPath: string) => {
     const inflowPathMap: { [key: string]: string } = {
@@ -49,6 +65,7 @@ const Detail = () => {
   const applicants =
     applicantsData?.result?.students?.map((applicant, index) => ({
       id: index + 1,
+      appliedAt: formatDateKorean(applicant.appliedAt),
       seminarName: applicant.topic,
       studentId: applicant.studentId,
       studentNum: applicant.studentNum,
@@ -72,6 +89,7 @@ const Detail = () => {
 
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
+    appliedAt: '신청시각',
     seminarName: '세미나명',
     studentNum: '학번',
     department: '학과',
