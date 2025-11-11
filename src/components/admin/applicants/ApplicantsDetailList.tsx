@@ -5,6 +5,7 @@ import checkbox from '../../../assets/icons/components/SeminarApply/checkbox.svg
 // 지원자 데이터 타입
 interface Applicant {
   id: number;           // 각 지원자의 고유 ID (React의 key로 사용)
+  appliedAt: string;    // 신청시각
   seminarName: string;  // 세미나명
   studentId: string;    // API 요청용 studentId (ApplicantData의 studentId)
   studentNum: string;   // 학번 (표시용)
@@ -44,10 +45,10 @@ const ApplicantsDetailList: React.FC<ApplicantsDetailListProps> = ({
   const cellStyle = "border border-grey-400 px-5 py-3 text-center body-1-semibold text-white ";
 
   // 헤더 목록
-  const headers = ['세미나명', '학번', '학과', '학년', '이름', '연락처', '이메일', '온/오프라인 참여 여부', '이번 세미나를 알게 된 경로', '출석'];
+  const headers = ['신청시각', '세미나명', '학번', '학과', '학년', '이름', '연락처', '이메일', '온/오프라인 참여 여부', '이번 세미나를 알게 된 경로', '출석'];
 
   // 데이터 키 목록 (applicant 객체의 속성명과 매칭)
-  const dataKeys = ['seminarName', 'studentNum', 'department', 'grade', 'name', 'contact', 'email', 'attendanceType', 'referralSource'] as const;
+  const dataKeys = ['appliedAt', 'seminarName', 'studentNum', 'department', 'grade', 'name', 'contact', 'email', 'attendanceType', 'referralSource'] as const;
 
   // 출석 토글 함수
   const toggleAttendance = async (id: number, studentId: string) => {
